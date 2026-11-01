@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plan states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1700px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk','Zen Kaku Gothic New',Arial,sans-serif;font-size:16px;line-height:24px">
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">Plan · states and interactions</p><h1 class="h" style="font-size:32px;font-weight:800"><span class="k" style="margin-right:10px">時間割</span>Plan states</h1></div>
+<div style="display:grid;grid-template-columns:repeat(3,342px);gap:48px;align-items:start"><section style="display:flex;flex-direction:column;gap:12px" aria-label="Empty plan"><p class="lbl"><span>A</span>Empty plan</p><div class="card" style="padding:22px 16px;display:flex;flex-direction:column;gap:12px;border-color:#1a1c1b"><span class="k" style="font-size:44px;line-height:1">白紙</span><h2 class="h" style="font-size:24px;font-weight:800">Your week is open.</h2><p style="font-size:14px;line-height:20px;color:#3d403b">Add sections from any report. Every lecture and lab comes along.</p><div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px"><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:4px;background:#1a1c1b"></span><b class="k" style="font-size:15px">月</b><span style="font-size:11px">—</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:4px;background:#1a1c1b"></span><b class="k" style="font-size:15px">火</b><span style="font-size:11px">—</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:4px;background:#1a1c1b"></span><b class="k" style="font-size:15px">水</b><span style="font-size:11px">—</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:4px;background:#1a1c1b"></span><b class="k" style="font-size:15px">木</b><span style="font-size:11px">—</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:4px;background:#1a1c1b"></span><b class="k" style="font-size:15px">金</b><span style="font-size:11px">—</span></div></div><a class="btn p" href="WaSearch.dc.html">Search classes →</a></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Loading"><p class="lbl"><span>B</span>Loading</p><div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px" aria-busy="true"><p class="s" role="status">Laying out your week…</p><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px"><div style="height:56px;background:#eaece4"></div><div style="height:56px;background:#eaece4"></div><div style="height:56px;background:#eaece4"></div></div><div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px"><div style="height:84px;background:#d7d9d0"></div><div style="height:84px;background:#d7d9d0"></div><div style="height:84px;background:#d7d9d0"></div><div style="height:84px;background:#d7d9d0"></div><div style="height:84px;background:#d7d9d0"></div></div><div style="height:180px;background:#eaece4"></div></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Add to Plan · conflict"><p class="lbl"><span>C</span>Add to Plan · conflict</p><div style="background:#fcfcf8;border:1px solid #1a1c1b;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)" role="dialog" aria-labelledby="cf"><span aria-hidden="true" style="align-self:center;width:36px;height:4px;background:#8b8e86"></span><h2 id="cf" style="display:flex;gap:10px;align-items:baseline"><span class="k" style="font-size:24px;color:#9d2b22">重複</span><span class="h" style="font-size:20px;font-weight:800">This overlaps a class</span></h2><div style="border:1px solid #9d2b22;padding:12px;display:flex;flex-direction:column;gap:4px"><p style="font-weight:800">Fri · 11:00–11:50 AM</p><p class="s" style="color:#3d403b">HIST 007B (new) · PHYS 004A lab (in Plan)</p></div><p class="s">You can still add it. Both get a "!" until one changes.</p><button class="btn p">Add anyway</button><button class="btn">See other HIST 007B sections</button><button class="btn q">Cancel</button></div><div role="status" style="background:#1a1c1b;color:#fcfcf8;padding:8px 8px 8px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px"><span>Added HIST 007B · CRN 30663</span><button class="btn" style="background:transparent;color:#fcfcf8;border-color:#fcfcf8">Undo</button></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Study hours · editing"><p class="lbl"><span>D</span>Study hours · editing</p><div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;align-items:center"><span><span class="sw c-math" style="vertical-align:middle;margin-right:8px"></span><b class="m" style="font-weight:700">MATH 005B</b></span><span class="step" style="outline:2px solid #1a1c1b;outline-offset:2px"><button aria-label="Less">−</button><span>7</span><button aria-label="More">+</button></span></div><div class="hbar" style="height:10px;background:transparent"><i style="width:25%;background:#1a1c1b"></i><i class="study" style="width:64%"></i></div><p class="s" role="status">Saving…</p></div>
+<div class="card" style="padding:14px;display:flex;justify-content:space-between;align-items:center"><span><span class="sw c-phys" style="vertical-align:middle;margin-right:8px"></span><b class="m" style="font-weight:700">PHYS 004A</b></span><span style="display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:26px;height:26px;flex:none;border:2px solid #316745;color:#316745;display:inline-flex;align-items:center;justify-content:center;font:900 13px/1 'Zen Kaku Gothic New';transform:rotate(-6deg)">済</span><span class="s">Saved</span></span></div>
+<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px;border-color:#9d2b22"><div style="display:flex;justify-content:space-between;align-items:center"><b class="m" style="font-weight:700">CS 011</b><span class="step" style="border-color:#9d2b22"><button aria-label="Less">−</button><span>60</span><button aria-label="More">+</button></span></div><p style="font-size:13px;line-height:18px;color:#9d2b22;font-weight:600">Enter 0 to 40 hours a week, in steps of 0.5.</p></div>
+<div role="alert" style="border:1px solid #9d2b22;background:#fcfcf8;padding:12px 14px;font-size:14px;line-height:20px"><b style="color:#9d2b22">Couldn't save.</b> Showing 4 here, still 3 on the server. <button class="lnk" style="min-height:28px">Try again</button></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Remove · undo"><p class="lbl"><span>E</span>Remove · undo</p><div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px"><p style="font-weight:800">Remove MATH 005B · CRN 30421?</p><p class="s">Removes its 2 meetings and 6 study hours.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn">Keep</button><button class="btn p">Remove</button></div></div><div role="status" style="background:#1a1c1b;color:#fcfcf8;padding:8px 8px 8px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px"><span>Removed MATH 005B</span><button class="btn" style="background:transparent;color:#fcfcf8;border-color:#fcfcf8">Undo</button></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Weekend & free days"><p class="lbl"><span>F</span>Weekend & free days</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="eyebrow" style="color:#1a1c1b">週 · Week</span><span style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px">土日 Weekend <span class="trk"><i style="left:2px;background:#8b8e86"></i></span></span></div><div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px"><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:31px;background:#1a1c1b"></span><b class="k" style="font-size:15px">月</b><span style="font-size:11px">2.8</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:16px;background:#1a1c1b"></span><b class="k" style="font-size:15px">火</b><span style="font-size:11px">1.4</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:31px;background:#1a1c1b"></span><b class="k" style="font-size:15px">水</b><span style="font-size:11px">2.8</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #d7d9d0;background:#fcfcf8"><span style="width:14px;height:16px;background:#1a1c1b"></span><b class="k" style="font-size:15px">木</b><span style="font-size:11px">1.4</span></div><div style="position:relative;min-height:84px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;border:1px solid #1a1c1b;background:#1a1c1b;color:#fcfcf8"><span class=bang style=position:absolute;top:4px;right:4px>!</span><span style="width:14px;height:48px;background:#f3b63f"></span><b class="k" style="font-size:15px">金</b><span style="font-size:11px">4.3</span></div></div><div style="min-height:44px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;border:1px dashed #5d615b;font-weight:600;font-size:13px"><span>土 Saturday has 1 class (KIN 009) — hidden</span><span>Show</span></div><div class="card" style="padding:28px 16px;text-align:center"><span class="k" style="font-size:32px">休み</span><p class="s">No classes on Sunday</p></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Couldn't save the Plan"><p class="lbl"><span>G</span>Couldn't save the Plan</p><div role="alert" style="border:1px solid #9d2b22;background:#fcfcf8;padding:12px 14px;font-size:14px;line-height:20px"><b style="color:#9d2b22">Couldn't save.</b> Adding HIST 007B isn't saved yet. It stays on screen until it saves — export now if you're about to close BYE. <button class="lnk" style="min-height:28px">Try again</button></div><p class="s">Nothing shows "Saved" or 済 until the server confirms.</p></section></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1700}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RMP states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1650px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk','Zen Kaku Gothic New',Arial,sans-serif;font-size:16px;line-height:24px">
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">Report · RMP block states</p><h1 class="h" style="font-size:32px;font-weight:800"><span class="k" style="margin-right:10px">評判</span>RMP states</h1></div>
+<div style="display:grid;grid-template-columns:repeat(3,342px);gap:48px;align-items:start"><section style="display:flex;flex-direction:column;gap:12px" aria-label="Fresh"><p class="lbl"><span>A</span>Fresh</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d7d9d0;background:#fcfcf8;"><div style="padding:12px;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">評価</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">4.0</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Rating ↑</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">難易度</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">2.8</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Difficulty ↓</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">また受講</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">84</b><span style="font-size:14px;font-weight:600;color:#5d615b">%</span></p><span class="s">Would retake</span></div></div><p style="font-size:13px;line-height:20px;color:#3d403b">Matched: <b>Elena Marsh</b> · 88 ratings · <a href="#">原文 Original on RMP ↗</a></p><p class="s">Checked Oct 2, 2026</p><div style="display:flex;gap:12px;align-items:center"><button class="btn">Refresh RMP</button><button class="lnk">Change profile</button></div></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Refreshing"><p class="lbl"><span>B</span>Refreshing</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d7d9d0;background:#fcfcf8;opacity:.55;"><div style="padding:12px;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">評価</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">4.0</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Rating ↑</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">難易度</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">2.8</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Difficulty ↓</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">また受講</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">84</b><span style="font-size:14px;font-weight:600;color:#5d615b">%</span></p><span class="s">Would retake</span></div></div><p style="font-size:13px;line-height:20px;color:#3d403b">Matched: <b>Elena Marsh</b> · 88 ratings · <a href="#">原文 Original on RMP ↗</a></p><p class="s" role="status">Checking RMP… · Checked Oct 2, 2026</p><button class="btn" disabled aria-busy="true" style="align-self:flex-start">Checking RMP…</button></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Older data"><p class="lbl"><span>C</span>Older data</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2><span class="tag warn-t" style="margin-left:auto">Older data</span></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d7d9d0;background:#fcfcf8;"><div style="padding:12px;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">評価</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">3.9</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Rating ↑</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">難易度</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">2.4</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Difficulty ↓</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">また受講</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">81</b><span style="font-size:14px;font-weight:600;color:#5d615b">%</span></p><span class="s">Would retake</span></div></div><p style="font-size:13px;line-height:20px;color:#3d403b">Matched: <b>Elena Marsh</b> · 82 ratings · <a href="#">原文 Original on RMP ↗</a></p><p style="font-size:13px;font-weight:700;color:#8a5d00">Checked Jun 30, 2026</p><button class="btn" style="align-self:flex-start">Refresh now</button></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Refresh failed"><p class="lbl"><span>D</span>Refresh failed</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2></div><div role="alert" style="border:1px solid #9d2b22;background:#fcfcf8;padding:12px 14px;font-size:14px;line-height:20px"><b style="color:#9d2b22">Cannot retrieve RMP info.</b> Showing data checked Jun 30, 2026. <button class="lnk" style="min-height:28px">Try again</button></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d7d9d0;background:#fcfcf8;"><div style="padding:12px;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">評価</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">3.9</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Rating ↑</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">難易度</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">2.4</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s">Difficulty ↓</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;font-weight:700;color:#5d615b">また受講</span><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">81</b><span style="font-size:14px;font-weight:600;color:#5d615b">%</span></p><span class="s">Would retake</span></div></div><p style="font-size:13px;line-height:20px;color:#3d403b">Matched: <b>Elena Marsh</b> · 82 ratings · <a href="#">原文 Original on RMP ↗</a></p></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Manual refresh limit"><p class="lbl"><span>E</span>Manual refresh limit</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2></div><p class="s">Checked just now · Nov 1, 2026, 12:12 AM</p><div style="display:flex;gap:12px;align-items:center"><button class="btn" disabled>Refresh RMP</button><span class="s">Available again at [12:42 AM]</span></div><p class="s">One manual refresh per professor per [30 min] — set in implementation. Saved entries are never auto-deleted.</p></section><section style="display:flex;flex-direction:column;gap:12px" aria-label="Change profile"><p class="lbl"><span>F</span>Change profile</p><div class="sec-h"><span class="k">評判</span><h2 class="h">Rate My Professors</h2></div><div style="border:1px dashed #5d615b;padding:14px;display:flex;flex-direction:column;gap:10px"><span class="tag" style="align-self:flex-start">Profile needs confirming</span><p style="font-size:14px;line-height:20px">2 RMP profiles could be <b>Prof. Lee</b> at PCC. BYE won't guess.</p><button class="btn p" style="align-self:flex-start">Choose the right profile</button></div><p class="s">Changing the match re-checks RMP once for this professor only.</p></section><section style="grid-column:span 2;display:flex;flex-direction:column;gap:12px" aria-label="Two refreshes, never combined"><p class="lbl"><span>G</span>Two refreshes, never combined</p><div style="display:flex;flex-direction:column;gap:10px"><div style="background:#eaece4;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:13px;line-height:18px"><span class="k" style="margin-right:6px">授業</span>Seat counts · PCC 10:04 PM</span><button class="lnk" style="min-height:32px">Refresh</button></div><div style="background:#fcfcf8;border:1px solid #d7d9d0;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:13px;line-height:18px"><span class="k" style="margin-right:6px">評判</span>RMP · Checked Oct 2, 2026</span><button class="lnk" style="min-height:32px">Refresh</button></div><p class="s">A failure in one never hides the other.</p></div></section></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1650}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

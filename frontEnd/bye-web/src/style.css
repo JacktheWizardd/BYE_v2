@@ -77,3 +77,26 @@ body{font-family:Schibsted,Arial,sans-serif}button,input,select{font:inherit}but
 @keyframes sync-sweep{to{transform:translateX(230%)}}
 @media(prefers-reduced-motion:reduce){.sync-activity.running span{animation:none}}
 @media(min-width:1100px){.bar .brand-group>.sync-control{grid-column:3;grid-row:1;justify-self:end;margin-left:0}}
+
+/* Japanese direction compare + loading */
+.search-title{display:flex;flex-direction:column;gap:6px;margin:0 0 18px}
+.search-title .k{font-size:clamp(36px,6vw,52px);line-height:1}
+.search-title .en{font-size:clamp(22px,3vw,28px);font-weight:800;letter-spacing:-.8px}
+.sort-jp{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.sort-jp button{min-height:52px!important;padding:0 4px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid var(--ink)!important;background:var(--card)!important;color:var(--ink)!important}
+.sort-jp button[aria-pressed=true]{background:var(--ink)!important;color:var(--paper)!important}
+.sort-jp button .jp{font-size:14px;line-height:1}
+.sort-jp button span{font-size:10px;line-height:1;font-weight:600}
+.rating-load{margin:12px 0;display:flex;flex-direction:column;gap:6px}
+.rating-bar{height:4px;background:var(--soft)}
+.rating-bar i{display:block;height:4px;background:var(--ink)}
+.rating-skel,.bye-skel{display:flex;gap:6px;padding:3px 0}
+.rating-skel i,.bye-skel{display:block;height:12px;background:var(--line)}
+.rating-skel i:first-child{width:64px}.rating-skel i:last-child{width:84px}
+.bye-skel{width:34px;height:24px;margin-left:auto}
+.prof-row.zebra{background:var(--zebra)}
+.row-scores .r{color:#8f5400}.row-scores .df{color:#2f5487}
+.compare-end{text-align:center;padding:8px 0 0}
+.access h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wait-label{font-size:12px;margin:8px 0 0}
+.route h3{margin:0 0 6px;font-size:16px}

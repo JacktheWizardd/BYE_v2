@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE Watches · phone · Saved professors</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+
+.tb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tb a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b;font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tb a.on{color:#1a1c1b;font-weight:800;box-shadow:inset 0 3px 0 #f3b63f}
+.ib{width:44px;height:44px;border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+</style>
+</helmet>
+<div style="width:390px;min-height:2100px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk',Arial,sans-serif;font-size:16px;line-height:24px">
+<header style="height:56px;padding:0 8px 0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d7d9d0;background:#f6f5f0"><a href="WatchesPhone.dc.html" aria-label="BYE home" style="text-decoration:none;color:#1a1c1b;font:900 22px/1 'Schibsted Grotesk',sans-serif;letter-spacing:-1px">BYE<span style="color:#f3b63f">.</span></a><span style="display:flex;align-items:center;gap:2px"><span class="chip">SPRING 2027</span><button class="ib" aria-label="Connected to BYE"><span style="width:9px;height:9px;border-radius:50%;background:#2f6b3d"></span></button></span></header>
+<main style="padding:20px 16px 48px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<p class="eyebrow">04 / Watches</p>
+<h1 class="h" style="font-size:34px;line-height:1.05;letter-spacing:-1.2px">Your courses, your professors.</h1>
+</div>
+<div style="display:flex;gap:6px;align-items:center"><span class="tag sample">Sample data</span><span class="s">Saved · 9:41 PM</span></div>
+
+<div class="tabs" role="tablist" aria-label="Watches view">
+<a href="WatchesPhone.dc.html" role="tab" aria-selected="false" style="min-height:48px;padding:0 14px;display:inline-flex;align-items:center;font:700 14px/1 'Schibsted Grotesk',Arial,sans-serif;color:#5d615b;text-decoration:none">My courses</a>
+<button class="on" role="tab" aria-selected="true">Saved professors · 5</button>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center"><p class="s">In the order you saved them</p><button class="lnk">Sort A–Z</button></div>
+
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><h2 class="h" style="font-size:20px;line-height:24px">Prof. Elena Marsh</h2><p class="s">Mathematics</p></div><span class="tag ink">Saved</span></div>
+<p class="rmp"><span class="r">★ RMP 4.1/5</span> · <span class="df">▲ Difficulty 2.1/5</span> · <span style="color:#5d615b;font-weight:500">97 ratings</span></p>
+<p class="eyebrow" style="margin-top:4px">From your ed plan</p>
+<div class="sec"><div><p class="m" style="font-weight:700">MATH 005B · Spring 2027</p><p class="s">2 sections · Mon Wed 8:00 AM · Tue Thu 12:30 PM</p></div><a class="lnk" href="WaSearch.dc.html">Sections</a></div>
+<div class="sec"><div><p class="m" style="font-weight:700">MATH 005C · Fall 2027</p><p class="s">Taught Fall 2026 · schedule not out yet</p></div></div>
+<button class="lnk" aria-expanded="false" style="border-top:1px solid #d7d9d0">Also teaches 2 courses not in your plan</button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn" href="WaSearch.dc.html">Open report →</a><button class="btn">Unsave</button></div>
+</article>
+
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px;border-color:#1a1c1b">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><h2 class="h" style="font-size:20px;line-height:24px">Prof. Okafor</h2><p class="s">Physics</p></div><span class="tag new">New</span></div>
+<p class="rmp"><span class="r">★ RMP 3.8/5</span> · <span class="df">▲ Difficulty 3.4/5</span> · <span style="color:#5d615b;font-weight:500">64 ratings</span></p>
+<p class="eyebrow" style="margin-top:4px">From your ed plan</p>
+<div class="sec"><div><p class="m" style="font-weight:700">PHYS 004A · Spring 2027</p><p class="s"><b style="color:#1a1c1b">New</b> · CRN 31188 · Mon Wed 9:45 AM · Lab Fri</p></div><a class="lnk" href="WaSearch.dc.html">Sections</a></div>
+<div class="sec"><div><p class="m" style="font-weight:700">PHYS 004B · Fall 2027</p><p class="s">Taught Fall 2026 · schedule not out yet</p></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn" href="WaSearch.dc.html">Open report →</a><button class="btn">Unsave</button></div>
+</article>
+
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px">
+<div><h2 class="h" style="font-size:20px;line-height:24px">Prof. Nguyen</h2><p class="s">Computer Science</p></div>
+<p class="rmp"><span class="r">★ RMP 4.4/5</span> · <span class="df">▲ Difficulty 3.0/5</span> · <span style="color:#5d615b;font-weight:500">41 ratings</span></p>
+<p class="eyebrow" style="margin-top:4px">From your ed plan</p>
+<div class="sec"><div><p class="m" style="font-weight:700">CS 011 · Spring 2027</p><p class="s">CRN 31560 · Tue Thu 2:15 PM · seats not published</p></div><a class="lnk" href="WaSearch.dc.html">Sections</a></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn" href="WaSearch.dc.html">Open report →</a><button class="btn">Unsave</button></div>
+</article>
+
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px">
+<div><h2 class="h" style="font-size:20px;line-height:24px">Prof. Ramirez</h2><p class="s">English</p></div>
+<p class="rmp" style="color:#5d615b">RMP profile needs confirming</p>
+<p class="eyebrow" style="margin-top:4px">From your ed plan</p>
+<div class="sec"><div><p class="m" style="font-weight:700">ENGL 001B · Spring 2027</p><p class="s">Counts for GE Area 1B (choose one) · schedule not announced</p></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn" href="WaSearch.dc.html">Open report →</a><button class="btn">Unsave</button></div>
+</article>
+
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px;background:transparent">
+<div><h2 class="h" style="font-size:20px;line-height:24px">Prof. Kim</h2><p class="s">Music</p></div>
+<p style="font-size:14px;line-height:20px">Doesn't teach any course left in your ed plan.</p>
+<p class="s">Teaches MUS 010 · Spring 2027</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn" href="WaSearch.dc.html">Open report →</a><button class="btn">Unsave</button></div>
+</article>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:12px;border-top:1px solid #d7d9d0"><button class="btn">Export</button><button class="btn">Import</button></div>
+</main>
+
+<nav aria-label="Main" class="tb" style="position:sticky;bottom:0"><a href="WaSearch.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>Guide</a><a href="WaSearch.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>Search</a><a href="WatchesPhone.dc.html" class="on" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10v16l-5-4-5 4z"/></svg>Watches</a><a href="PlanPhone.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15"/><path d="M4 10h16M9 5v15M14 5v15"/></svg>Plan</a></nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2100}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
