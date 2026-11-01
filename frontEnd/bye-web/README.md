@@ -2,7 +2,7 @@
 
 React + TypeScript + Vite implementation of the supplied v2 handoff. Original
 frontend reference folders are unchanged. This app connects to the bye-dev API;
-RMP ratings and original reviews use the membership-protected backend cache. Weekly Plans are saved to the authenticated device session; Watches remains deferred. Owner sign-in and invite management are available.
+RMP ratings and original reviews use the membership-protected backend cache. Weekly Plans are saved to the authenticated device session at `#/plan`. Local education-plan PDF import/review is available at `#/education-plan`. Watches remains deferred. Owner sign-in and invite management are available.
 
 Run from this folder with Node 24 and pnpm 11.25.0:
 

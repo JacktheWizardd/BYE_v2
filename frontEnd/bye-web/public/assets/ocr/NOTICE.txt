@@ -1,0 +1,8 @@
+Same-origin PDF/OCR runtime assets for BYE education-plan import.
+
+- pdf.worker.min.mjs: Mozilla PDF.js (Apache-2.0), from pdfjs-dist.
+- worker.min.js: tesseract.js (Apache-2.0).
+- tesseract-core-*.wasm(.js): tesseract.js-core (Apache-2.0).
+- lang/eng.traineddata.gz: English traineddata from naptha/tessdata 4.0.0_fast.
+
+Regenerate with `pnpm run sync:ocr` from frontEnd/bye-web. These files are served from this origin so CSP can keep workers and WASM local; the importer never uploads the source PDF.

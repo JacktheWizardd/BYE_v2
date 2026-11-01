@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host localhost --port 5173 --strictPort",
-    "build": "tsc --noEmit && vite build",
-    "test": "vitest run",
+    "sync:ocr": "node scripts/sync-ocr-assets.mjs",
+    "dev": "pnpm run sync:ocr && vite --host localhost --port 5173 --strictPort",
+    "build": "pnpm run sync:ocr && tsc --noEmit && vite build",
+    "test": "vitest run --mode production",
     "check:deployment": "node scripts/check-deployment.mjs",
     "deploy:cloudflare": "pnpm run build && pnpm run check:deployment && wrangler deploy",
     "preview:cloudflare": "pnpm run build && pnpm run check:deployment && wrangler dev --port 5173"
