@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE Results + Report · tablet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 10px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:800;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 14px;margin-left:6px}
+</style>
+</helmet>
+<div style="width:768px;min-height:2600px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk','Zen Kaku Gothic New',Arial,sans-serif;font-size:16px;line-height:24px">
+<header style="display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 24px;border-bottom:1px solid #1a1c1b;background:#f6f5f0"><a href="WaGuideTab.dc.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#1a1c1b"><span class="seal" style="width:28px;height:28px" aria-hidden="true">BYE</span><b style="font:900 22px/1 'Schibsted Grotesk';letter-spacing:-1px">BYE<span style="color:#f3b63f">.</span></b></a><nav aria-label="Main" style="display:flex;align-items:center"><a class="nav" href="WaGuideTab.dc.html">Guide</a><a class="nav" href="WatchesTablet.dc.html">Watches</a><a class="nav" href="PlanTablet.dc.html">Plan</a><a class="nav cta" href="WaSearchTab.dc.html">New search</a></nav><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#316745"></span>Spring 2027</span></header><main style="padding:24px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start"><div style="display:flex;flex-direction:column;gap:20px"><section aria-labelledby="crs" style="display:flex;flex-direction:column;gap:8px">
+<p class="eyebrow">二 · 比較 · Compare</p>
+<h1 id="crs" style="display:flex;flex-direction:column;gap:2px"><span class="m" style="font-size:15px;font-weight:700">MATH 005A</span><span class="h" style="font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.8px">Single Variable Calculus I</span></h1>
+<p class="s">PCC · 2027 春 · 月 水 <a class="lnk" href="WaSearchTab.dc.html" style="min-height:24px;margin-left:6px">Edit search</a></p>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #1a1c1b;border-bottom:1px solid #1a1c1b">
+<div style="padding:10px 0;display:flex;flex-direction:column"><span class="eyebrow">授業 sections</span><b class="h tab" style="font-size:26px;line-height:30px;font-weight:800">34</b></div>
+<div style="padding:10px 0 10px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column"><span class="eyebrow">教員 profs</span><b class="h tab" style="font-size:26px;line-height:30px;font-weight:800">26</b></div>
+<div style="padding:10px 0 10px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column"><span class="eyebrow">空席 open</span><b class="h tab ok" style="font-size:26px;line-height:30px;font-weight:800">1010</b></div>
+</div>
+</section>
+
+<section aria-labelledby="who" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">教員</span><h2 id="who" class="h">Who's teaching</h2><span class="tag sample">見本 Sample</span></div>
+<div class="inp" style="gap:8px"><span aria-hidden="true">⌕</span><input aria-label="Find a professor" placeholder="名前で探す · First or last name" style="border:0;background:transparent;font:inherit;flex:1;outline:none"></div>
+<div role="group" aria-label="Sort" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px"><button aria-pressed="true" style="min-height:52px;padding:0 4px;border:1px solid #1a1c1b;background:#1a1c1b;color:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer"><b class="jp" style="font-size:14px;line-height:1">名前</b><span style="font-size:10px;line-height:1">Name</span></button><button aria-pressed="false" style="min-height:52px;padding:0 4px;border:1px solid #1a1c1b;background:#fcfcf8;color:#1a1c1b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer"><b class="jp" style="font-size:14px;line-height:1">評価</b><span style="font-size:10px;line-height:1">Rating</span></button><button aria-pressed="false" style="min-height:52px;padding:0 4px;border:1px solid #1a1c1b;background:#fcfcf8;color:#1a1c1b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer"><b class="jp" style="font-size:14px;line-height:1">難易度</b><span style="font-size:10px;line-height:1">Difficulty</span></button><button aria-pressed="false" style="min-height:52px;padding:0 4px;border:1px solid #1a1c1b;background:#fcfcf8;color:#1a1c1b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer"><b class="jp" style="font-size:14px;line-height:1">BYE</b><span style="font-size:10px;line-height:1">Score</span></button><button aria-pressed="false" style="min-height:52px;padding:0 4px;border:1px solid #1a1c1b;background:#fcfcf8;color:#1a1c1b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer"><b class="jp" style="font-size:14px;line-height:1">件数</b><span style="font-size:10px;line-height:1"># Ratings</span></button></div>
+<p class="s">Starts A–Z. BYE score blends RMP rating and ease (0–100).</p>
+<div role="status" style="display:flex;flex-direction:column;gap:6px"><p style="display:flex;justify-content:space-between;font-size:13px;line-height:18px"><span><span class="jp" style="font-weight:700">評価を読み込み中</span> · Loading ratings</span><span class="tab s">6 of 26</span></p><div style="height:4px;background:#eaece4"><div style="width:23%;height:4px;background:#1a1c1b"></div></div><p class="s">Everyone is listed now. Grey bars fill in as each RMP profile loads — a dash (—) means truly unavailable.</p></div>
+<ol style="display:flex;flex-direction:column"><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:transparent"><span class="m" style="color:#5d615b">01</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Ana Alvarez</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 4.4</span><span class="df">▲ 難易度 3.7</span></span><span class="s">62 ratings · 1 section · 28 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">58</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:#eeede6"><span class="m" style="color:#5d615b">02</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Ben Chen</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 4.1</span><span class="df">▲ 難易度 2.1</span></span><span class="s">97 ratings · 2 sections · 60 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">73</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border:1px solid #1a1c1b;background:#fcfcf8;box-shadow:inset 4px 0 0 #f3b63f"><span class="m" style="color:#5d615b">03</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Elena Marsh</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 4.0</span><span class="df">▲ 難易度 2.8</span></span><span class="s">88 ratings · 1 section · 12 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">66</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:#eeede6"><span class="m" style="color:#5d615b">04</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Jae Kim</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 3.5</span><span class="df">▲ 難易度 3.2</span></span><span class="s">242 ratings · 1 section · 30 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">60</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:transparent"><span class="m" style="color:#5d615b">05</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Rosa Ortiz</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 3.9</span><span class="df">▲ 難易度 3.5</span></span><span class="s">185 ratings · 3 sections · 86 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">58</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:#eeede6"><span class="m" style="color:#5d615b">06</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Sam Patel</b><span class="rmp" style="display:flex;flex-wrap:wrap;column-gap:10px"><span class="r">★ 評価 2.9</span><span class="df">▲ 難易度 3.8</span></span><span class="s">295 ratings · 1 section · 30 open</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><b class="h tab" style="font-size:22px;line-height:24px;font-weight:800">39</b><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li aria-busy="true"><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:transparent"><span class="m" style="color:#5d615b">07</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Mia Reyes</b><span aria-hidden="true" style="display:flex;gap:6px;padding:3px 0"><i style="display:block;width:64px;height:12px;background:#d7d9d0"></i><i style="display:block;width:84px;height:12px;background:#d7d9d0"></i></span><span class="s">2 sections · 60 open · <span class="jp">確認中…</span> checking RMP</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span aria-hidden="true" style="display:block;width:34px;height:24px;background:#d7d9d0"></span><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li aria-busy="true"><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:#eeede6"><span class="m" style="color:#5d615b">08</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Ken Sato</b><span aria-hidden="true" style="display:flex;gap:6px;padding:3px 0"><i style="display:block;width:64px;height:12px;background:#d7d9d0"></i><i style="display:block;width:84px;height:12px;background:#d7d9d0"></i></span><span class="s">1 section · 30 open · <span class="jp">確認中…</span> checking RMP</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span aria-hidden="true" style="display:block;width:34px;height:24px;background:#d7d9d0"></span><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li aria-busy="true"><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:transparent"><span class="m" style="color:#5d615b">09</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Lily Tran</b><span aria-hidden="true" style="display:flex;gap:6px;padding:3px 0"><i style="display:block;width:64px;height:12px;background:#d7d9d0"></i><i style="display:block;width:84px;height:12px;background:#d7d9d0"></i></span><span class="s">2 sections · 60 open · <span class="jp">確認中…</span> checking RMP</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span aria-hidden="true" style="display:block;width:34px;height:24px;background:#d7d9d0"></span><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li aria-busy="true"><a href="WaCompareTab.dc.html" style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;text-decoration:none;color:#1a1c1b;border-bottom:1px solid #d7d9d0;background:#eeede6"><span class="m" style="color:#5d615b">10</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px;line-height:20px">Prof. Omar Yusuf</b><span aria-hidden="true" style="display:flex;gap:6px;padding:3px 0"><i style="display:block;width:64px;height:12px;background:#d7d9d0"></i><i style="display:block;width:84px;height:12px;background:#d7d9d0"></i></span><span class="s">1 section · 30 open · <span class="jp">確認中…</span> checking RMP</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span aria-hidden="true" style="display:block;width:34px;height:24px;background:#d7d9d0"></span><span class="eyebrow" style="font-size:9px">BYE</span></span></a></li><li><div style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:72px;padding:10px 10px 10px 6px;border:1px dashed #5d615b;margin-top:6px"><span class="m" style="color:#5d615b">11</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px">Prof. Lee</b><span class="s">プロフィール確認中 · Profile needs confirming</span><span class="s">1 section · 30 open</span></span><b class="h" style="font-size:22px;text-align:right">—</b></div></li><li><div style="display:grid;grid-template-columns:26px minmax(0,1fr) 44px;gap:10px;align-items:center;min-height:64px;padding:10px 10px 10px 6px;border:1px dashed #5d615b;margin-top:6px"><span class="m" style="color:#5d615b">12</span><span style="display:flex;flex-direction:column;gap:2px"><b style="font-size:16px"><span class="jp">未定</span> · Instructor to be announced</b><span class="s">1 section · 30 open</span></span><b class="h" style="font-size:22px;text-align:right">—</b></div></li></ol>
+<p class="s" style="text-align:center;padding:4px 0">— 以上 · end of list · all 26 listed, no “show all” step —</p>
+</section></div><div style="display:flex;flex-direction:column;gap:24px;border-left:1px solid #1a1c1b;padding-left:24px"><section aria-labelledby="nm" style="display:flex;flex-direction:column;gap:6px">
+<p class="eyebrow">三 · 詳細 · Instructor report</p>
+<h1 id="nm" class="h" style="font-size:40px;line-height:1.02;font-weight:800;letter-spacing:-1.6px">Elena Marsh</h1>
+<p class="s">Pasadena City College · Mathematics <span class="tag sample" style="margin-left:6px">見本 Sample</span></p>
+</section>
+
+<section aria-label="BYE score" style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:16px;background:#f4e7c7">
+<p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:48px;line-height:1;font-weight:800;letter-spacing:-1.5px">66</b><span style="font-size:14px;font-weight:600;color:#5d615b">/100</span></p>
+<div style="display:flex;flex-direction:column;gap:2px"><p style="font-weight:800">BYE score</p><p class="s" style="color:#3d403b">RMP rating + ease · 88 ratings</p></div>
+</section>
+
+<section aria-labelledby="rmp" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">評判</span><h2 id="rmp" class="h">Rate My Professors</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d7d9d0;background:#fcfcf8"><div style="padding:12px;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;line-height:18px;font-weight:700;color:#5d615b">評価</span><p style="display:flex;align-items:baseline;gap:2px;height:40px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">4.0</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s" style="line-height:18px">Rating ↑</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;line-height:18px;font-weight:700;color:#5d615b">難易度</span><p style="display:flex;align-items:baseline;gap:2px;height:40px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">2.8</b><span style="font-size:14px;font-weight:600;color:#5d615b">/5</span></p><span class="s" style="line-height:18px">Difficulty ↓</span></div><div style="padding:12px;border-left:1px solid #d7d9d0;display:grid;grid-template-rows:18px 40px 18px;row-gap:4px;white-space:nowrap"><span class="jp" style="font-size:13px;line-height:18px;font-weight:700;color:#5d615b">また受講</span><p style="display:flex;align-items:baseline;gap:2px;height:40px"><b class="h tab" style="font-size:32px;line-height:40px;font-weight:800;letter-spacing:-1px">84</b><span style="font-size:14px;font-weight:600;color:#5d615b">%</span></p><span class="s" style="line-height:18px">Would retake</span></div>
+</div>
+<p style="font-size:13px;line-height:20px;color:#3d403b">Matched: <b>Elena Marsh</b> · 88 ratings · <a href="#">原文 Original on RMP ↗</a><br>Checked Oct 2, 2026</p>
+<div style="display:flex;gap:12px;align-items:center"><button class="btn">Refresh RMP</button><button class="lnk">Change profile</button></div>
+</section>
+
+<section aria-labelledby="sx" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">授業</span><h2 id="sx" class="h">Sections</h2><span class="chip" style="margin-left:auto">2</span></div>
+<p class="s" style="display:flex;justify-content:space-between;align-items:center;background:#eaece4;padding:8px 10px"><span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#316745;margin-right:6px"></span>Seat counts · 10:04 PM</span><button class="lnk" style="min-height:32px">Refresh</button></p>
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px;border-color:#1a1c1b">
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip">CRN 30421</span><span class="tag">対面 In person</span></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:12px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:2px"><p style="font-size:18px;line-height:24px;font-weight:800">Mon Wed · 8:00–9:25 AM</p><p class="s">Room R-217</p><p class="s">Feb 17 – Jun 13</p></div>
+<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:36px;font-weight:800;letter-spacing:-1px">12</b><span style="font-size:14px;font-weight:600;color:#5d615b">/40</span></p><span class="s">seats open</span></div></div>
+<div style="height:6px;background:#eaece4"><div style="width:30%;height:6px;background:#316745"></div></div>
+<p style="display:flex;justify-content:space-between;font-size:13px;line-height:18px"><b style="color:#316745">空席あり · Seats open</b><span class="s">PCC checked 10:04 PM</span></p>
+<div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding-top:8px;border-top:1px solid #d7d9d0"><span style="font-size:13px;font-weight:700"><span class="jp">待ち</span> Waitlist</span><div style="height:6px;background:#eaece4"><div style="width:0%;height:6px;background:#eaece4"></div></div><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:18px;line-height:20px;font-weight:800">0</b><span style="font-size:12px;font-weight:600;color:#5d615b">/10</span></p></div>
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px"><button class="btn">Copy CRN</button><button class="btn"><span class="jp">時間割に追加</span> · Add to Plan</button></div>
+</article>
+<article class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px;border-color:#1a1c1b">
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip">CRN 30425</span><span class="tag">ハイブリッド Hybrid</span><span class="tag">DE Online</span></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:12px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:2px"><p style="font-size:18px;line-height:24px;font-weight:800">Tue Thu · 12:30–1:55 PM</p><p class="s">Room R-219 + online</p><p class="s">Feb 17 – Jun 13</p></div>
+<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:32px;line-height:36px;font-weight:800;letter-spacing:-1px">0</b><span style="font-size:14px;font-weight:600;color:#5d615b">/40</span></p><span class="s">seats open</span></div></div>
+<div style="height:6px;background:#eaece4"><div style="width:100%;height:6px;background:#9d2b22"></div></div>
+<p style="display:flex;justify-content:space-between;font-size:13px;line-height:18px"><b style="color:#9d2b22">満席 · Full</b><span class="s">PCC checked 10:04 PM</span></p>
+<div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding-top:8px;border-top:1px solid #d7d9d0"><span style="font-size:13px;font-weight:700"><span class="jp">待ち</span> Waitlist</span><div style="height:6px;background:#eaece4"><div style="width:40%;height:6px;background:#f3b63f"></div></div><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:18px;line-height:20px;font-weight:800">4</b><span style="font-size:12px;font-weight:600;color:#5d615b">/10</span></p></div>
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px"><button class="btn">Copy CRN</button><button class="btn on" aria-pressed="true"><span class="jp">追加済</span> · In Plan</button></div>
+</article>
+</section>
+
+<section aria-labelledby="rv" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">口コミ</span><h2 id="rv" class="h">Original reviews</h2><span class="eyebrow">RMP · as written</span></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px">
+<button class="btn on" style="padding:0 4px;flex-direction:column;gap:2px;min-height:52px"><b class="jp" style="font-size:13px">全部</b><span style="font-size:10px">All</span></button>
+<button class="btn" style="padding:0 4px;flex-direction:column;gap:2px;min-height:52px"><b class="jp" style="font-size:13px">新しい順</b><span style="font-size:10px">Recent</span></button>
+<button class="btn" style="padding:0 4px;flex-direction:column;gap:2px;min-height:52px"><b class="jp" style="font-size:13px">高い順</b><span style="font-size:10px">Highest</span></button>
+<button class="btn" style="padding:0 4px;flex-direction:column;gap:2px;min-height:52px"><b class="jp" style="font-size:13px">低い順</b><span style="font-size:10px">Lowest</span></button>
+</div>
+<article style="border-top:1px solid #1a1c1b;padding-top:12px;display:flex;flex-direction:column;gap:6px"><p class="s"><b class="m" style="color:#1a1c1b;font-weight:700">MATH 005A</b> · Oct 12, 2025 · 評価 5/5 · 難易度 2/5</p><p style="font-size:15px;line-height:23px">[Sample review text — real RMP reviews appear here exactly as written.]</p></article>
+<article style="border-top:1px solid #d7d9d0;padding-top:12px;display:flex;flex-direction:column;gap:6px"><p class="s"><b class="m" style="color:#1a1c1b;font-weight:700">MATH 005B</b> · Dec 13, 2024 · 評価 3/5 · 難易度 3/5</p><p style="font-size:15px;line-height:23px">[Sample review text.]</p></article>
+<button class="btn" style="align-self:center">もっと見る · More reviews</button>
+</section>
+<p class="s" style="border-top:1px solid #1a1c1b;padding-top:10px">Not affiliated with PCC or Rate My Professors.</p></div></main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":768,"height":2600}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

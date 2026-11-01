@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>BYE 管理 · Owner tools · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+</style>
+</helmet>
+<div lang="en" style="position:relative;width:390px;min-height:2300px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk','Zen Kaku Gothic New',Arial,sans-serif;font-size:16px;line-height:24px;display:flex;flex-direction:column">
+<header style="height:56px;padding:0 4px 0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d7d9d0;background:#f6f5f0"><a href="WaGuide.dc.html" aria-label="BYE home" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#1a1c1b"><span class="seal" style="width:26px;height:26px" aria-hidden="true">BYE</span><b style="font:900 20px/1 'Schibsted Grotesk',sans-serif;letter-spacing:-1px">BYE<span style="color:#f3b63f">.</span></b><span aria-hidden="true" style="border-left:1px solid #d7d9d0;padding-left:8px;font:700 10px/12px 'Zen Kaku Gothic New',sans-serif;color:#5d615b">履修の<br>前に</span></a><span style="display:flex;align-items:center"><span class="chip">2027 春 SPRING</span><button class="ib" aria-label="Connected to BYE" style="width:44px;height:44px;border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center"><span style="width:9px;height:9px;border-radius:50%;background:#316745"></span></button></span></header>
+<main style="padding:20px 16px 32px;display:flex;flex-direction:column;gap:24px;flex:1">
+<section aria-labelledby="ot" style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow">Owner access · verified by the server</p>
+<div style="display:flex;justify-content:space-between;align-items:center"><h1 id="ot" style="display:flex;flex-direction:column;gap:2px"><span class="k" style="font-size:48px;line-height:1">管理</span><span class="h" style="font-size:26px;font-weight:800;letter-spacing:-.8px">Owner tools.</span></h1>
+<span aria-hidden="true" style="width:56px;height:56px;border:2px solid #9d2b22;color:#9d2b22;display:inline-flex;align-items:center;justify-content:center;font:900 26px/1 'Zen Kaku Gothic New';transform:rotate(-6deg)">主</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn p" href="WaSearch.dc.html">Open search →</a><button class="btn">Lock this device</button></div>
+</section>
+
+<section aria-labelledby="iv" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">招待</span><h2 id="iv" class="h">Create an invite</h2></div>
+<p class="s">Each invite is single-use and gives 30 days of reader access once redeemed.</p>
+<div class="fld"><label for="note">Note <span class="s" style="font-weight:500">· optional</span></label><div class="inp"><input id="note" value="CS club friend" style="border:0;background:transparent;font:inherit;flex:1;outline:none"></div></div>
+<button class="btn p" style="min-height:52px">Generate invite</button>
+<div role="status" class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px;border:2px solid #1a1c1b;background:#fcfcf8">
+<p style="display:flex;justify-content:space-between;align-items:center"><b>Invite ready</b><span class="tag">Unused</span></p>
+<p class="m" style="font-size:22px;line-height:30px;font-weight:700;letter-spacing:2px;text-align:center;padding:12px;background:#eaece4">[INVITE CODE]</p>
+<p class="s">Shown once. Copy it now and send it to CS club friend.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn p">Copy code</button><button class="btn">Done</button></div>
+</div>
+</section>
+
+<section aria-labelledby="rl" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">一覧</span><h2 id="rl" class="h">Invites</h2><button class="lnk" style="margin-left:auto;min-height:32px">Reload</button></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px">
+<button class="btn on" style="padding:0 4px;min-height:44px">All 4</button><button class="btn" style="padding:0 4px;min-height:44px">Active 2</button><button class="btn" style="padding:0 4px;min-height:44px">Unused 1</button><button class="btn" style="padding:0 4px;min-height:44px">Revoked 1</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #1a1c1b;border-bottom:1px solid #1a1c1b">
+<div style="padding:10px 0;display:flex;flex-direction:column"><span class="eyebrow">Active readers</span><b class="h tab ok" style="font-size:26px;line-height:30px;font-weight:800">2</b></div>
+<div style="padding:10px 0 10px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column"><span class="eyebrow">Unused</span><b class="h tab" style="font-size:26px;line-height:30px;font-weight:800">1</b></div>
+<div style="padding:10px 0 10px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column"><span class="eyebrow">Ending ≤7d</span><b class="h tab" style="font-size:26px;line-height:30px;font-weight:800;color:#8a5d00">1</b></div>
+</div>
+<ul><li style="padding:14px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #d7d9d0;background:transparent">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b style="font-size:15px;line-height:20px">Roommate</b><span class="tag ok-t">Redeemed</span></div>
+<p class="s">Created Oct 30, 2026, 5:18 PM<br>Redeemed Oct 30, 2026, 5:19 PM</p><div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center"><span class="s">Access left</span><div style="height:6px;background:#eaece4"><div style="width:96%;height:6px;background:#316745"></div></div><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:16px;font-weight:800">29</b><span class="s">/30 days</span></p></div>
+<div style="display:flex;gap:8px"><button class="btn">Revoke access</button><button class="btn" style="border-color:#9d2b22;color:#9d2b22">Delete</button></div></li><li style="padding:14px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #d7d9d0;background:#eeede6">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b style="font-size:15px;line-height:20px">CS club friend</b><span class="tag ">Unused</span></div>
+<p class="s">Created Oct 31, 2026, 9:02 PM<br>Not redeemed yet · single-use</p>
+<div style="display:flex;gap:8px"><button class="btn">Copy code</button><button class="btn" style="border-color:#9d2b22;color:#9d2b22">Delete</button></div></li><li style="padding:14px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #d7d9d0;background:transparent">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b style="font-size:15px;line-height:20px">Study group</b><span class="tag warn-t">Ending soon</span></div>
+<p class="s">Created Oct 2, 2026, 11:40 AM<br>Redeemed Oct 3, 2026, 8:15 AM</p><div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center"><span class="s">Access left</span><div style="height:6px;background:#eaece4"><div style="width:6%;height:6px;background:#f3b63f"></div></div><p style="display:flex;align-items:baseline;gap:2px"><b class="h tab" style="font-size:16px;font-weight:800">2</b><span class="s">/30 days</span></p></div>
+<div style="display:flex;gap:8px"><button class="btn">Revoke access</button><button class="btn" style="border-color:#9d2b22;color:#9d2b22">Delete</button></div></li><li style="padding:14px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #d7d9d0;background:#eeede6">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b style="font-size:15px;line-height:20px">Old test invite</b><span class="tag bad">Revoked</span></div>
+<p class="s">Created Sep 12, 2026, 3:05 PM<br>Revoked Sep 20, 2026 · no access</p>
+<div style="display:flex;gap:8px"><button class="btn" style="border-color:#9d2b22;color:#9d2b22">Delete</button></div></li></ul>
+<p class="s">Deleting an invite removes it from this list and ends any access it granted.</p>
+</section>
+
+<section aria-labelledby="st" style="display:flex;flex-direction:column;gap:12px">
+<div class="sec-h"><span class="k">状態</span><h2 id="st" class="h">States</h2><span class="eyebrow">for Codex</span></div>
+<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px" aria-busy="true"><p class="s" role="status">Loading invites…</p><div style="height:18px;width:60%;background:#d7d9d0"></div><div style="height:12px;width:85%;background:#eaece4"></div><div style="height:18px;width:50%;background:#d7d9d0;margin-top:6px"></div><div style="height:12px;width:80%;background:#eaece4"></div></div>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px;border-color:#1a1c1b" role="dialog" aria-labelledby="dl"><p id="dl" style="font-weight:800">Delete "Roommate"?</p><p class="s">They lose access right away. This can't be undone.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn">Keep</button><button class="btn" style="background:#9d2b22;border-color:#9d2b22;color:#fcfcf8">Delete</button></div></div>
+<div role="alert" style="border:1px solid #9d2b22;background:#fcfcf8;padding:12px 14px;font-size:14px;line-height:20px"><b style="color:#9d2b22">Couldn't generate an invite.</b> The server didn't confirm it, so no code was made. <button class="lnk" style="min-height:28px">Try again</button></div>
+<div style="padding:14px;background:#eaece4;font-size:14px;line-height:20px"><b>No invites yet.</b> Create one above to share BYE with a friend.</div>
+</section>
+</main>
+<nav aria-label="Main" class="tbj" style="position:sticky;bottom:0"><a href="WaGuide.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg><span>Guide</span></a><a href="WaSearch.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg><span>Search</span></a><a href="WatchesPhone.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10v16l-5-4-5 4z"/></svg><span>Watches</span></a><a href="PlanPhone.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15"/><path d="M4 10h16M9 5v15M14 5v15"/></svg><span>Plan</span></a></nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = {}; }
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

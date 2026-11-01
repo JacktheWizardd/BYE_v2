@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE Search · tablet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 10px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:800;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 14px;margin-left:6px}
+</style>
+</helmet>
+<div style="width:768px;min-height:1400px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk','Zen Kaku Gothic New',Arial,sans-serif;font-size:16px;line-height:24px">
+<header style="display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 24px;border-bottom:1px solid #1a1c1b;background:#f6f5f0"><a href="WaGuideTab.dc.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#1a1c1b"><span class="seal" style="width:28px;height:28px" aria-hidden="true">BYE</span><b style="font:900 22px/1 'Schibsted Grotesk';letter-spacing:-1px">BYE<span style="color:#f3b63f">.</span></b></a><nav aria-label="Main" style="display:flex;align-items:center"><a class="nav" href="WaGuideTab.dc.html">Guide</a><a class="nav" href="WatchesTablet.dc.html">Watches</a><a class="nav" href="PlanTablet.dc.html">Plan</a><a class="nav cta" href="WaSearchTab.dc.html">New search</a></nav><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#316745"></span>Spring 2027</span></header><main style="max-width:600px;margin:0 auto;padding:36px 24px 56px;display:flex;flex-direction:column;gap:28px"><section aria-labelledby="fc" style="display:flex;flex-direction:column;gap:6px">
+<p class="eyebrow">一 · 検索 · Class search</p>
+<h1 id="fc" style="display:flex;align-items:baseline;gap:12px"><span class="k" style="font-size:44px;line-height:1">授業を探す</span></h1>
+<p class="h" style="font-size:24px;font-weight:800;letter-spacing:-.8px">Find a class.</p>
+</section>
+
+<form style="display:flex;flex-direction:column;gap:18px" onsubmit="return false">
+<div class="fld"><label><span class="k">学校</span>School</label><div class="inp" style="background:#eaece4;border-color:#d7d9d0"><span>Pasadena City College</span><span class="s">only school</span></div></div>
+
+<div class="fld" style="position:relative"><label for="cls"><span class="k">授業</span>Class</label>
+<div class="inp" style="border-width:2px"><input id="cls" value="MATH" style="border:0;background:transparent;font:inherit;flex:1;outline:none" aria-autocomplete="list" aria-expanded="true"><span class="s">code or title</span></div>
+<ul role="listbox" style="border:1px solid #1a1c1b;border-top:0;background:#fcfcf8">
+<li role="option" aria-selected="true" style="display:grid;grid-template-columns:96px 1fr;gap:8px;padding:12px;background:#f4e7c7;font-size:13px;line-height:18px"><b class="m" style="font-weight:700">MATH 005A</b><span>Single Variable Calculus I</span></li>
+<li role="option" aria-selected="false" style="display:grid;grid-template-columns:96px 1fr;gap:8px;padding:12px;border-top:1px solid #d7d9d0;font-size:13px;line-height:18px"><b class="m" style="font-weight:700">MATH 005B</b><span>Single Variable Calculus II</span></li>
+<li role="option" aria-selected="false" style="display:grid;grid-template-columns:96px 1fr;gap:8px;padding:12px;border-top:1px solid #d7d9d0;font-size:13px;line-height:18px"><b class="m" style="font-weight:700">MATH 004Z</b><span>Get Ready for Calculus</span></li>
+</ul></div>
+
+<div class="fld"><label><span class="k">学期</span>Semester</label><div class="inp"><span>2027 春 · Spring 2027</span><span aria-hidden="true">⌄</span></div></div>
+
+<fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+<legend style="display:flex;justify-content:space-between;width:100%;margin-bottom:8px;font-weight:700;font-size:14px"><span style="display:flex;gap:8px;align-items:baseline"><span class="k" style="font-size:15px">空き曜日</span>Days you're free <span class="s">· optional</span></span><span style="display:flex;gap:12px"><button class="lnk" style="min-height:24px">平日 Weekdays</button><button class="lnk" style="min-height:24px">Clear</button></span></legend>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px"><button class="dayb on" aria-pressed="true" aria-label="MON"><b>月</b><span>MON</span></button><button class="dayb" aria-pressed="false" aria-label="TUE"><b>火</b><span>TUE</span></button><button class="dayb on" aria-pressed="true" aria-label="WED"><b>水</b><span>WED</span></button><button class="dayb" aria-pressed="false" aria-label="THU"><b>木</b><span>THU</span></button><button class="dayb" aria-pressed="false" aria-label="FRI"><b>金</b><span>FRI</span></button><button class="dayb" aria-pressed="false" aria-label="SAT"><b>土</b><span>SAT</span></button><button class="dayb" aria-pressed="false" aria-label="SUN"><b>日</b><span>SUN</span></button></div>
+<p class="s">Every meeting must fit. Asynchronous online fits any day; unknown schedules are left out.</p>
+</fieldset>
+
+<label style="display:flex;align-items:center;gap:12px;min-height:44px;font-size:14px;font-weight:600"><input type="checkbox" style="width:22px;height:22px;accent-color:#1a1c1b;margin:0"><span><span class="jp" style="font-weight:700">オンラインのみ</span> · Online only</span></label>
+
+<button class="btn p" style="min-height:56px;justify-content:space-between;font-size:15px"><span><span class="jp">比較する</span> · Compare professors</span><span>→</span></button>
+</form>
+
+<section aria-labelledby="rc" style="display:flex;flex-direction:column;gap:8px">
+<div class="sec-h"><span class="k">最近</span><h2 id="rc" class="h">Recent</h2></div>
+<a href="WaCompareTab.dc.html" style="display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid #d7d9d0;text-decoration:none;color:#1a1c1b"><span><b class="m" style="font-weight:700">MATH 005A</b> <span class="s">· 月 水 · 2027 春</span></span><span>→</span></a>
+<a href="WaCompareTab.dc.html" style="display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid #d7d9d0;text-decoration:none;color:#1a1c1b"><span><b class="m" style="font-weight:700">PHYS 004A</b> <span class="s">· any day · 2027 春</span></span><span>→</span></a>
+</section></main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":768,"height":1400}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

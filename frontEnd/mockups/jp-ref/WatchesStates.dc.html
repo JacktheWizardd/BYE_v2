@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE Watches · states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1700px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk',Arial,sans-serif;font-size:16px;line-height:24px">
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">Watches · states and interactions</p><div style="display:flex;align-items:center;gap:12px"><h1 class="h" style="font-size:32px;line-height:1.1">Every state, at phone width</h1><span class="tag sample">Sample data</span></div></div>
+
+<div style="display:grid;grid-template-columns:repeat(3,342px);gap:48px;align-items:start">
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="No ed plan">
+<p class="lbl"><span>A</span>No ed plan yet</p>
+<div class="card" style="padding:24px 18px;display:flex;flex-direction:column;gap:12px;border-color:#1a1c1b">
+<h2 class="h" style="font-size:28px;line-height:1.05;letter-spacing:-1px">Start with your <span style="background:#f3b63f;padding:0 4px">ed plan.</span></h2>
+<p style="font-size:14px;line-height:20px;color:#3d403b">Import it and Watches shows which professors you've saved teach the courses you still need.</p>
+<button class="btn p">Import ed plan →</button>
+<button class="lnk" style="align-self:flex-start">Add courses by hand instead</button>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="No saved professors">
+<p class="lbl"><span>B</span>Ed plan in, no saved professors</p>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;gap:6px;align-items:center"><span class="chip">MATH 005B</span><span class="s">Spring 2027</span></div>
+<p class="s">9 instructors teach it this term. You haven't saved any.</p>
+<a class="lnk" href="WaSearch.dc.html">Compare instructors →</a>
+</div>
+<div style="padding:12px 14px;background:#eaece4;font-size:14px;line-height:20px">Open any instructor report and press <b>Save professor</b>. They'll show up next to your courses here.</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="Review imported ed plan">
+<p class="lbl"><span>C</span>Review the import</p>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px;border-color:#1a1c1b">
+<h2 class="h" style="font-size:20px">Check your ed plan</h2>
+<p class="s">BYE read 8 lines. Confirm before it's saved.</p>
+<ul style="display:flex;flex-direction:column">
+<li class="sec"><span class="m" style="font-weight:700">MATH 005B · Spring 2027</span><span class="tag">Read</span></li>
+<li class="sec"><span class="m" style="font-weight:700">PHYS 004A · Spring 2027</span><span class="tag">Read</span></li>
+<li class="sec"><span class="m" style="font-weight:700">ENGL 001B or PHIL 003</span><span class="tag dash">Choice</span></li>
+<li class="sec"><span style="font-size:13px;line-height:18px"><b style="color:#a32c20">Couldn't read:</b> "GE Area 4 ____"</span><button class="lnk" style="min-height:36px">Pick</button></li>
+<li class="sec"><span class="s">+ 4 more read</span></li>
+</ul>
+<button class="btn p">Confirm 7 courses</button>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="Save professor">
+<p class="lbl"><span>D</span>Save professor · on the report</p>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow">03 / Instructor report</p>
+<h2 class="h" style="font-size:28px;line-height:1.05;letter-spacing:-1px">Prof. Okafor</h2>
+<p class="s">Teaches 2 courses from your ed plan: PHYS 004A, PHYS 004B</p>
+<button class="btn">Save professor</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<button class="btn" disabled aria-busy="true">Saving…</button>
+<button class="btn on" aria-pressed="true"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7.5 L5.5 11 L12 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>Saved</button>
+<div style="display:flex;align-items:center;gap:10px"><button class="btn" style="border-color:#a32c20">Save professor</button><span style="font-size:13px"><b style="color:#a32c20">Couldn't save.</b> <button class="lnk" style="min-height:28px">Try again</button></span></div>
+</div>
+<p class="s">"Saved" appears only after the server confirms. Nothing is saved automatically.</p>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="Unsave">
+<p class="lbl"><span>E</span>Unsave + undo</p>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px"><p style="font-weight:700">Unsave Prof. Marsh?</p><p class="s">Your ed plan and Plan aren't affected.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn">Keep</button><button class="btn p">Unsave</button></div></div>
+<div role="status" style="background:#1a1c1b;color:#fcfcf8;padding:8px 8px 8px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px"><span>Unsaved Prof. Marsh · saved</span><button class="btn" style="background:transparent;color:#fcfcf8;border-color:#fcfcf8">Undo</button></div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px" aria-label="Loading">
+<p class="lbl"><span>F</span>Loading</p>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px" aria-busy="true">
+<p class="s" role="status">Matching your ed plan with PCC's Spring 2027 schedule…</p>
+<div style="height:24px;width:40%;background:#eaece4"></div><div style="height:16px;width:85%;background:#eaece4"></div><div style="height:44px;background:#eaece4"></div>
+<div style="height:24px;width:35%;background:#eaece4;margin-top:8px"></div><div style="height:16px;width:70%;background:#eaece4"></div>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:12px;grid-column:span 2" aria-label="Problems">
+<p class="lbl"><span>G</span>Problems, said plainly</p>
+<div style="display:grid;grid-template-columns:repeat(2,342px);gap:48px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div role="alert" style="border:1px solid #a32c20;background:#fcfcf8;padding:12px 14px;font-size:14px;line-height:20px"><b style="color:#a32c20">Couldn't reach PCC.</b> Showing the schedule saved at 8:12 PM. <button class="lnk" style="min-height:32px">Try again</button></div>
+<div class="card" style="padding:14px;border-style:dashed;border-color:#5d615b;font-size:14px;line-height:20px"><b>Fall 2027 schedule isn't out yet.</b> You'll see who taught your courses before, and "New" when PCC posts it.</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px;opacity:.72"><p class="who">Prof. Haddad</p><p style="font-size:14px;line-height:20px">Not teaching any section in Spring 2027.</p><p class="s">Last taught PHYS 004A in Fall 2026 · stays saved</p></div>
+<div class="card" style="padding:14px;display:flex;flex-direction:column;gap:8px"><p class="eyebrow">Still there if you need it</p><p style="font-size:14px;line-height:20px">On a full section, <b>Track seats</b> keeps the old seat-watch for waitlist cases. It's a small link, not the main feature.</p><button class="lnk" style="align-self:flex-start">Track seats · CRN 30425</button></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1700}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

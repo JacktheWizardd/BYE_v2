@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE Plan · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6f5f0}
+*{box-sizing:border-box}
+a{color:#1a1c1b}a:hover{color:#5d615b}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.h{font-family:"Schibsted Grotesk",Arial,sans-serif;font-weight:800;letter-spacing:-0.02em}
+.s{font-size:13px;line-height:18px;color:#5d615b}
+.m{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:16px}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;letter-spacing:1px;text-transform:uppercase;color:#5d615b}
+.chip{display:inline-flex;align-items:center;background:#eaece4;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:14px;font-weight:500;padding:4px 7px;color:#1a1c1b}
+.tag{display:inline-flex;align-items:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;font-size:10px;line-height:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:#eaece4;color:#1a1c1b;border:1px solid transparent;white-space:nowrap}
+.tag.ink{background:#1a1c1b;color:#fcfcf8}
+.tag.new{background:#f3b63f;color:#1a1c1b}
+.tag.dash{background:transparent;border:1px dashed #5d615b}
+.tag.sample{background:#f4e7c7}
+.tag.bad{background:#fcfcf8;border-color:#a32c20;color:#a32c20}
+.btn{min-height:44px;padding:0 16px;border:1px solid #1a1c1b;background:#fcfcf8;font:700 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.p,.btn.on{background:#1a1c1b;color:#fcfcf8}
+.btn.q{border-color:transparent;background:transparent;padding:0 8px}
+.btn[disabled]{border-color:#8b8e86;color:#5d615b;background:#eaece4;cursor:default}
+.lnk{min-height:44px;padding:0;border:0;background:none;font:600 13px/1.2 "Schibsted Grotesk",Arial,sans-serif;color:#1a1c1b;text-decoration:underline;text-underline-offset:3px;cursor:pointer;display:inline-flex;align-items:center}
+.card{background:#fcfcf8;border:1px solid #d7d9d0}
+.nav{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;text-decoration:none;color:#5d615b}
+.nav.on{color:#1a1c1b;font-weight:700;box-shadow:inset 0 -2px 0 #f3b63f}
+.nav.cta{background:#1a1c1b;color:#fcfcf8;font-weight:700;padding:0 16px;margin-left:8px}
+.tabs{display:flex;border-bottom:1px solid #1a1c1b}
+.tabs button{min-height:48px;padding:0 14px;border:0;background:transparent;font:700 14px/1 "Schibsted Grotesk",Arial,sans-serif;color:#5d615b;cursor:pointer}
+.tabs button.on{color:#1a1c1b;box-shadow:inset 0 -3px 0 #f3b63f}
+.sec{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0}
+.who{font-weight:700;font-size:15px;line-height:20px}
+.rmp{font-size:12px;line-height:16px;font-weight:600}
+.rmp .r{color:#8f5400}.rmp .df{color:#2f5487}
+.ok{color:#2f6b3d}
+.tab{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.lbl span{display:inline-flex;width:24px;height:24px;background:#1a1c1b;color:#fcfcf8;align-items:center;justify-content:center;font:700 12px/1 "JetBrains Mono",monospace}
+:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}
+.c-math{background:#f3b63f;color:#1a1c1b}
+.c-phys{background:#1a1c1b;color:#fcfcf8}
+.c-hist{background:#d6dfeb;color:#1a1c1b}
+.c-art{background:#fcfcf8;color:#1a1c1b;border:1.5px dashed #1a1c1b}
+.c-engl{background:#fcfcf8;color:#1a1c1b;border:1.5px dotted #1a1c1b}
+.lab{background-image:repeating-linear-gradient(135deg,rgba(252,252,248,.28) 0,rgba(252,252,248,.28) 3px,transparent 3px,transparent 8px)}
+.blk{position:absolute;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;font-size:11px;line-height:13px;font-weight:600}
+.blk b{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:13px;font-weight:700}
+.bang{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#a32c20;color:#fcfcf8;font:800 12px/1 "Schibsted Grotesk",sans-serif}
+.sw{display:inline-block;width:14px;height:14px;flex:none}
+.hbar{display:flex;height:14px;background:#eaece4}
+.hbar i{display:block;height:100%}
+.study{background-image:repeating-linear-gradient(135deg,#1a1c1b 0,#1a1c1b 1.5px,transparent 1.5px,transparent 5px)}
+.step{display:inline-flex;align-items:center;border:1px solid #1a1c1b;height:44px;background:#fcfcf8}
+.step button{width:40px;height:42px;border:0;background:transparent;font:700 18px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b}
+.step span{min-width:34px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-cs{background:#dbe5d3;color:#1a1c1b}
+.sheet{background:#fcfcf8;border:1px solid #1a1c1b;border-bottom:0;padding:14px 16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -12px 32px -16px rgba(26,28,27,.35)}
+.c-kin{background:#ecd5c3;color:#1a1c1b}
+.sw2{display:inline-flex;align-items:center;gap:8px;min-height:44px;border:0;background:transparent;font:600 13px/1 "Schibsted Grotesk",sans-serif;color:#1a1c1b;cursor:pointer;padding:0}
+.trk{width:38px;height:22px;border:1.5px solid #1a1c1b;position:relative;display:inline-block}
+.trk i{position:absolute;top:2px;width:15px;height:15px;background:#1a1c1b}
+
+.tb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tb a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b;font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tb a.on{color:#1a1c1b;font-weight:800;box-shadow:inset 0 3px 0 #f3b63f}
+.ib{width:44px;height:44px;border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+.jp{font-family:"Zen Kaku Gothic New","Schibsted Grotesk",sans-serif}
+.h{font-family:"Schibsted Grotesk","Zen Kaku Gothic New",Arial,sans-serif}
+.k{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900}
+.bang{background:#9d2b22}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:#9d2b22;color:#f6f5f0;font:900 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:-.3px}
+.tbj{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1a1c1b;background:#f6f5f0}
+.tbj a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5d615b}
+.tbj a b{font:700 16px/1 "Zen Kaku Gothic New",sans-serif}
+.tbj a span{font:600 11px/1 "Schibsted Grotesk",sans-serif}
+.tbj a.on{color:#1a1c1b;box-shadow:inset 0 3px 0 #f3b63f}
+.tbj a.on b{font-weight:900}.tbj a.on span{font-weight:700}
+.sec-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #1a1c1b;padding-bottom:8px}
+.sec-h .k{font-size:24px;line-height:1}
+.sec-h .h{font-size:18px}
+.sec-h .eyebrow{margin-left:auto}
+.ok{color:#316745}
+.tag.ok-t{background:#fcfcf8;border-color:#316745;color:#316745}
+.tag.warn-t{background:#fcfcf8;border-color:#8a5d00;color:#8a5d00}
+.tag.bad{background:#fcfcf8;border-color:#9d2b22;color:#9d2b22}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.fld label .k{font-size:15px}
+.inp{min-height:48px;border:1px solid #1a1c1b;background:#fcfcf8;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#1a1c1b}
+.dayb{min-height:52px;border:1px solid #1a1c1b;background:#fcfcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:#1a1c1b}
+.dayb b{font:900 17px/1 "Zen Kaku Gothic New",sans-serif}.dayb span{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:1px}
+.dayb.on{background:#1a1c1b;color:#fcfcf8}
+</style>
+</helmet>
+<div style="width:390px;min-height:1720px;background:#f6f5f0;color:#1a1c1b;font-family:'Schibsted Grotesk',Arial,sans-serif;font-size:16px;line-height:24px;display:flex;flex-direction:column">
+<header style="height:56px;padding:0 4px 0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d7d9d0;background:#f6f5f0"><a href="WaGuide.dc.html" aria-label="BYE home" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#1a1c1b"><span class="seal" style="width:26px;height:26px" aria-hidden="true">BYE</span><b style="font:900 20px/1 'Schibsted Grotesk',sans-serif;letter-spacing:-1px">BYE<span style="color:#f3b63f">.</span></b><span aria-hidden="true" style="border-left:1px solid #d7d9d0;padding-left:8px;font:700 10px/12px 'Zen Kaku Gothic New',sans-serif;color:#5d615b">履修の<br>前に</span></a><span style="display:flex;align-items:center"><span class="chip">2027 春 SPRING</span><button class="ib" aria-label="Connected to BYE" style="width:44px;height:44px;border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center"><span style="width:9px;height:9px;border-radius:50%;background:#316745"></span></button></span></header>
+<main style="padding:20px 16px 28px;display:flex;flex-direction:column;gap:18px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+<h1 class="h" style="font-size:32px;line-height:1">Plan <span style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#5d615b;vertical-align:middle">時間割</span></h1>
+<span class="tag sample">Sample</span></div>
+
+<section aria-label="Hours per week" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #1a1c1b;border-bottom:1px solid #1a1c1b">
+<div style="padding:12px 0;display:flex;flex-direction:column;gap:2px"><span class="eyebrow">授業 class</span><span class="h tab" style="font-size:30px;line-height:34px">15.6</span></div>
+<div style="padding:12px 0 12px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column;gap:2px"><span class="eyebrow">自習 study</span><span class="h tab" style="font-size:30px;line-height:34px">28</span></div>
+<div style="padding:12px 0 12px 12px;border-left:1px solid #d7d9d0;display:flex;flex-direction:column;gap:2px"><span class="eyebrow">合計 h/wk</span><span class="h tab" style="font-size:30px;line-height:34px">43.6</span></div>
+</section>
+
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span class="eyebrow" style="color:#1a1c1b">週 · Week</span>
+<button class="sw2" role="switch" aria-checked="{{wkAria}}" onClick="{{toggleWeekend}}"><span>土日 Weekend</span><span class="trk"><i style="{{knob}}"></i></span></button>
+</div>
+
+<section aria-label="Days" role="tablist" style="display:grid;grid-template-columns:{{cols}};gap:6px;align-items:end">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="5">
+<button role="tab" aria-selected="{{d.sel}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.btn}}">
+<sc-if value="{{d.conflict}}" hint-placeholder-val="{{false}}"><span class="bang" style="position:absolute;top:6px;right:6px">!</span></sc-if>
+<span style="{{d.bar}}"></span>
+<b style="font:800 17px/18px 'Schibsted Grotesk',sans-serif">{{d.jp}}</b>
+<span class="tab" style="font:500 11px/12px 'Schibsted Grotesk',sans-serif;opacity:.8">{{d.num}}</span>
+</button>
+</sc-for>
+</section>
+<sc-if value="{{hiddenNote}}" hint-placeholder-val="{{false}}"><button class="card" onClick="{{toggleWeekend}}" style="min-height:44px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font:600 13px/1 'Schibsted Grotesk',sans-serif;color:#1a1c1b;cursor:pointer;border-style:dashed;border-color:#5d615b"><span>{{hiddenNote}}</span><span>Show</span></button></sc-if>
+
+<section aria-label="Selected day" style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 class="h" style="font-size:24px">{{day.jp}}曜日 · {{day.name}}</h2>
+<sc-if value="{{day.conflict}}" hint-placeholder-val="{{true}}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#a32c20"><span class="bang">!</span>{{day.conflict}}</span></sc-if></div>
+<div style="display:grid;grid-template-columns:40px minmax(0,1fr)">
+<div style="position:relative;height:405px;font:500 10px/1 'JetBrains Mono',monospace;color:#5d615b"><span style="position:absolute;top:0">8:00</span><span style="position:absolute;top:90px">9</span><span style="position:absolute;top:180px">10</span><span style="position:absolute;top:270px">11</span><span style="position:absolute;top:360px">12</span></div>
+<div style="position:relative;height:405px;border-left:1px solid #1a1c1b;background-image:repeating-linear-gradient(to bottom,#d7d9d0 0,#d7d9d0 1px,transparent 1px,transparent 90px)">
+<sc-for list="{{day.blocks}}" as="k" hint-placeholder-count="2"><div class="{{k.cls}} blk" style="{{k.style}}"><b style="font:700 13px/16px 'JetBrains Mono',monospace">{{k.code}}</b><span style="font-size:12px;line-height:15px">{{k.time}}</span><span style="font-size:12px;line-height:15px">{{k.room}} · {{k.who}}</span></div></sc-for>
+<sc-if value="{{day.box}}" hint-placeholder-val="{{false}}"><div aria-hidden="true" style="{{day.box}}"></div></sc-if>
+<sc-if value="{{day.empty}}" hint-placeholder-val="{{false}}"><p class="s" style="position:absolute;top:170px;left:0;right:0;text-align:center">休み · No classes</p></sc-if>
+</div></div>
+</section>
+
+<section aria-label="No set time" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<span class="eyebrow">未定 · no set time</span>
+<span class="c-art" style="padding:6px 10px;font:700 12px/16px 'JetBrains Mono',monospace">ART 010 · ONLINE</span>
+<span class="c-engl" style="padding:6px 10px;font:700 12px/16px 'JetBrains Mono',monospace">ENGL 001B · ?</span>
+</section>
+
+<section aria-label="Study per course" style="display:flex;flex-direction:column">
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px"><h2 class="h" style="font-size:22px">自習 · Study</h2><span class="s">h / week · your estimate</span></div>
+<div style="display:flex;gap:14px;padding-bottom:8px" class="s"><span style="display:inline-flex;align-items:center;gap:6px"><i style="display:inline-block;width:14px;height:10px;background:#1a1c1b"></i>授業 class</span><span style="display:inline-flex;align-items:center;gap:6px"><i class="study" style="display:inline-block;width:14px;height:10px"></i>自習 study</span></div>
+<div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-math"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">MATH 005B</b><span class="s tab">8.8 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for MATH 005B">−</button><span>6</span><button aria-label="More study for MATH 005B">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:25%;background:#1a1c1b"></i><i class="study" style="width:55%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-phys"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">PHYS 004A</b><span class="s tab">10.7 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for PHYS 004A">−</button><span>5</span><button aria-label="More study for PHYS 004A">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:52%;background:#1a1c1b"></i><i class="study" style="width:45%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-cs"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">CS 011</b><span class="s tab">7.8 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for CS 011">−</button><span>5</span><button aria-label="More study for CS 011">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:25%;background:#1a1c1b"></i><i class="study" style="width:45%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-hist"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">HIST 007B</b><span class="s tab">4.4 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for HIST 007B">−</button><span>3</span><button aria-label="More study for HIST 007B">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:13%;background:#1a1c1b"></i><i class="study" style="width:27%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-kin"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">KIN 009</b><span class="s tab">4.8 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for KIN 009">−</button><span>2</span><button aria-label="More study for KIN 009">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:25%;background:#1a1c1b"></i><i class="study" style="width:18%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-art"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">ART 010</b><span class="s tab">4 h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for ART 010">−</button><span>4</span><button aria-label="More study for ART 010">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:0%;background:#1a1c1b"></i><i class="study" style="width:36%"></i></div></div><div style="display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 0;border-top:1px solid #d7d9d0">
+<span class="sw c-engl"></span><span style="display:flex;justify-content:space-between"><b class="m" style="font-weight:700;font-size:13px">ENGL 001B</b><span class="s tab">3 + ? h</span></span>
+<span class="step" style="grid-row:1 / 3;grid-column:3"><button aria-label="Less study for ENGL 001B">−</button><span>3</span><button aria-label="More study for ENGL 001B">+</button></span>
+<span></span><div class="hbar" style="height:10px;background:transparent"><i style="width:8%;border:1px dotted #1a1c1b"></i><i style="width:0%;background:#1a1c1b"></i><i class="study" style="width:27%"></i></div></div>
+</section>
+<button class="btn p" style="min-height:52px">Copy 7 CRNs</button>
+</main>
+<nav aria-label="Main" class="tbj" style="position:sticky;bottom:0"><a href="WaGuide.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg><span>Guide</span></a><a href="WaSearch.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg><span>Search</span></a><a href="WatchesPhone.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10v16l-5-4-5 4z"/></svg><span>Watches</span></a><a href="PlanPhone.dc.html" class="on" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15"/><path d="M4 10h16M9 5v15M14 5v15"/></svg><span>Plan</span></a></nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1720}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { day: 4, weekend: true }; }
+  renderVals() {
+
+    var H = 90;
+    function k(cls, code, time, room, who, s, e, side) { return { cls: cls, code: code, time: time, room: room, who: who, s: s, e: e, side: side || '' }; }
+    var M = k('c-math', 'MATH 005B', '8:00–9:25 AM', 'R-217', 'Marsh', 8, 9 + 25/60);
+    var P = k('c-phys', 'PHYS 004A', '9:45–11:10 AM', 'S-101', 'Okafor', 9.75, 11 + 10/60);
+    var C = k('c-cs', 'CS 011', '11:00 AM–12:25 PM', 'IT-120', 'Nguyen', 11, 12 + 25/60);
+    var data = [
+      { jp: '月', name: 'Monday', hrs: 2.8, items: [M, P] },
+      { jp: '火', name: 'Tuesday', hrs: 1.4, items: [C] },
+      { jp: '水', name: 'Wednesday', hrs: 2.8, items: [M, P] },
+      { jp: '木', name: 'Thursday', hrs: 1.4, items: [C] },
+      { jp: '金', name: 'Friday', hrs: 4.3, conflict: '11:00–11:50',
+        items: [k('c-phys lab', 'PHYS LAB', '9:00–11:50 AM', 'S-210', 'Okafor', 9, 11 + 50/60, 'L'), k('c-hist', 'HIST 007B', '11:00 AM–12:25 PM', 'Zoom', 'Abara', 11, 12 + 25/60, 'R')] },
+      { jp: '土', name: 'Saturday', hrs: 2.8, weekend: true, items: [k('c-kin', 'KIN 009', '8:00–10:50 AM', 'Gym', 'Silva', 8, 10 + 50/60)] },
+      { jp: '日', name: 'Sunday', hrs: 0, weekend: true, items: [] }
+    ];
+    var self = this, wk = this.state.weekend !== false;
+    var shown = data.map(function (d, i) { return { d: d, i: i }; }).filter(function (x) { return (wk || !x.d.weekend) && !(x.i === 6 && x.d.items.length === 0); });
+    var sel = this.state.day;
+    if (!shown.some(function (x) { return x.i === sel; })) sel = 4;
+    var days = shown.map(function (x) {
+      var d = x.d, on = x.i === sel;
+      return { jp: d.jp, num: d.hrs ? String(d.hrs) : '—', sel: on ? 'true' : 'false', conflict: !!d.conflict,
+        aria: d.name + ', ' + d.hrs + ' class hours' + (d.conflict ? ', conflict' : ''),
+        pick: function () { self.setState({ day: x.i }); },
+        btn: 'position:relative;min-height:100px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;cursor:pointer;border:1px solid ' +
+          (on ? '#1a1c1b;background:#1a1c1b;color:#fcfcf8' : '#d7d9d0;background:#fcfcf8;color:#1a1c1b'),
+        bar: 'display:block;width:16px;height:' + Math.max(4, Math.round(d.hrs / 4.3 * 48)) + 'px;background:' + (on ? '#f3b63f' : '#1a1c1b') };
+    });
+    var d = data[sel];
+    return {
+      days: days, cols: 'repeat(' + days.length + ',minmax(0,1fr))',
+      wkAria: wk ? 'true' : 'false', knob: wk ? 'left:19px;background:#1a1c1b' : 'left:2px;background:#8b8e86',
+      toggleWeekend: function () { self.setState({ weekend: !wk }); },
+      hiddenNote: !wk ? '土 Saturday has 1 class (KIN 009) — hidden' : '',
+      day: { jp: d.jp, name: d.name, conflict: d.conflict || '', empty: d.items.length === 0,
+        box: d.conflict ? 'position:absolute;top:' + (3 * H) + 'px;height:' + Math.round(50/60 * H) + 'px;left:6px;right:0;border:2px solid #a32c20' : '',
+        blocks: d.items.map(function (b) {
+          var lr = b.side === 'L' ? 'left:6px;right:calc(50% + 3px)' : b.side === 'R' ? 'left:calc(50% + 3px);right:0' : 'left:6px;right:0';
+          return { cls: b.cls, code: b.code, time: b.time, room: b.room, who: b.who,
+            style: 'top:' + ((b.s - 8) * H) + 'px;height:' + ((b.e - b.s) * H) + 'px;' + lr + ';padding:8px;gap:2px' };
+        }) }
+    };
+
+  }
+}
+</script>
+</body>
+</html>
