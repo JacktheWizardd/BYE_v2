@@ -1,3 +1,25 @@
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/ZenKakuGothicNew-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/ZenKakuGothicNew-1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(/assets/ZenKakuGothicNew-2.ttf) format('truetype');
+}
+
 /* Visual alignment with BYE v2 mockup.pdf; reference.css owns the design tokens. */
 .bar .nav{column-gap:12px}
 .search-form select{appearance:none;-webkit-appearance:none;padding-left:12px;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%235f625a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:12px 8px}
@@ -77,3 +99,8 @@ body{font-family:Schibsted,Arial,sans-serif}button,input,select{font:inherit}but
 @keyframes sync-sweep{to{transform:translateX(230%)}}
 @media(prefers-reduced-motion:reduce){.sync-activity.running span{animation:none}}
 @media(min-width:1100px){.bar .brand-group>.sync-control{grid-column:3;grid-row:1;justify-self:end;margin-left:0}}
+
+/* Wa redesign */
+
+:root{--paper:#f6f5f0;--ink:#1a1c1b;--amber:#f3b63f}body{background:#f6f5f0;color:#1a1c1b;font-family:"Schibsted Grotesk","Zen Kaku Gothic New",sans-serif}*{border-radius:0!important}button,input,select,.button{min-height:44px}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #1a1c1b;outline-offset:2px}[lang=ja]{font-family:"Zen Kaku Gothic New",sans-serif}.hidden{display:none}.brand:before{content:'印';font-family:"Zen Kaku Gothic New";display:inline-block;color:#9d2b22;border:2px solid;margin-right:10px;padding:4px;transform:rotate(-4deg)}.prof-row:nth-child(even),.owner-invite:nth-child(even),.plan-section:nth-child(even){background:#eeede6}.prof-row.open{border-left:4px solid #f3b63f;outline:1px solid #1a1c1b}.rating-skeleton{display:block;height:16px;width:150px;background:#d7d9d0}.stat{display:grid;grid-template-rows:18px 40px 18px}.stat p{grid-row:1}.stat b{grid-row:2}.plan-screen{max-width:1100px;margin:auto}.plan-screen h2{margin:28px 0 16px}.plan-screen button,.plan-screen .button{margin:6px;padding:10px;border:1px solid #1a1c1b;background:#fcfcf8}.plan-days{display:flex;gap:6px;margin:24px 0}.plan-days button{flex:1}.plan-days small{display:block}.plan-days [aria-selected=true]{background:#1a1c1b;color:#fcfcf8;border-bottom:4px solid #f3b63f}.plan-block{padding:16px;border:1px solid #1a1c1b;background:#f4e7c7;margin:8px 0}.plan-block.conflict{border:2px solid #9d2b22}.plan-block.conflict:before{content:'! Conflict';color:#9d2b22;display:block}.study-row,.plan-section{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid #d7d9d0}.study-row input{width:100px}.saved{color:#316745}.bottom-nav{display:none}.unlock-screen{max-width:1000px}.unlock-screen .welcome{padding-top:32px}.unlock-screen .welcome h1{font-size:clamp(32px,5vw,58px)}@media(max-width:767px){body{padding-bottom:70px}.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;height:64px;background:#f6f5f0;border-top:1px solid #1a1c1b;z-index:40;justify-content:space-around}.bottom-nav>a,.bottom-nav>span{display:flex;flex:1;align-items:center;justify-content:center;flex-direction:column;font-size:18px}.bottom-nav span span,.bottom-nav a span,.bottom-nav small{font-size:11px}.bar .nav{display:none}.plan-days{gap:0}.plan-days button{padding:4px;margin:1px}.plan-screen .stats{grid-template-columns:repeat(3,1fr)}.plan-screen .stat b{font-size:25px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+.plan-timeline{position:relative;margin:12px 0 24px}.plan-block{position:absolute;margin:0;padding:6px;font-size:12px;line-height:1.25;background:#f4e7c7;overflow:auto}.plan-block p{margin:3px 0}.plan-block.conflict:before{content:none}.timeline-hour{position:absolute;width:100%;border-top:1px solid #d7d9d0;color:#5d615b;font-size:10px}.desktop-week{display:none}.owner-summary .stat b{font-size:28px}meter{display:block;width:100%;height:12px;accent-color:#316745}.waiting{accent-color:#f3b63f}.full{accent-color:#9d2b22}.empty{accent-color:#8b8e86}.stats .stat{display:flex;flex-direction:column;min-height:90px}.stats .stat b{white-space:nowrap}.plan-screen h1{font-size:clamp(32px,4vw,56px)}@media(min-width:1200px){.plan-screen{max-width:none}.desktop-week{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:8px}.phone-timeline{display:none}.desktop-week h3{font-size:13px}.desktop-week .plan-block{font-size:10px}.selected-day{outline:1px solid #1a1c1b;padding:4px}}.bottom-nav a[aria-current=page]{border-top:3px solid #f3b63f}.plan-screen input[type=file]{max-width:100%}

@@ -1,3 +1,4 @@
+import {validateWeeklyPlans} from './weekly-plan.js';
 import {validateEducationPlan} from './education-plan.js';
 import {createRmp} from './rmp.js';
 import { createApi } from './api.js';
@@ -7,6 +8,7 @@ import { ApiError } from './errors.js';
 
 export class ProductionRepository extends SupabaseRepository {
   control(action, p = {}) { return this.request('rpc/bye_control', {}, { method: 'POST', body: { action, p } }); }
+  requestRefresh(school,term){return this.request('rpc/bye_request_refresh',{}, {method:'POST',body:{p_school:school,p_term:term}});}
   semesters(action,p={}) { return this.request('rpc/bye_semesters',{}, {method:'POST',body:{action,p}}); }
   enqueue(school_id, term_id) { return this.control('enqueue', { school_id, term_id }); }
   touch(school_id, term_id) { return this.control('touch', { school_id, term_id }); }
@@ -63,6 +65,24 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
           const member=await timed('membership',()=>scoped.control('membership',{user_id:user.id}));
           if(!member)throw new ApiError(403,'access_required','An unexpired BYE invitation is required.');
           if(path==='/v1/me' && request.method==='GET') result=json({data:member});
+          else if(path==='/v1/me/plan') {
+            if(!['GET','POST'].includes(request.method))throw new ApiError(405,'method_not_allowed','Use GET or POST.');
+            let plans=null,revision=null;
+            if(request.method==='POST'){
+              const body=await input(request,1048576);
+              if(Object.keys(body).some(k=>!['expected_revision','plans'].includes(k))||!Number.isSafeInteger(body.expected_revision)||body.expected_revision<0)throw new ApiError(400,'invalid_plan','Provide an expected revision.');
+              plans=validateWeeklyPlans(body.plans);revision=body.expected_revision;
+              for(const plan of plans)for(let i=0;i<plan.sections.length;i++){
+                const entry=plan.sections[i],section=await scoped.section(plan.school_id,plan.term_id,entry.id);
+                if(section){if(section.course_id!==entry.course_id)throw new ApiError(400,'invalid_plan','Section and course do not match.');plan.sections[i]={...entry,units:section.units,meetings:section.meetings,instructors:section.instructors};}
+              }
+            }
+            const saved=await scoped.request('rpc/bye_weekly_plan',{}, {method:'POST',body:{p_user_id:user.id,p_revision:revision,p_plans:plans}});
+            if(saved.error)throw new ApiError(saved.error==='revision_conflict'?409:403,saved.error,saved.error==='revision_conflict'?'Your Plan changed in another tab. Reload before saving.':'Access has ended.');
+            const missing=[];
+            if(request.method==='GET')for(const plan of saved.data.plans)for(const section of plan.sections){const current=await scoped.section(plan.school_id,plan.term_id,section.id);if(current){section.meetings=current.meetings;section.instructors=current.instructors;section.units=current.units;}else missing.push([plan.school_id,plan.term_id,section.id].join(':'));}
+            result=json({...saved,missing_sections:missing});
+          }
           else if(path==='/v1/me/education-plan') {
             if(!['GET','POST'].includes(request.method))throw new ApiError(405,'method_not_allowed','Use GET or POST.');
             let revision=null,plan=null;
@@ -75,7 +95,7 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
             if(saved.error)throw new ApiError(saved.error==='revision_conflict'?409:saved.error==='access_required'?403:400,saved.error,saved.error==='revision_conflict'?'The saved plan changed. Reload it before replacing it.':saved.error==='access_required'?'An unexpired BYE invitation is required.':'The education plan could not be saved.');
             result=json(saved);
           }
-          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews)$/.test(path)&&request.method==='GET'){const bits=path.split('/');result=json({data:await timed('rmp',()=>rmp(request,bits[3],bits[5],bits[7],{cacheOnly}))});}
+          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh)$/.test(path)&&(request.method==='GET'&&!path.endsWith('/refresh')||request.method==='POST'&&path.endsWith('/refresh'))){const bits=path.split('/');result=json({data:await timed('rmp',()=>rmp(request,bits[3],bits[5],bits[7],{cacheOnly}))});}
           else if(path.startsWith('/v1/admin/')) {
             if(member.role!=='owner')throw new ApiError(403,'forbidden','Owner access required.');
             if(path==='/v1/admin/owner-code' && request.method==='POST'){
@@ -89,7 +109,9 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
               const raw=generateInviteCode();
               const saved=await scoped.request('bye_invites',{}, {method:'POST',prefer:'return=representation',body:{code_hash:await digest(raw,pepper),note:data.note??null}});
               result=json({data:{id:saved[0].id,code:raw.slice(0,4)+'-'+raw.slice(4)}},201);
-            } else if(path==='/v1/admin/invites' && request.method==='GET')result=json({data:await scoped.request('bye_invites',{select:'id,note,created_at,used_at,revoked_at',deleted_at:'is.null',order:'created_at.desc',limit:100})});
+            } else if(path==='/v1/admin/invites' && request.method==='GET'){
+              const rows=[];for(let offset=0;offset<100000;offset+=100){const page=await scoped.request('bye_invites',{select:'id,note,created_at,used_at,revoked_at',deleted_at:'is.null',order:'created_at.desc,id.desc',limit:100,offset});rows.push(...page);if(page.length<100)break;}result=json({data:rows});
+            }
             else if(/^\/v1\/admin\/invites\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/delete$/.test(path)&&request.method==='POST'){
               const removed=await scoped.request('rpc/bye_delete_invite',{}, {method:'POST',body:{p_owner:user.id,p_id:path.split('/')[4]}});
               if(removed.error)throw new ApiError(403,'forbidden','Owner access required.');

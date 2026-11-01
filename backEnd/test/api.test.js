@@ -293,3 +293,4 @@ test('PCC bounds schedule rows and rejects conflicting canonical course metadata
   assert.equal(normalized.courses[0].code,'MATH C005AH');
   assert.equal(normalized.sections[0].availability.source_status,'R');
 });
+test('readers may request the scoped refresh endpoint but cannot perform owner imports',async()=>{const repository=new LocalRepository();let requested;repository.requestRefresh=async(s,t)=>{requested=[s,t];return {status:'queued',last_successful_check:instant}};const {call}=setup({repository});assert.equal((await call('/pasadena-city-college/terms/202730/refresh',{method:'POST',json:{}})).status,202);assert.deepEqual(requested,['pasadena-city-college','202730']);assert.equal((await call('/pasadena-city-college/imports',{method:'POST',json:{term_id:'202730'}})).status,403);assert.equal((await call('/pasadena-city-college/terms/202730/refresh',{method:'POST',role:null,json:{}})).status,401)});

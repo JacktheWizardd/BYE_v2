@@ -81,7 +81,7 @@ export function createApi({ repository, authorize = async () => null, connectors
       let parts;
       try { parts = url.pathname.replace(/\/+$/, '').split('/').filter(Boolean).map(decodeURIComponent); }
       catch { throw new ApiError(400, 'invalid_request', 'Invalid URL encoding.'); }
-      const readerLoad=request.method==='POST'&&parts.length===6&&parts[0]==='v1'&&parts[1]==='schools'&&parts[3]==='terms'&&parts[5]==='load'&&!!repository.semesters;
+      const readerLoad=request.method==='POST'&&parts.length===6&&parts[0]==='v1'&&parts[1]==='schools'&&parts[3]==='terms'&&(parts[5]==='load'&&!!repository.semesters||parts[5]==='refresh'&&!!repository.requestRefresh);
       if(request.method!=='GET'&&principal.role!=='owner'&&!readerLoad)throw new ApiError(403,'forbidden','Owner access is required.');
       if (parts[0] !== 'v1' || parts[1] !== 'schools') throw new ApiError(404, 'not_found', 'Endpoint not found.');
       if (parts.length === 2 && request.method === 'GET') {
@@ -119,6 +119,13 @@ export function createApi({ repository, authorize = async () => null, connectors
       if (school.status === 'disabled') throw new ApiError(409, 'school_disabled', 'This school is disabled.');
       const connector = connectors.get(school.connector);
       if (!connector) throw new ApiError(409, 'connector_required', 'This school is saved but needs a verified schedule connector.');
+      if(parts.length===6&&parts[3]==='terms'&&parts[5]==='refresh'){
+        if(request.method!=='POST')throw new ApiError(405,'method_not_allowed','Use POST.');
+        if(!repository.requestRefresh)throw new ApiError(503,'refresh_unavailable','Refresh is unavailable.');
+        const data=await repository.requestRefresh(schoolId,identifier(parts[4],'semester ID'));
+        if(data.error)throw new ApiError(404,data.error,'Select an imported semester.');
+        return response(request,{data},202);
+      }
       if(repository.semesters&&parts[3]==='terms'){
         if(parts.length===4&&params.get('scope')==='published'&&request.method==='GET'){
           const p=pagination(params),rows=await repository.semesters('list',{school_id:schoolId});

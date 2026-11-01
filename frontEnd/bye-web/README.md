@@ -2,7 +2,7 @@
 
 React + TypeScript + Vite implementation of the supplied v2 handoff. Original
 frontend reference folders are unchanged. This app connects to the bye-dev API;
-RMP ratings and original reviews use the membership-protected backend cache. Plans and watches remain disabled previews. Owner sign-in and invite management are available.
+RMP ratings and original reviews use the membership-protected backend cache. Weekly Plans are saved to the authenticated device session; Watches remains deferred. Owner sign-in and invite management are available.
 
 Run from this folder with Node 24 and pnpm 11.25.0:
 
@@ -95,3 +95,14 @@ The header consistently describes semester worker status on every screen. Open i
 The header badge now measures the last BYE API read: green Connected to BYE after success, yellow while checking/offline, red after a failed read, grey before the first read. PCC data age and queued/running source work appear separately inside its details. Reports retain their section freshness warnings. Successful connection status reads for imported terms use the green 30-minute interval; first imports continue five-second progress reads. A stale PCC check never changes a successful API connection to red.
 
 Class-search results are saved per device in localStorage under bye-web:course-search:v1:, keyed by school, semester and the exact case-insensitive trimmed query. Entries retain official course IDs, zeros, suffixes, titles and pagination metadata. Valid saved results return immediately, even after reload or browser restart; the app has no TTL or automatic eviction for them. Clearing recent searches or locally signing out does not delete these course results. Access must still be unlocked before the search UI uses them. Ratings, review text, availability counts and credentials are excluded. Blocked/full browser storage falls back to normal API search. These retained snapshots do not automatically pick up later catalog edits for an already cached query. Browser/user storage clearing can remove them; caching does not sync between phone and laptop.
+
+
+## Wa redesign and weekly Plans — November 1, 2026
+
+The active UI uses `wa.css`, `wa-tokens.css`, and the Wa shell components. The old reference CSS is retained for reference and is not imported by the application. The layouts were rebuilt from the supplied Wa HTML boards after the initial CSS-only implementation was rejected.
+
+The protected `/me/plan` API stores the complete collection of school/semester Plans with revision checks. Exports read back through the import validator before download. Backups exclude availability, RMP information, credentials and education plans. Plans belong to the anonymous session; transferring to another device uses export/import.
+
+Backend deployment: bye-api v19; additive SQL migration `20261101074049_wa_weekly_plans_and_rmp_refresh.sql`. Manual RMP refresh uses a shared per-professor cooldown (1800 seconds by default); successful profiles are reused for 90 days with retained stale fallback.
+
+Verification: 71 frontend tests and 65 backend tests pass. The production build and deployment checks pass. Browser checks covered responsive Plan layouts at 390/768/1440, Guide, real comparison/report navigation, adding a real PCC section, server-confirmed In Plan, and verified backup creation. Live API checks covered save/readback, invalid-input denial, stale-revision rejection and preserving the prior Plan. Temporary test invites were revoked and the browser verification section was removed. Lighthouse and field Core Web Vitals were not measured.

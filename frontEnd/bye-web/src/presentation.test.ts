@@ -38,3 +38,5 @@ it('separates BYE connection health from source age and refresh outcomes',async(
  expect(connectionSync(Date.now(),false,true).kind).toBe('partial');
  expect(connectionSync(Date.now(),false,false,false).label).toBe('Offline');
 });
+
+it('preserves an actual check time while the UI clock is briefly behind the latest fetch',()=>{const now=Date.now(),sections=[{availability:{as_of:new Date(now+1000).toISOString()}}] as any;expect(syncState(sections,false,now).detail).not.toContain('time unavailable')});

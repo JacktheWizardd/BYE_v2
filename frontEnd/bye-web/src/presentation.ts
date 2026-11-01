@@ -12,7 +12,7 @@ export type SyncState={kind:string,label:string,detail:string};
 export function syncState(sections:Section[],failed=false,now=Date.now()):SyncState{
  if(!sections.length)return {kind:'unknown',label:'Schedule not checked yet',detail:'No schedule check is available for this course.'};
  const times=sections.map(s=>Date.parse(s.availability?.as_of??''));const fresh=times.filter(t=>Number.isFinite(t)&&t<=now&&now-t<SYNC_FRESH_MS).length;
- const known=times.filter(t=>Number.isFinite(t)&&t<=now),oldest=known.length?Math.min(...known):null;
+ const known=times.filter(t=>Number.isFinite(t)),oldest=known.length?Math.min(...known):null;
  const time=oldest==null?'time unavailable':new Date(oldest).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
  if(failed)return {kind:'stale',label:'Schedule out of sync',detail:`Couldn’t reload saved counts · last known check ${time}.`};
  if(fresh===sections.length)return {kind:'fresh',label:'Schedule up to date',detail:`Seat counts for all sections · ${time} · ${Math.floor((now-oldest!)/60000)} min ago`};
@@ -28,6 +28,7 @@ export function coordinatedSync(sections:Section[],failed:boolean,now:number,ref
  if(failed)return {...state,label:'Couldn’t reload saved counts'};
  if(state.kind==='fresh')return {...state,label:'Up to date'};
  if(refresh?.status==='running')return {...state,label:'Checking PCC',detail:state.detail+' · Checking PCC; previous counts remain displayed.'};
+ if(refresh?.status==='queued'&&refresh.last_failure)return {...state,label:'Retry scheduled',detail:state.detail+' · Previous PCC check failed — retry scheduled.'};
  if(refresh?.status==='queued')return {...state,label:'Update queued',detail:state.detail+' · Shared PCC update queued.'};
  return {...state,label:sections.length?'Older counts':'Not checked yet',detail:state.detail+(refresh?.last_failure?' · The last PCC check failed.':'')};
 }

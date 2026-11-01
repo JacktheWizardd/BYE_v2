@@ -1,0 +1,55 @@
+/* BYE — 和 direction tokens (Nov 1, 2026)
+   Source of truth for the redesign. Light mode only. Square corners everywhere. */
+
+:root {
+  /* Color — named after 日本の伝統色 */
+  --bye-paper: #f6f5f0;      /* 生成り kinari — page */
+  --bye-card: #fcfcf8;       /* raised content, inputs */
+  --bye-soft: #eaece4;       /* tiles, tracks, chips, skeletons */
+  --bye-zebra: #eeede6;      /* every 2nd row in long lists */
+  --bye-ink: #1a1c1b;        /* 墨 sumi — text, primary buttons, rules */
+  --bye-ink-2: #3d403b;      /* body copy */
+  --bye-muted: #5d615b;      /* fine print, labels */
+  --bye-dash: #8b8e86;       /* disabled borders */
+  --bye-line: #d7d9d0;       /* hairlines */
+  --bye-amber: #f3b63f;      /* 藤黄 tō'ō — highlight, active tab bar, some-waitlist */
+  --bye-amber-soft: #f4e7c7; /* sample tag, BYE score block */
+  --bye-amber-text: #8a5d00; /* "older data", "ending soon" text */
+  --bye-red: #9d2b22;        /* 紅樺 benikaba — errors, full, conflict, the seal */
+  --bye-green: #316745;      /* 千歳緑 chitose-midori — connected, seats open, saved */
+  --bye-rmp: #8f5400;        /* ★ 評価 rating text */
+  --bye-diff: #2f5487;       /* ▲ 難易度 difficulty text */
+
+  /* Course swatches (Plan) — one per course, used everywhere */
+  --bye-c1: #f3b63f;  /* e.g. MATH */
+  --bye-c2: #1a1c1b;  /* e.g. PHYS (light text) */
+  --bye-c3: #dbe5d3;  /* e.g. CS */
+  --bye-c4: #d6dfeb;  /* e.g. HIST */
+  --bye-c5: #ecd5c3;  /* e.g. KIN */
+  /* async/online = dashed ink outline; schedule unknown = dotted ink outline; lab = same swatch + 135° hatch */
+
+  /* Type */
+  --bye-font-sans: "Schibsted Grotesk", "Zen Kaku Gothic New", Arial, sans-serif;
+  --bye-font-jp: "Zen Kaku Gothic New", "Schibsted Grotesk", sans-serif; /* every kanji/kana */
+  --bye-font-mono: "JetBrains Mono", ui-monospace, monospace;           /* codes, CRNs, eyebrows */
+
+  /* Numbers: heavy number + smaller grey unit on one baseline (4.0 /5, 12 /40, 66 /100) */
+  --bye-num-hero: 800 48px/1 var(--bye-font-sans);  /* BYE score */
+  --bye-num: 800 32px/40px var(--bye-font-sans);    /* tiles, seats */
+  --bye-num-dash: 800 30px/34px var(--bye-font-sans);/* 授業/自習/合計 dashboard */
+  --bye-unit: 600 14px/1 var(--bye-font-sans);      /* color: --bye-muted */
+  --bye-eyebrow: 500 11px/14px var(--bye-font-mono); /* uppercase, letter-spacing 1px */
+  --bye-tag: 500 10px/12px var(--bye-font-mono);     /* uppercase, letter-spacing 1px */
+
+  /* Shape & space */
+  --bye-radius: 0;
+  --bye-border: 1px;
+  --bye-target: 44px;       /* min touch target */
+  --bye-focus: 2px solid var(--bye-ink); /* outline-offset: 2px */
+  --bye-gutter-phone: 16px;
+  --bye-gutter-tablet: 24px;
+  --bye-gutter-desktop: 32px;
+  --bye-max-desktop: 1376px;
+
+  /* Breakpoints (mobile first): base = 390, tablet ≥ 768, desktop ≥ 1200 */
+}

@@ -26,8 +26,8 @@ export async function all<T>(path:string,signal?:AbortSignal):Promise<T[]>{
 }
 export function sourceStatus(status:string){return ({O:'Open',C:'Closed',W:'Waitlist'} as Record<string,string>)[status]??`Source status: ${status}`}
 export type School={id:string,name:string,status:string};export type Term={id:string,name:string,imported?:boolean,import_state?:string};export type Course={id:string,code:string,title:string};
-export type Meeting={days:number[],start_time:string|null,end_time:string|null,start_date:string|null,end_date:string|null,timezone:string,format:string|null,format_code?:string|null,room:string|null,building:string|null};
-export type Section={id:string,course_id:string,units:number|null,instructors:{id:string,name:string,provisional:boolean}[],meetings:Meeting[],availability:{seats_open:number|null,capacity:number|null,waitlist_count:number|null,waitlist_capacity?:number|null,source_status:string|null,as_of:string}|null};
+export type Meeting={days:number[],start_time:string|null,end_time:string|null,start_date:string|null,end_date:string|null,timezone:string,format:string|null,campus?:string|null,format_code?:string|null,room:string|null,building:string|null};
+export type Section={id:string,course_id:string,units:number|null,instructors:{id:string,name:string,provisional:boolean}[],meetings:Meeting[],availability:{seats_open:number|null,enrolled?:number|null,capacity:number|null,waitlist_count:number|null,waitlist_capacity?:number|null,source_status:string|null,as_of:string}|null};
 export function delivery(s:Section){
  const codes=s.meetings.map(m=>m.format_code?.toUpperCase());
  if(!codes.length||codes.some(c=>!c))return 'Format not announced';
@@ -39,6 +39,7 @@ export function delivery(s:Section){
  return 'Format not announced';
 }
 export function fits(s:Section,days:number[]){return !days.length||delivery(s)==='Online · async'||s.meetings.length>0&&s.meetings.every(m=>m.days.length>0&&m.days.every(d=>days.includes(d)))}
-export function seatSummary(sections:Section[]){const unique=[...new Map(sections.map(s=>[s.id,s])).values()];return {count:unique.some(s=>s.availability?.seats_open==null)?null:unique.reduce((n,s)=>n+s.availability!.seats_open!,0),stale:unique.some(s=>!s.availability||!Number.isFinite(Date.parse(s.availability.as_of))||Date.now()-Date.parse(s.availability.as_of)>=300000)}}
+export function seatSummary(sections:Section[]){const unique=[...new Map(sections.map(s=>[s.id,s])).values()],eligible=unique.filter(s=>s.availability?.source_status==='O');return {count:unique.some(s=>!s.availability||!['O','C','W'].includes(s.availability.source_status??''))||eligible.some(s=>s.availability?.seats_open==null)?null:eligible.reduce((n,s)=>n+s.availability!.seats_open!,0),stale:unique.some(s=>!s.availability||!Number.isFinite(Date.parse(s.availability.as_of))||Date.now()-Date.parse(s.availability.as_of)>=300000)}}
+
 
 export function groups(sections:Section[]){const map=new Map<string,{id:string,name:string,sections:Section[]}>();for(const s of sections){for(const p of s.instructors.length?s.instructors:[{id:'tba',name:'Instructor to be announced'}]){if(!map.has(p.id))map.set(p.id,{...p,name:/^(staff|tba|to be announced)$/i.test(p.name)?'Instructor to be announced':p.name,sections:[]});const g=map.get(p.id)!;if(!g.sections.some(x=>x.id===s.id))g.sections.push(s)}}return [...map.values()].sort((a,b)=>a.name.localeCompare(b.name))}
