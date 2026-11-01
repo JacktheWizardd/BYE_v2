@@ -1,0 +1,56 @@
+{
+  "purpose": "Historical source reference and test regression cases; no student reviews imported.",
+  "school_id": "pasadena-city-college",
+  "catalog": {
+    "term_id": "202670",
+    "retrieved_on": "2026-10-18",
+    "file": "pcc-fall-2026-courses.json",
+    "file_sha256": "2494a81b86b3de9eafd97893e1ece36021cb826e796df204da76c0a73e81d937",
+    "database_id": "v1-fall-2026-2026-10-18",
+    "course_count": 1101
+  },
+  "sources": [
+    {
+      "repository": "JacktheWizardd/BYE_frontend",
+      "path": "apps/landing/src/content/pcc-courses.json",
+      "destination": "backEnd/reference/v1/pcc-fall-2026-courses.json",
+      "blob_sha": "2953ffba9fe89cd28d4196dd429372c5a0cf18ce",
+      "source_url": "https://github.com/JacktheWizardd/BYE_frontend/blob/main/apps/landing/src/content/pcc-courses.json",
+      "usage": "historical reference only"
+    },
+    {
+      "repository": "JacktheWizardd/BYE_backend",
+      "path": "Tests/ClasswiseCoreTests/Fixtures/pcc-summer-2026-eth014.json",
+      "destination": "backEnd/test/fixtures/v1/pcc-summer-2026-eth014.json",
+      "blob_sha": "b11b6fd8cf1f4fefdac2c4a5ec8608336c631cd4",
+      "source_url": "https://github.com/JacktheWizardd/BYE_backend/blob/main/Tests/ClasswiseCoreTests/Fixtures/pcc-summer-2026-eth014.json",
+      "usage": "synthetic regression derivative; original shape retained, identities and identifiers replaced for public distribution"
+    },
+    {
+      "repository": "JacktheWizardd/BYE_backend",
+      "path": "services/schedule-api/tests/fixtures/fall-2026.json",
+      "destination": "backEnd/test/fixtures/v1/fall-2026-synthetic.json",
+      "blob_sha": "e20ad3786a867c7c7d0f159a2a87bfe247d77061",
+      "source_url": "https://github.com/JacktheWizardd/BYE_backend/blob/main/services/schedule-api/tests/fixtures/fall-2026.json",
+      "usage": "test reference only"
+    },
+    {
+      "repository": "JacktheWizardd/BYE_backend",
+      "path": "docs/verification/native-api-matching-2026-10-10.json",
+      "destination": "backEnd/test/fixtures/v1/rmp-ambiguous-identities.json",
+      "blob_sha": "b875a0896c26ac22526ec823dd8b491ec71305fd",
+      "source_url": "https://github.com/JacktheWizardd/BYE_backend/blob/main/docs/verification/native-api-matching-2026-10-10.json",
+      "usage": "synthetic regression derivative; original shape retained, identities and identifiers replaced for public distribution"
+    }
+  ],
+  "not_recovered": [
+    "Original v1 professor directory from old Supabase project",
+    "Full ignored local schedule snapshots",
+    "Spring 2025 and Fall 2025 full schedules"
+  ],
+  "restrictions": [
+    "Historical titles were display-title-cased in v1; do not overwrite current official metadata.",
+    "Schedule fixtures are incomplete or synthetic and must not populate real offerings.",
+    "RMP cases remain ambiguous; no production identity links or cached ratings are imported."
+  ]
+}

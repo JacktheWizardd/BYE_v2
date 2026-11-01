@@ -1,0 +1,1 @@
+-- Superseded by migrations/. Use supabase db push on a linked development project.

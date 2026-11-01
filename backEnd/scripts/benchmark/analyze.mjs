@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+const root=new URL('../../../exports/benchmark/',import.meta.url);const read=async n=>JSON.parse(await fs.readFile(new URL(n,root)));
+const median=a=>{a=[...a].sort((x,y)=>x-y);return a.length%2?a[(a.length-1)/2]:(a[a.length/2-1]+a[a.length/2])/2};
+const result={api:[],browser:[]};
+for(const pass of ['before','after']){
+ const j=await read(pass+'-reference.json');for(const s of j.summary){const r=j.rows.filter(x=>x.family===s.family&&x.concurrency===s.concurrency);const elapsed=Math.max(...r.map(x=>x.offset_ms))-Math.min(...r.map(x=>x.offset_ms-x.ms));result.api.push({pass,...s,requests_per_second:30000/elapsed,timeouts:r.filter(x=>x.status==='timeout').length,stages:Object.fromEntries([...new Set(r.flatMap(x=>Object.keys(x.timings)))].map(k=>[k,{p50:median(r.map(x=>x.timings[k]??0)),p95:r.map(x=>x.timings[k]??0).sort((a,b)=>a-b)[28]}]))});}
+ for(const suffix of ['','-extra']){const runs=await read('browser-'+pass+suffix+'.json');for(const scenario of [...new Set(runs.map(x=>x.scenario))]){const selected=runs.filter(x=>x.scenario===scenario);const samples=selected.map(r=>{const t=r.timeline,target=({comparison:'comparison-ready',report:'report-ready','review-page':'review-page-ready',revisit:'report-ready',refresh:'sections-ready','report-deep-link':'report-ready'})[scenario];const m=t.marks.filter(x=>x.name===target).at(-1),click=t.actions.filter(x=>x.kind==='click'&&x.ms<=m.ms).at(-1);return m.ms-(scenario==='report-deep-link'?0:click?.ms??0)});result.browser.push({pass,scenario,cache:selected[0].cache,n:samples.length,median_ms:median(samples),min_ms:Math.min(...samples),max_ms:Math.max(...samples),samples});}}
+ const flows=await read('browser-'+pass+'.json');for(const r of flows.filter(r=>r.scenario==='refresh')){const t=r.timeline;result.browser.push({pass,scenario:'flow-request-count',run:r.run,sections:t.requests.filter(x=>x.family==='sections').length,total:t.requests.length});}
+}
+await fs.writeFile(new URL('analysis.json',root),JSON.stringify(result,null,2));console.log('Sanitized percentiles, throughput, stage timings and browser summaries saved.');

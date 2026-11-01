@@ -1,0 +1,7 @@
+project_id = "bye"
+[auth]
+enable_anonymous_sign_ins = true
+[functions.bye-api]
+verify_jwt = false
+[functions.bye-sync]
+verify_jwt = false

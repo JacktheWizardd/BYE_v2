@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BYE · Design A (Spellbook) mockup</title>
+<link rel="icon" href="assets/icons/sparkle.svg">
+<style>
+/* ---------- Fonts (local, OFL — see assets/fonts) ---------- */
+@font-face{font-family:"Libre Baskerville";src:url("assets/fonts/LibreBaskerville-Variable.ttf") format("truetype");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("assets/fonts/LibreBaskerville-Italic-Variable.ttf") format("truetype");font-weight:400 700;font-style:italic;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url("assets/fonts/SchibstedGrotesk-Variable.ttf") format("truetype");font-weight:400 900;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("assets/fonts/JetBrainsMono-Variable.ttf") format("truetype");font-weight:100 800;font-display:swap}
+
+/* ---------- Tokens ---------- */
+:root{
+  --paper:#faf8f3; --paper-2:#f2eee6; --card:#ffffff; --tile:#eae5db; --tile-line:#ddd6c9;
+  --ink:#161618; --ink-2:#6b665e; --line:#e2dcd0; --line-strong:#8c857a;
+  --highlight:#f2c14e; --signal:#b8401a; --good:#2f6b46;
+  --font-display:"Libre Baskerville",Georgia,serif; --font-sans:"Schibsted Grotesk",system-ui,sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-pill:999px;
+  --shadow-card:0 1px 0 rgba(22,22,24,.05),0 8px 24px -16px rgba(22,22,24,.28);
+  --shadow-pop:0 12px 32px -12px rgba(22,22,24,.28);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font:16px/24px var(--font-sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:where(a,button,input,select,[tabindex]):focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Primitives ---------- */
+.wordmark{display:inline-flex;align-items:baseline;gap:8px;text-decoration:none}
+.wordmark b{position:relative;z-index:0;font:700 26px/1 var(--font-display);letter-spacing:-.5px}
+.wordmark b::after{content:"";position:absolute;left:-3px;right:-3px;bottom:1px;height:9px;background:var(--highlight);border-radius:var(--r-sm);z-index:-1}
+.wordmark i{font:italic 400 14px/1 var(--font-display);color:var(--ink-2)}
+.hl{background:linear-gradient(transparent 58%,var(--highlight) 58%,var(--highlight) 92%,transparent 92%);padding:0 2px;color:inherit}
+.eyebrow{font:700 12px/16px var(--font-sans);letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;font:500 13px/18px var(--font-mono);padding:3px 8px;border-radius:var(--r-sm);background:var(--paper-2);border:1px solid var(--line);white-space:nowrap}
+.tag{display:inline-flex;align-items:center;font:700 11px/14px var(--font-sans);letter-spacing:.8px;text-transform:uppercase;padding:4px 8px;border-radius:var(--r-sm);background:var(--tile)}
+.tag.is-term{background:var(--card);border:1px solid var(--line);padding:3px 7px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:var(--r-pill);border:1.5px solid transparent;font:600 16px/20px var(--font-sans);text-decoration:none;cursor:pointer;background:none;transition:background .15s,color .15s,border-color .15s}
+.btn svg{width:18px;height:18px}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:var(--highlight);color:var(--ink)}
+.btn.primary:active{transform:translateY(1px)}
+.btn.secondary{background:var(--card);border-color:var(--line-strong)}
+.btn.secondary:hover{border-color:var(--ink)}
+.btn.ghost:hover{background:var(--paper-2)}
+.btn.danger{color:var(--signal);border-color:var(--signal);background:var(--card)}
+.btn.danger:hover{background:var(--signal);color:#fff}
+.btn[disabled],.btn[aria-disabled="true"]{cursor:default;background:var(--paper-2);color:var(--ink-2);border:1.5px dashed var(--line-strong)}
+.btn.block{display:flex;width:100%;min-height:54px;font-size:17px}
+.spin{width:16px;height:16px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label,.label{font:600 14px/18px var(--font-sans)}
+.help{font-size:13px;line-height:18px;color:var(--ink-2)}
+.input{width:100%;min-height:52px;padding:12px 14px;border-radius:var(--r-md);border:1.5px solid var(--line-strong);background:var(--card);font-size:17px}
+.input::placeholder{color:var(--ink-2)}
+.input:hover{border-color:var(--ink-2)}
+.input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px var(--highlight)}
+.input.is-error{border-color:var(--signal)}
+.input.code{font:500 22px/1 var(--font-mono);letter-spacing:5px;text-transform:uppercase}
+.err{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:20px;color:var(--signal);font-weight:600}
+.err svg{flex:none;width:18px;height:18px;margin-top:1px}
+.ok{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--good);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg)}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{min-height:44px;border-radius:var(--r-sm);border:1.5px solid var(--line-strong);background:var(--card);font:600 14px/18px var(--font-sans);cursor:pointer}
+.day:hover{border-color:var(--ink)}
+.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pill{min-height:40px;padding:0 14px;border-radius:var(--r-pill);border:1.5px solid var(--line-strong);background:var(--card);font:600 14px/18px var(--font-sans);cursor:pointer;white-space:nowrap}
+.pill:hover{border-color:var(--ink)}
+.pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.bar{height:6px;border-radius:var(--r-pill);background:var(--paper-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--highlight);border-radius:var(--r-pill)}
+.skel{background:linear-gradient(90deg,var(--paper-2),var(--tile),var(--paper-2));background-size:200% 100%;animation:shimmer 1.4s linear infinite;border-radius:6px;color:transparent}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* ---------- Shell ---------- */
+.demo{background:var(--ink);color:var(--paper);font-size:12px;line-height:16px;text-align:center;padding:6px 16px}
+.top{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px}
+.top nav{display:flex;align-items:center;gap:4px}
+.top nav a{padding:10px 12px;border-radius:var(--r-pill);text-decoration:none;font-weight:600;font-size:15px;color:var(--ink-2)}
+.top nav a:hover{color:var(--ink);background:var(--paper-2)}
+.top nav a[aria-current="page"]{color:var(--ink)}
+main{max-width:1200px;margin:0 auto;padding:0 20px 64px}
+main:focus{outline:none}
+.foot{max-width:1200px;margin:0 auto;padding:20px;border-top:1px solid var(--line);font-size:13px;line-height:19px;color:var(--ink-2)}
+
+/* ---------- Landing ---------- */
+.land{display:grid;gap:32px;padding-top:40px;grid-template-columns:minmax(0,1fr)}
+.hero h1{margin:0;font:600 40px/44px var(--font-display);letter-spacing:-1px}
+.hero .lead{margin:0;font-size:17px;line-height:26px;color:var(--ink-2)}
+.hero .sig{margin:4px 0 0;font:italic 400 22px/28px var(--font-display)}
+.kicker{display:flex;align-items:center;gap:8px;font:italic 400 15px/20px var(--font-display);color:var(--ink-2)}
+.kicker svg{width:16px;height:16px;color:var(--signal)}
+.invite{padding:24px 20px;display:flex;flex-direction:column;gap:14px;border:1.5px solid var(--ink);box-shadow:var(--shadow-card)}
+.invite h2{margin:0;font:600 26px/30px var(--font-display);letter-spacing:-.4px}
+.spell h2{margin:0 0 8px;font:600 24px/30px var(--font-display)}
+.spell-row{display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 12px;padding:16px 0;border-top:1px solid var(--line)}
+.spell-row:last-child{border-bottom:1px solid var(--line)}
+.spell-row i{font:italic 600 22px/26px var(--font-display);color:var(--ink-2)}
+.spell-row p{margin:2px 0 0;font-size:15px;line-height:22px;color:var(--ink-2)}
+@media (min-width:1024px){
+  .land{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:64px;padding-top:88px;align-items:start}
+  .hero h1{font-size:64px;line-height:68px;letter-spacing:-1.8px}
+  .hero .lead{font-size:20px;line-height:30px;max-width:540px}
+  .spell{grid-column:1 / -1}
+  .spell-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px}
+  .spell-row:last-child{border-bottom:0}
+  .spell-row{border-bottom:1px solid var(--line)}
+}
+
+/* ---------- Search ---------- */
+.page-h{margin:0;font:600 32px/36px var(--font-display);letter-spacing:-.6px}
+.search{max-width:560px;margin:0 auto;padding-top:28px;display:flex;flex-direction:column;gap:22px}
+.combo{position:relative}
+.combo .input{padding-left:44px}
+.combo>svg{position:absolute;left:14px;top:16px;width:20px;height:20px;color:var(--ink-2);pointer-events:none}
+.suggest{position:absolute;z-index:4;left:0;right:0;top:calc(100% + 6px);margin:0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-pop)}
+.suggest li{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;align-items:center;min-height:44px;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:15px}
+.suggest li[aria-selected="true"],.suggest li:hover{background:var(--paper-2)}
+.suggest li b{font:500 14px/18px var(--font-mono)}
+.suggest .none{display:block;color:var(--ink-2)}
+.try{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.try a{min-height:36px;display:inline-flex;align-items:center;text-decoration:none}
+.try a:hover .chip{border-color:var(--ink)}
+
+/* ---------- Results (professors + report) ---------- */
+.ctx{display:flex;align-items:center;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ctx .back{width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-pill);text-decoration:none;margin-left:-10px}
+.ctx .back:hover{background:var(--paper-2)}
+.ctx .back svg{width:22px;height:22px}
+.ctx-t{flex:1;min-width:0}
+.ctx-t span{display:block;font-size:13px;line-height:18px;color:var(--ink-2)}
+.progress{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);padding:10px 0 0}
+.progress .bar{flex:1;height:4px}
+.progress .bar i{background:var(--ink)}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding-top:16px}
+.list-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.list-h h1{margin:0;font:600 30px/34px var(--font-display);letter-spacing:-.6px}
+.sorts{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px}
+.rows{margin-top:8px}
+.row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:2px 12px;align-items:baseline;padding:16px 8px;margin:0 -8px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);border-radius:var(--r-md)}
+.row:last-child{border-bottom:1px solid var(--line)}
+a.row:hover{background:var(--paper-2)}
+a.row:hover b{text-decoration:underline;text-decoration-color:var(--highlight);text-decoration-thickness:4px;text-underline-offset:2px}
+.row[aria-current="true"]{background:var(--card);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.row i.rk{font:italic 600 18px/24px var(--font-display);color:var(--ink-2)}
+.row b{font:600 19px/24px var(--font-display);letter-spacing:-.2px}
+.row small{grid-column:2;font-size:13px;line-height:19px;color:var(--ink-2)}
+.row .sc{grid-row:1 / span 2;grid-column:3;align-self:center;font:italic 600 34px/1 var(--font-display);letter-spacing:-.8px;text-align:right}
+.row .sc.txt{font:600 15px/20px var(--font-sans)}
+.row .warn{color:var(--signal);font-weight:600}
+.note{margin:12px 0 0;font:italic 400 14px/20px var(--font-display);color:var(--ink-2)}
+.empty{padding:40px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.empty svg{width:28px;height:28px;color:var(--signal)}
+.empty h2{margin:0;font:600 24px/30px var(--font-display)}
+.empty p{margin:0;max-width:360px;color:var(--ink-2)}
+.report{display:flex;flex-direction:column;gap:28px}
+.report h1{margin:6px 0 4px;font:600 34px/38px var(--font-display);letter-spacing:-.6px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat{background:var(--paper-2);border-radius:var(--r-lg);padding:14px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat b{font:600 32px/1 var(--font-display);letter-spacing:-.8px}
+.stat b small{font:400 13px/1 var(--font-sans);color:var(--ink-2);margin-left:2px;letter-spacing:0}
+.stat span{font-size:13px;line-height:17px;color:var(--ink-2)}
+.stat .bar{background:var(--card)}
+.sec-h{margin:0;font:600 22px/28px var(--font-display);letter-spacing:-.3px}
+.section{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:16px 18px;border-radius:var(--r-lg);background:var(--paper-2)}
+.section .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.section .when{font-weight:600;font-size:16px;line-height:22px}
+.section .meta{font-size:13px;line-height:19px;color:var(--ink-2)}
+.seats{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid var(--line)}
+.seats-l{font-size:12px;line-height:16px;color:var(--ink-2)}
+.seats-l b{font:700 22px/1 var(--font-display);color:var(--ink);margin-right:3px}
+.seats .bar{background:var(--card)}
+.seats .bar i{background:var(--ink)}
+.seats .wait{font-size:12px;color:var(--ink-2)}
+.seats.full .wait{color:var(--signal);font-weight:600}
+.review{padding:18px;display:flex;flex-direction:column;gap:10px}
+.review header,.review footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.review p{margin:0}
+.review a{color:var(--ink);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;min-height:32px}
+.review a:hover{text-decoration:underline}
+.review a svg{width:14px;height:14px}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-right:-20px;padding-right:20px}
+@media (min-width:1024px){
+  .split{grid-template-columns:400px minmax(0,1fr);gap:48px;align-items:start}
+  .split .pane-list{position:sticky;top:90px}
+  .section{grid-template-columns:minmax(0,1fr) 180px;align-items:center}
+  .seats{padding:0 0 0 20px;border-top:0;border-left:1px solid var(--line)}
+  .filters{margin-right:0;padding-right:0;flex-wrap:wrap}
+  .report h1{font-size:44px;line-height:48px}
+}
+@media (max-width:1023px){ .split.has-detail .pane-list{display:none} .split.list-only .pane-detail{display:none} }
+
+/* ---------- Choose profile ---------- */
+.choose{max-width:560px;margin:0 auto;padding-top:24px;display:flex;flex-direction:column;gap:16px}
+.opt{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 12px;padding:16px;border-radius:var(--r-lg);border:1.5px solid var(--line-strong);background:var(--card);cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--paper)}
+.opt input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink)}
+.opt b{font:600 18px/24px var(--font-display)}
+.opt span{grid-column:2;font-size:14px;line-height:20px;color:var(--ink-2)}
+
+/* ---------- Admin ---------- */
+.admin{max-width:760px;margin:0 auto;padding-top:28px;display:flex;flex-direction:column;gap:24px}
+.gen{padding:20px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.codes{list-style:none;margin:0;padding:0}
+.code-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.code-row:last-child{border-bottom:1px solid var(--line)}
+.code-row code{font:500 18px/24px var(--font-mono);letter-spacing:2px}
+.code-row .who{font-size:14px;color:var(--ink-2)}
+.code-row .acts{grid-row:1 / span 2;grid-column:2;display:flex;gap:6px}
+.code-row .acts .btn{min-height:44px;padding:0 14px;font-size:14px}
+.status{display:inline-flex;align-items:center;gap:6px;font:700 11px/14px var(--font-sans);letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:var(--r-sm);margin-left:8px;vertical-align:2px}
+.status.unused{background:#fdf1cf;color:#6b4e00}
+.status.used{background:#e3efe7;color:var(--good)}
+.status.revoked{background:var(--paper-2);color:var(--ink-2);text-decoration:line-through}
+.code-row.is-revoked code{color:var(--ink-2);text-decoration:line-through}
+@media (min-width:720px){ .gen{grid-template-columns:minmax(0,1fr) auto;align-items:end} }
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:10px;max-width:calc(100% - 32px);padding:12px 18px;border-radius:var(--r-pill);background:var(--ink);color:var(--paper);font-weight:600;font-size:15px;box-shadow:var(--shadow-pop);animation:toastIn .2s ease-out}
+.toast svg{width:18px;height:18px;color:var(--highlight)}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,8px)}}
+
+/* ---------- Mockup panel (not part of the product) ---------- */
+.mock{position:fixed;right:12px;bottom:12px;z-index:30;font:13px/18px var(--font-sans)}
+.mock summary{cursor:pointer;list-style:none;padding:8px 14px;border-radius:var(--r-pill);background:#2b2b33;color:#fff;font-weight:600}
+.mock div{position:absolute;right:0;bottom:44px;width:260px;max-height:70vh;overflow:auto;padding:10px;background:#2b2b33;color:#fff;border-radius:12px}
+.mock a{display:block;padding:5px 8px;border-radius:6px;color:#fff;text-decoration:none}
+.mock a:hover{background:#44444f}
+.mock p{margin:8px 8px 2px;color:#a9a9b8;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+body.shots .mock{display:none}
+</style>
+</head>
+<body>
+<div class="demo" role="note"><b>Demo</b> · sample data, nothing is saved</div>
+<header class="top"><div class="top-in" id="top"></div></header>
+<main id="view" tabindex="-1"></main>
+<footer class="foot">A personal project by TheWizardd. Not affiliated with Pasadena City College or Rate My Professors.</footer>
+<div id="toast-host" aria-live="polite"></div>
+
+<details class="mock"><summary>Mockup ▾</summary><div>
+  <p>Landing / invite</p>
+  <a href="#/">Default</a><a href="#/?state=verifying">Verifying code</a><a href="#/?state=error">Wrong code (2 tries left)</a><a href="#/?state=locked">Locked (too many tries)</a>
+  <p>Search</p>
+  <a href="#/search">Default</a><a href="#/search?state=suggest">Suggestions open</a><a href="#/search?state=noresult">No class found</a><a href="#/search?state=error">Missing class</a>
+  <p>Professors</p>
+  <a href="#/professors?state=loading">Checking RMP (loading)</a><a href="#/professors">Loaded</a><a href="#/professors?state=empty">No matching sections</a>
+  <p>Report</p>
+  <a href="#/report/a">Professor A</a><a href="#/report/e">Can't retrieve ratings</a><a href="#/choose/d">Choose RMP profile</a>
+  <p>Admin (owner only)</p>
+  <a href="#/admin">Invite codes</a><a href="#/admin?state=empty">No codes yet</a>
+  <p>Tip: correct demo code is WIZD-2026</p>
+</div></details>
+
+<script>
+/* ===== Icons ===== */
+const I = {
+  sparkle:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.6 5.2 4.8 9.4 10 10-5.2.6-9.4 4.8-10 10-.6-5.2-4.8-9.4-10-10 5.2-.6 9.4-4.8 10-10z" fill="currentColor"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>',
+  ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>',
+};
+
+/* ===== Mock data (replace with backend) ===== */
+const COURSES = [
+  ['MATH 5A','Calculus I'],['MATH 5B','Calculus II'],['MATH 3','Precalculus'],['ENGL 1A','Reading and Composition'],
+  ['CS 2','Fundamentals of Computer Science II'],['PHYS 1A','Mechanics'],['CHEM 1A','General Chemistry'],['ETH 14','Asian American History'],
+];
+const PROFS = [
+  {id:'a',name:'Professor A',rating:4.6,diff:2.8,again:91,count:38,sections:[
+    {crn:'40213',format:'In person',term:'Full term',when:'Mon, Wed · 9:00–10:25 AM',meta:'Room R 317 · Aug 24 – Dec 12 · 5 units',open:18,cap:30,wait:'Waitlist 0 of 7'},
+    {crn:'40218',format:'Online · async',term:'8-week · 2nd',when:'No scheduled meetings',meta:'Canvas · Oct 19 – Dec 12 · 5 units',open:0,cap:30,wait:'Full · waitlist 3 of 7'}]},
+  {id:'b',name:'Professor B',rating:4.1,diff:3.2,again:80,count:21,sections:[
+    {crn:'40230',format:'Hybrid',term:'Full term',when:'Wed · 11:10 AM–12:35 PM',meta:'Room R 320 + Canvas · Aug 24 – Dec 12 · 5 units',open:6,cap:30,wait:'Waitlist 0 of 7'}]},
+  {id:'c',name:'Professor C',rating:3.7,diff:3.6,again:68,count:54,sections:[
+    {crn:'40241',format:'In person',term:'Full term',when:'Mon, Wed · 1:00–2:25 PM',meta:'Room R 305 · Aug 24 – Dec 12 · 5 units',open:22,cap:35,wait:'Waitlist 0 of 7'}]},
+  {id:'d',name:'Professor D',status:'choose',sections:[{crn:'40252',format:'In person',term:'Full term',when:'Mon, Wed · 7:30–8:55 PM',meta:'Room C 112 · Aug 24 – Dec 12 · 5 units',open:29,cap:35,wait:'Waitlist 0 of 7'}]},
+  {id:'e',name:'Professor E',status:'error',sections:[{crn:'40260',format:'Online · async',term:'Full term',when:'No scheduled meetings',meta:'Canvas · Aug 24 – Dec 12 · 5 units',open:12,cap:35,wait:'Waitlist 0 of 7'}]},
+  {id:'tba',name:'Instructor to be announced',status:'tba',sections:[{crn:'40270',format:'Online · async',term:'Full term',when:'No scheduled meetings',meta:'Canvas',open:35,cap:35,wait:''}]},
+];
+const REVIEWS = [
+  {course:'MATH 5A',date:'Sep 2026',r:5,d:3,text:'Night class that never feels long. Lots of worked examples, and the notes go up after every lecture.'},
+  {course:'MATH 5A',date:'Aug 2026',r:4,d:3,text:'Quizzes every Monday on the previous week. Partial credit on exams if your setup is right.'},
+  {course:'MATH 5B',date:'May 2026',r:5,d:2,text:'Explains every step twice. Office hours are actually useful.'},
+  {course:'MATH 5A',date:'May 2026',r:3,d:4,text:'Fair grader, but you have to keep up on your own. Start the homework early.'},
+  {course:'MATH 3',date:'Dec 2025',r:4,d:2,text:'Clear syllabus and no surprises on the final.'},
+];
+const CODES0 = [
+  {code:'WIZD-2026',who:'Me (owner)',status:'used',when:'Used Oct 12'},
+  {code:'K7PQ-M3XA',who:'Minh',status:'used',when:'Used Oct 20'},
+  {code:'R2LD-9VBN',who:'Study group',status:'unused',when:'Created Oct 28'},
+  {code:'H8TS-4WQE',who:'—',status:'revoked',when:'Revoked Oct 29'},
+];
+
+/* ===== State ===== */
+const S = { tries:3, lockedUntil:0, codes:JSON.parse(JSON.stringify(CODES0)), sort:'rating', days:['M','W'], course:'MATH 5A', term:'Fall 2026', reviewFilter:'this', reviewSort:'new', shown:3 };
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $ = (s, r=document) => r.querySelector(s);
+function toast(msg){ const h=$('#toast-host'); h.innerHTML=`<div class="toast" role="status">${I.check}<span>${esc(msg)}</span></div>`; clearTimeout(toast.t); toast.t=setTimeout(()=>h.innerHTML='',2600); }
+function parse(){ const [p,q]=(location.hash.slice(1)||'/').split('?'); return {path:p||'/', q:new URLSearchParams(q||'')}; }
+function go(h){ location.hash=h; }
+
+/* ===== Header ===== */
+function header(path){
+  const signed = path!=='/';
+  $('#top').innerHTML = `
+    <a class="wordmark" href="#/" aria-label="BYE home"><b>BYE</b><i>by TheWizardd</i></a>
+    ${signed ? `<nav aria-label="Main"><a href="#/search" ${path.startsWith('/search')||path.startsWith('/prof')||path.startsWith('/report')?'aria-current="page"':''}>Search</a><a href="#/admin" ${path==='/admin'?'aria-current="page"':''}>Invites</a></nav>`
+             : `<a class="btn ghost" href="#/" onclick="event.preventDefault();document.getElementById('code').scrollIntoView({behavior:'smooth'});document.getElementById('code-in').focus({preventScroll:true})" style="min-height:44px;padding:0 12px">Have a code?</a>`}`;
+}
+
+/* ===== Screens ===== */
+function landing(q){
+  const st = q.get('state') || (Date.now()<S.lockedUntil?'locked':'');
+  const err = st==='error' ? `<p class="err" id="code-err">${I.alert}<span>That code didn't work. Check it with whoever sent it. 2 tries left.</span></p>` : '';
+  const locked = st==='locked';
+  return `<div class="land">
+    <section class="hero" style="display:flex;flex-direction:column;gap:16px">
+      <span class="kicker">${I.sparkle}A small spell for picking classes</span>
+      <h1>I made BYE so I'd stop <mark class="hl">guessing</mark> at professors.</h1>
+      <p class="lead">Hi, I'm TheWizardd, a CS student at Pasadena City College. BYE puts every section of a PCC class next to its Rate My Professors ratings. It's my own tool, shared with a few friends.</p>
+      <p class="sig">— TheWizardd</p>
+    </section>
+    <section id="code">
+      <form class="card invite" novalidate onsubmit="return submitCode(event)">
+        <span class="eyebrow">Invite only</span>
+        <h2>Got an invite code?</h2>
+        <div class="field">
+          <label for="code-in">Invite code</label>
+          <input id="code-in" class="input code ${st==='error'?'is-error':''}" placeholder="XXXX-XXXX" maxlength="9" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false"
+            ${st==='error'?'value="WIZD-2025" aria-invalid="true" aria-describedby="code-err"':''} ${st==='verifying'?'value="WIZD-2026" readonly':''} ${locked?'disabled':''} oninput="fmtCode(this)">
+          ${locked ? `<p class="err" id="code-err">${I.alert}<span>Too many tries. You can try again in <b id="lock-s">60</b> seconds.</span></p>` : err || `<span class="help">Codes come from me. Ask if you need one.</span>`}
+        </div>
+        ${st==='verifying' ? `<button class="btn block primary" disabled aria-busy="true"><svg class="spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.6 5.2 4.8 9.4 10 10-5.2.6-9.4 4.8-10 10-.6-5.2-4.8-9.4-10-10 5.2-.6 9.4-4.8 10-10z" fill="currentColor"/></svg>Checking code…</button>`
+          : `<button class="btn block primary" ${locked?'disabled':''}>Unlock BYE ${I.arrow}</button>`}
+      </form>
+    </section>
+    <section class="spell">
+      <h2>What's in the spellbook</h2>
+      <div class="spell-list">
+        <div class="spell-row"><i>i.</i><div><b>Every section of a class</b><p>Days, times, format and open seats, straight from PCC's schedule.</p></div></div>
+        <div class="spell-row"><i>ii.</i><div><b>Ratings side by side</b><p>Rating, difficulty and "would take again" from Rate My Professors.</p></div></div>
+        <div class="spell-row"><i>iii.</i><div><b>Only days you're free</b><p>Tap your free days and the rest disappears.</p></div></div>
+      </div>
+    </section>
+  </div>`;
+}
+window.fmtCode = (el) => { const v=el.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8); el.value = v.length>4 ? v.slice(0,4)+'-'+v.slice(4) : v; el.classList.remove('is-error'); };
+window.submitCode = (e) => {
+  e.preventDefault();
+  const v = $('#code-in').value;
+  if (v.replace('-','').length<8){ render('state=error'); return false; }
+  location.hash = '#/?state=verifying';
+  setTimeout(()=>{
+    if (v==='WIZD-2026'){ toast('Welcome in. Code accepted.'); go('#/search'); }
+    else { S.tries--; if(S.tries<=0){ S.lockedUntil=Date.now()+60000; S.tries=3; go('#/?state=locked'); } else go('#/?state=error'); }
+  }, 900);
+  return false;
+};
+
+function search(q){
+  const st=q.get('state')||'';
+  const val = st==='suggest' ? 'math 5' : st==='noresult' ? 'xyz 99' : '';
+  return `<div class="search">
+    <div><h1 class="page-h">Find your <mark class="hl">professor.</mark></h1><p class="muted" style="margin:8px 0 0">Every section of a PCC class, with ratings.</p></div>
+    <form novalidate onsubmit="return doSearch(event)" style="display:flex;flex-direction:column;gap:22px">
+      <div class="field">
+        <label for="class-in">Class</label>
+        <div class="combo">${I.search}
+          <input id="class-in" class="input ${st==='error'?'is-error':''}" role="combobox" aria-expanded="${st==='suggest'||st==='noresult'}" aria-controls="sugg" aria-autocomplete="list" placeholder="MATH 5A or a class title" value="${val}" autocomplete="off" oninput="suggest(this.value)" onkeydown="suggestKey(event)" ${st==='error'?'aria-invalid="true" aria-describedby="class-err"':''}>
+          <ul id="sugg" class="suggest" role="listbox" ${st==='suggest'||st==='noresult'?'':'hidden'}>${sugList(val)}</ul>
+        </div>
+        ${st==='error'?`<p class="err" id="class-err">${I.alert}<span>Pick a class first, like MATH 5A.</span></p>`:''}
+      </div>
+      <div class="field"><label for="term">Semester</label><select id="term" class="input"><option>Fall 2026</option><option>Spring 2027</option></select></div>
+      <div class="field">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="label" id="days-l">Days you're free</span><span class="help">Optional</span></div>
+        <div class="days" role="group" aria-labelledby="days-l">${['M','T','W','Th','F','Sa','Su'].map((d,i)=>`<button type="button" class="day" aria-pressed="${S.days.includes(d)}" aria-label="${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i]}" onclick="toggleDay(this,'${d}')">${d}</button>`).join('')}</div>
+        <span class="help">Only classes meeting on these days. Online classes always show.</span>
+      </div>
+      <button class="btn block primary">Find professors ${I.arrow}</button>
+    </form>
+    <div class="try"><span class="help" style="margin-right:4px">Try</span>${['MATH 5A','ENGL 1A','CS 2'].map(c=>`<a href="#/professors?course=${encodeURIComponent(c)}"><span class="chip">${c}</span></a>`).join('')}</div>
+  </div>`;
+}
+function sugList(v){
+  const t=v.trim().toLowerCase(); if(!t) return '';
+  const m=COURSES.filter(([c,n])=>c.toLowerCase().includes(t)||n.toLowerCase().includes(t)).slice(0,6);
+  if(!m.length) return `<li class="none" role="option" aria-disabled="true">No PCC class matches "${esc(v)}". Try the code, like MATH 5A.</li>`;
+  return m.map(([c,n],i)=>`<li role="option" id="opt-${i}" aria-selected="${i===0}" onmousedown="pickCourse('${c}')"><b>${c}</b><span>${esc(n)}</span></li>`).join('');
+}
+window.suggest=(v)=>{ const u=$('#sugg'); u.innerHTML=sugList(v); u.hidden=!v.trim(); $('#class-in').setAttribute('aria-expanded',String(!u.hidden)); $('#class-in').classList.remove('is-error'); };
+window.suggestKey=(e)=>{ const u=$('#sugg'); const opts=[...u.querySelectorAll('li[id]')]; if(!opts.length||u.hidden) return; let i=opts.findIndex(o=>o.getAttribute('aria-selected')==='true');
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); i=(i+(e.key==='ArrowDown'?1:-1)+opts.length)%opts.length; opts.forEach((o,k)=>o.setAttribute('aria-selected',k===i)); $('#class-in').setAttribute('aria-activedescendant',opts[i].id); }
+  else if(e.key==='Enter'){ e.preventDefault(); pickCourse(opts[Math.max(i,0)].querySelector('b').textContent); }
+  else if(e.key==='Escape'){ u.hidden=true; } };
+window.pickCourse=(c)=>{ const n=COURSES.find(x=>x[0]===c)[1]; $('#class-in').value=`${c} · ${n}`; $('#sugg').hidden=true; S.course=c; };
+window.toggleDay=(b,d)=>{ const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); S.days=on?[...S.days,d]:S.days.filter(x=>x!==d); };
+window.doSearch=(e)=>{ e.preventDefault(); const v=$('#class-in').value.trim(); if(!v){ go('#/search?state=error'); return false; } const hit=COURSES.find(([c])=>v.toUpperCase().startsWith(c)); if(hit) S.course=hit[0]; S.term=$('#term').value; go('#/professors?state=loading'); return false; };
+
+function ctx(backHref, label){
+  const n=(COURSES.find(c=>c[0]===S.course)||['',''])[1];
+  return `<div class="ctx"><a class="back" href="${backHref}" aria-label="${label}">${I.back}</a>
+    <div class="ctx-t"><b style="display:flex;align-items:center;gap:8px"><span class="chip">${esc(S.course)}</span>${esc(n)}</b><span>${esc(S.term)} · free ${S.days.length?S.days.join(', '):'any day'}</span></div>
+    <a class="btn ghost" href="#/search" style="min-height:44px;padding:0 12px">Edit</a></div>`;
+}
+function sorted(){ const r=PROFS.filter(p=>!p.status), o=PROFS.filter(p=>p.status);
+  const k={rating:(a,b)=>b.rating-a.rating, easy:(a,b)=>a.diff-b.diff, count:(a,b)=>b.count-a.count}[S.sort]; return [...r.sort(k),...o]; }
+function list(q, selected){
+  const st=q.get('state')||'';
+  if(st==='empty') return `<div class="empty">${I.alert}<h2>No sections on your days</h2><p>${esc(S.course)} has 7 sections in ${esc(S.term)}, but none meet only on ${S.days.join(', ')}. Try adding a day, or clear the filter.</p><a class="btn secondary" href="#/search">Change days</a></div>`;
+  const loading = st==='loading';
+  const done = loading ? 0 : 6;
+  const rows = sorted().map((p,i)=>{
+    const cur = selected===p.id ? 'aria-current="true"' : '';
+    const secs = `${p.sections.length} section${p.sections.length>1?'s':''} · ${[...new Set(p.sections.map(s=>s.format.split(' ·')[0]))].join(', ')}`;
+    if(loading && !p.status) return `<div class="row" aria-busy="true"><i class="rk">${roman(i+1)}.</i><b>${p.name}</b><span class="sc txt muted">Checking…</span><small><span class="skel">Difficulty 0.0 · 00% again</span></small><small>${secs}</small></div>`;
+    if(p.status==='choose') return `<a class="row" href="#/choose/d" ${cur}><i class="rk">${roman(i+1)}.</i><b>${p.name}</b><span class="sc txt">Choose ${I.arrow.replace('<svg','<svg style="width:16px;height:16px;vertical-align:-3px"')}</span><small style="color:var(--ink)">Two RMP profiles match</small><small>${secs}</small></a>`;
+    if(p.status==='error') return `<a class="row" href="#/report/e" ${cur}><i class="rk">${roman(i+1)}.</i><b>${p.name}</b><span class="sc muted">—</span><small><span class="warn">Can't get RMP ratings.</span> Open to retry.</small><small>${secs}</small></a>`;
+    if(p.status==='tba') return `<div class="row"><i class="rk">—</i><b class="muted">${p.name}</b><span class="sc muted">—</span><small>PCC hasn't named an instructor yet</small><small>${secs}</small></div>`;
+    return `<a class="row" href="#/report/${p.id}" ${cur}><i class="rk">${roman(i+1)}.</i><b>${p.name}</b><span class="sc">${p.rating.toFixed(1)}</span><small>Difficulty ${p.diff} · ${p.again}% would take again</small><small>${secs}</small></a>`;
+  }).join('');
+  return `<div class="list-h"><h1>Who's teaching</h1><span class="help">${PROFS.length-1} professors · 7 sections</span></div>
+    ${loading?`<div class="progress"><span class="bar" role="progressbar" aria-label="Checking Rate My Professors" aria-valuemin="0" aria-valuemax="5" aria-valuenow="2"><i style="width:40%"></i></span><span>Checking RMP… 2 of 5</span></div>`:''}
+    <div class="sorts" role="group" aria-label="Sort professors">
+      ${[['rating','Best rated'],['easy','Easiest'],['count','Most ratings']].map(([k,l])=>`<button type="button" class="pill" aria-pressed="${S.sort===k}" onclick="S.sort='${k}';render()">${l}</button>`).join('')}
+    </div>
+    <div class="rows">${rows}</div>
+    <p class="note">Ratings are students' opinions, not a promise. Choose wisely.</p>`;
+}
+const roman=(n)=>['i','ii','iii','iv','v','vi','vii'][n-1]||n;
+
+function report(id, q){
+  const p=PROFS.find(x=>x.id===id)||PROFS[0];
+  if(p.status==='error') return `<div class="report"><div><span class="eyebrow">Professor report</span><h1>${p.name}</h1></div>
+    <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px;border-color:var(--signal)"><p class="err" style="margin:0">${I.alert}<span>We couldn't get Rate My Professors info for ${p.name}.</span></p><p class="muted" style="margin:0">RMP might be slow or down. Sections below are still accurate.</p><button class="btn secondary" style="align-self:flex-start" onclick="toast('Trying again…')">Try again</button></div>
+    ${sections(p)}</div>`;
+  const shownRev = REVIEWS.filter(r=>S.reviewFilter==='all'||r.course===S.course).sort((a,b)=>S.reviewSort==='high'?b.r-a.r:S.reviewSort==='low'?a.r-b.r:0);
+  const filt=[['this',`This class · ${REVIEWS.filter(r=>r.course===S.course).length}`],['all',`All · ${REVIEWS.length}`]];
+  return `<div class="report">
+    <div><span class="eyebrow">Professor report</span><h1>${p.name}</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:14px;color:var(--ink-2)"><span>Mathematics · Pasadena City College</span><a href="#/choose/d" style="font-weight:600;color:var(--ink);padding:8px 0">Wrong person? Change profile</a></div></div>
+    <section aria-label="Scores" style="display:flex;flex-direction:column;gap:10px">
+      <div class="stats">
+        <div class="stat"><b>${p.rating}<small>/5</small></b><span>Rating</span><span class="bar" role="img" aria-label="Rating ${p.rating} of 5"><i style="width:${p.rating/5*100}%"></i></span></div>
+        <div class="stat"><b>${p.diff}<small>/5</small></b><span>Difficulty</span><span class="bar" role="img" aria-label="Difficulty ${p.diff} of 5"><i style="width:${p.diff/5*100}%"></i></span></div>
+        <div class="stat"><b>${p.again}%</b><span>Would take again</span></div>
+      </div>
+      <p class="help" style="margin:0">${p.count} ratings across all courses · lower difficulty means easier · <a href="#" onclick="return false">Rate My Professors ${I.ext.replace('<svg','<svg style="width:12px;height:12px"')}</a></p>
+    </section>
+    ${sections(p)}
+    <section style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 class="sec-h">Student reviews</h2>
+        <label class="sr" for="rsort">Sort reviews</label><select id="rsort" class="input" style="width:auto;min-height:40px;padding:6px 10px;font-size:14px" onchange="S.reviewSort=this.value;render()">${[['new','Newest'],['high','Highest rating'],['low','Lowest rating']].map(([k,l])=>`<option value="${k}" ${S.reviewSort===k?'selected':''}>${l}</option>`).join('')}</select></div>
+      <div class="filters" role="group" aria-label="Which reviews">${filt.map(([k,l])=>`<button type="button" class="pill" aria-pressed="${S.reviewFilter===k}" onclick="S.reviewFilter='${k}';S.shown=3;render()">${l}</button>`).join('')}</div>
+      ${shownRev.slice(0,S.shown).map(r=>`<article class="card review"><header><span class="chip">${r.course}</span><span>Posted ${r.date}</span></header><p>${esc(r.text)}</p><footer><span>Rating ${r.r} · Difficulty ${r.d}</span><a href="#" onclick="return false">Source ${I.ext}</a></footer></article>`).join('')}
+      ${shownRev.length>S.shown?`<button type="button" class="btn secondary" onclick="S.shown+=3;render()">Show more reviews</button>`:`<p class="help" style="text-align:center;margin:0">That's every review.</p>`}
+    </section></div>`;
+}
+function sections(p){
+  return `<section style="display:flex;flex-direction:column;gap:10px"><h2 class="sec-h">Sections <span class="muted">· ${p.sections.length}</span></h2>
+    ${p.sections.map(s=>{ const full=s.open===0; return `<article class="section"><div><div class="tags"><span class="chip">CRN ${s.crn}</span><span class="tag">${s.format}</span><span class="tag is-term">${s.term}</span></div><div class="when">${s.when}</div><div class="meta">${s.meta}</div></div>
+      <div class="seats ${full?'full':''}"><div class="seats-l"><b>${s.open}</b>of ${s.cap} seats open</div><div class="bar" role="img" aria-label="${s.open} of ${s.cap} seats open"><i style="width:${s.open/s.cap*100}%"></i></div><div class="wait">${s.wait}</div></div></article>`; }).join('')}</section>`;
+}
+
+function results(q, detailId){
+  return `${ctx(detailId?'#/professors':'#/search', detailId?'Back to professors':'Change search')}
+    <div class="split ${detailId?'has-detail':'list-only'}">
+      <div class="pane-list">${list(q, detailId||'a')}</div>
+      <div class="pane-detail">${detailId?report(detailId,q):report('a',q)}</div>
+    </div>`;
+}
+
+function choose(){
+  return `${ctx('#/professors','Back to professors')}<div class="choose">
+    <h1 class="page-h">Which Professor D?</h1>
+    <p class="muted" style="margin:0">Two Rate My Professors profiles match this name. Pick the one who teaches at PCC. BYE remembers your choice.</p>
+    <form style="display:flex;flex-direction:column;gap:12px" onsubmit="event.preventDefault();toast('Profile linked to Professor D');go('#/report/a')">
+      <label class="opt"><input type="radio" name="p" checked><b>Professor D · Mathematics</b><span>Pasadena City College · 27 ratings · 3.9 rating</span></label>
+      <label class="opt"><input type="radio" name="p"><b>Professor D · Physics</b><span>Pasadena City College · 4 ratings · 3.0 rating</span></label>
+      <label class="opt"><input type="radio" name="p"><b>Neither of these</b><span>Show sections without ratings</span></label>
+      <button class="btn block primary">Use this profile</button>
+    </form></div>`;
+}
+
+function admin(q){
+  const empty=q.get('state')==='empty';
+  const codes=empty?[]:S.codes;
+  return `<div class="admin">
+    <div><span class="eyebrow">Owner only</span><h1 class="page-h" style="margin-top:6px">Invite codes</h1><p class="muted" style="margin:8px 0 0">Each code works once. Revoke any time; it stops working right away.</p></div>
+    <form class="card gen" onsubmit="return genCode(event)">
+      <div class="field"><label for="who">Who is it for? <span class="help">(optional, only you see this)</span></label><input id="who" class="input" placeholder="e.g. Minh from CS 2"></div>
+      <button class="btn primary" style="min-height:52px">${I.sparkle.replace('<svg','<svg style="width:16px;height:16px"')} Generate code</button>
+    </form>
+    <section aria-label="Codes">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><h2 class="sec-h">Your codes</h2><span class="help">${codes.filter(c=>c.status==='unused').length} unused · ${codes.filter(c=>c.status==='used').length} used</span></div>
+      ${codes.length?`<ul class="codes">${codes.map((c,i)=>`<li class="code-row ${c.status==='revoked'?'is-revoked':''}"><div><code>${c.code}</code><span class="status ${c.status}">${c.status}</span></div>
+        <div class="who">${esc(c.who)} · ${c.when}</div>
+        <div class="acts">${c.status==='unused'?`<button class="btn secondary" onclick="copyCode('${c.code}')" aria-label="Copy ${c.code}">${I.copy}Copy</button><button class="btn danger" onclick="revoke(${i},this)">Revoke</button>`:''}</div></li>`).join('')}</ul>`
+      : `<div class="empty">${I.sparkle.replace('<svg','<svg style="color:var(--signal)"')}<h2>No codes yet</h2><p>Generate one above and send it to a friend. They type it on the landing page to get in.</p></div>`}
+    </section></div>`;
+}
+window.genCode=(e)=>{ e.preventDefault(); const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', r=()=>Array.from({length:4},()=>a[Math.floor(Math.random()*a.length)]).join(''); const code=`${r()}-${r()}`;
+  S.codes.unshift({code,who:$('#who').value||'—',status:'unused',when:'Created just now'}); go('#/admin'); render(); toast(`Code ${code} created and copied`); return false; };
+window.copyCode=(c)=>{ navigator.clipboard?.writeText(c).catch(()=>{}); toast(`Copied ${c}`); };
+document.addEventListener('click',(e)=>{ document.querySelectorAll('button[data-confirm]').forEach(x=>{ if(x!==e.target.closest('button')){ delete x.dataset.confirm; x.textContent='Revoke'; } }); });
+window.revoke=(i,b)=>{ if(b.dataset.confirm){ S.codes[i].status='revoked'; S.codes[i].when='Revoked just now'; render(); toast('Code revoked'); } else { b.dataset.confirm='1'; b.textContent='Confirm revoke?'; } };
+
+/* ===== Router ===== */
+function render(extra){
+  const {path,q}=parse(); if(extra) extra.split('&').forEach(kv=>{const [k,v]=kv.split('='); q.set(k,v);});
+  if(q.get('course')) S.course=q.get('course');
+  header(path);
+  let html;
+  if(path==='/') html=landing(q);
+  else if(path==='/search') html=search(q);
+  else if(path==='/professors') html=results(q,null);
+  else if(path.startsWith('/report/')) html=results(q,path.split('/')[2]);
+  else if(path.startsWith('/choose/')) html=choose();
+  else if(path==='/admin') html=admin(q);
+  else html=landing(q);
+  $('#view').innerHTML=html;
+  if(q.get('state')==='loading' && !document.body.classList.contains('shots')) setTimeout(()=>{ if(parse().q.get('state')==='loading') go('#/professors'); },2200);
+  if(path==='/' && q.get('state')==='locked'){ const t=setInterval(()=>{ const el=$('#lock-s'); if(!el){clearInterval(t);return;} const s=Math.max(0,Math.ceil((S.lockedUntil-Date.now())/1000)); el.textContent=s||60; },1000); }
+}
+let lastPath='';
+window.addEventListener('hashchange',()=>{ const p=parse().path; render(); if(p!==lastPath){ window.scrollTo(0,0); $('#view').focus({preventScroll:true}); } lastPath=p; });
+if(new URLSearchParams(location.search).has('shots')) document.body.classList.add('shots');
+render(); lastPath=parse().path;
+</script>
+</body>
+</html>

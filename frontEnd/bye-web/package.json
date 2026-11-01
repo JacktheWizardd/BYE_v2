@@ -1,0 +1,30 @@
+{
+  "name": "bye-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host localhost --port 5173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "check:deployment": "node scripts/check-deployment.mjs",
+    "deploy:cloudflare": "pnpm run build && pnpm run check:deployment && wrangler deploy",
+    "preview:cloudflare": "pnpm run build && pnpm run check:deployment && wrangler dev --port 5173"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.0.5",
+    "wrangler": "4.156.0"
+  },
+  "packageManager": "pnpm@11.25.0"
+}

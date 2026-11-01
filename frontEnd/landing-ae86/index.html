@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BYE — Before You Enroll</title>
+<meta name="description" content="Enter your invite code to look up a PCC class, compare professors, and check section times and seats.">
+<link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="edition"><span>PASADENA CITY COLLEGE</span><span>CLASS & PROFESSOR LOOKUP</span><span class="edition-end">PRIVATE ACCESS / 01</span></div>
+<header class="header"><a class="brand" href="./" aria-label="BYE home">BYE<span class="brand-dot">.</span></a><span class="brand-name">BEFORE<br>YOU ENROLL</span><a class="header-link" href="#invite-code">Enter code <span aria-hidden="true">↗</span></a></header>
+<main id="main">
+<section class="hero" aria-labelledby="hero-title">
+<div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> PCC / CLASS PLANNING TOOL</p><h1 id="hero-title">Before<br>you <span>enroll.</span></h1><p class="intro">Enter your code to look up a PCC class and compare the professors teaching it.</p>
+<form id="invite-form" novalidate><div class="form-heading"><label for="invite-code">Your invite code</label><span class="micro">INVITE ONLY</span></div><div class="input-row"><input id="invite-code" name="code" type="text" placeholder="XXXX-XXXX" maxlength="9" autocapitalize="characters" autocomplete="off" spellcheck="false" aria-describedby="invite-help invite-status"><button id="unlock" type="submit">Unlock BYE <span aria-hidden="true">↗</span></button></div><p class="help" id="invite-help">Use the invite code you were given.</p><p id="invite-status" class="form-status" role="status" aria-live="polite" aria-atomic="true"></p><a id="sample-link" class="sample-link" href="../app-ae86/index.html#/search" hidden>View sample search <span aria-hidden="true">↗</span></a></form>
+</div>
+<figure class="car-panel"><div class="panel-caption"><span>BEFORE YOU ENROLL<br>PCC / PRIVATE ACCESS</span><span class="car-number">86</span></div><img src="assets/ae86.jpg" width="1440" height="1080" alt="White and black Toyota AE86, viewed from the front left" fetchpriority="high"><figcaption><span>CLASS SECTIONS.<br>PROFESSOR RATINGS.</span><span class="car-spec">AE86 / TRUENO<br>白 × 黒</span></figcaption><div class="racing-stripe" aria-hidden="true"></div></figure>
+</section>
+<div class="section-divider"><span>HOW TO USE BYE</span><span class="divider-arrow" aria-hidden="true">↓</span></div>
+<section class="benefits instructions" aria-label="How to use BYE"><article><span class="benefit-number">01 — ACCESS</span><h3>Enter your code.</h3><p>Type your invite code above to open the class search.</p></article><article><span class="benefit-number">02 — SEARCH</span><h3>Choose a class.</h3><p>Search by course code or name, select a semester, and optionally filter by the days you're free.</p></article><article><span class="benefit-number">03 — COMPARE</span><h3>Check the professors.</h3><p>Compare ratings and difficulty. Open a professor's report for student reviews, meeting times, and seats.</p></article></section>
+<section class="comparison" aria-labelledby="compare-title"><div class="comparison-copy"><p class="eyebrow">EXAMPLE / SAMPLE DATA</p><h2 id="compare-title">Read the comparison.</h2><p>Compare ratings out of 5, difficulty out of 5, and available seats. A lower difficulty score means students found the class easier.</p><span class="demo-label">ILLUSTRATIVE DEMO · SAMPLE DATA</span></div><div class="results"><div class="results-top"><span class="course">MATH 5A</span><span>Calculus I</span><span class="results-term">SAMPLE TERM</span></div><div class="table-scroll"><table><caption class="sr-only">Sample professor comparison for Calculus I. All names and scores are illustrative.</caption><thead><tr><th scope="col">PROFESSOR</th><th scope="col">RATING</th><th scope="col">DIFFICULTY</th><th scope="col">OPEN SEATS</th></tr></thead><tbody><tr class="best"><th scope="row"><span class="rank">01</span> Professor A</th><td><strong>4.8<span>/5</span></strong></td><td>2.1<span class="out-of">/5</span></td><td><span class="seat-dot"></span> 12</td></tr><tr><th scope="row"><span class="rank">02</span> Professor B</th><td><strong>4.2<span>/5</span></strong></td><td>3.0<span class="out-of">/5</span></td><td><span class="seat-dot"></span> 6</td></tr><tr><th scope="row"><span class="rank">03</span> Professor C</th><td><strong>3.6<span>/5</span></strong></td><td>3.8<span class="out-of">/5</span></td><td class="full">Full</td></tr></tbody></table></div><p class="results-note">Ratings reflect student opinions. Check the full report and section details before choosing.</p></div></section>
+</main>
+<footer><a class="footer-logo" href="./">BYE.</a><p>Not affiliated with Pasadena City College or Rate My Professors.</p><span class="micro">BEFORE YOU ENROLL</span></footer>
+<details class="prototype-note"><summary>Prototype notes</summary><p>Local design prototype. No real authentication or live data. Demo code: <code>WIZD-2026</code>. Successful access opens the BYE app prototype.</p></details>
+</body></html>

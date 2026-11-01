@@ -1,0 +1,46 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {PGlite} from '@electric-sql/pglite';
+import {normalizePccSchedule} from '../src/connectors.js';
+test('PostgreSQL migration, publication, identity, access and distributed leases',async()=>{
+ const db=new PGlite();try{
+ await db.exec('create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key);');
+ await db.exec(await readFile(new URL('../supabase/migrations/20261030225302_production_backend.sql',import.meta.url),'utf8'));
+ const control=async(action,p={})=>(await db.query('select public.bye_control($1,$2::jsonb) data',[action,JSON.stringify(p)])).rows[0].data;
+ const publish=(school,c)=>db.query('select public.bye_import_term($1,$2::jsonb,$3::jsonb,$4::jsonb)',[school,...[c.term,c.courses,c.sections].map(JSON.stringify)]);
+ const term={id:'202730',name:'Spring',as_of:new Date().toISOString()};
+ const row={termCode:term.id,crn:'30001',subjCode:'CS',courseNumbDisplay:'002',courseTitle:'CS',pfaName:'Example',pfaEmail:'example@pasadena.edu',seatsAvail:'3',maxEnrl:'30'};
+ const c={term,...normalizePccSchedule([row],term.id,term.as_of)};
+ await publish('pasadena-city-college',c);await publish('pasadena-city-college',c);
+ assert.equal((await db.query('select * from bye_instructors')).rows.length,1);
+ await db.exec("insert into bye_schools(id,name,schedule_url,connector,status,capabilities)values('other','Other','https://other.edu','pcc','active','{}')");await publish('other',c);
+ assert.equal((await db.query('select * from bye_instructors')).rows.length,2);
+ const invalid=structuredClone(c);invalid.sections[0].course_id='missing';await assert.rejects(publish('other',invalid));
+ assert.equal((await db.query('select * from bye_section_catalog')).rows.length,2);
+ const uid='00000000-0000-0000-0000-000000000001';await db.query('insert into auth.users values($1)',[uid]);await db.exec("insert into bye_invites(code_hash)values('hash')");
+ assert.equal(await control('membership',{user_id:uid}),null);
+ assert.equal((await control('redeem',{user_id:uid,actor:'ip',hash:'hash'})).ok,true);
+ assert.equal((await control('membership',{user_id:uid})).role,'reader');
+ await control('revoke_invite',(await db.query('select id from bye_invites')).rows[0]);assert.equal(await control('membership',{user_id:uid}),null);
+ for(let i=0;i<3;i++)await control('redeem',{user_id:uid,actor:'ip',hash:'bad'});
+ assert.equal((await control('redeem',{user_id:uid,actor:'ip',hash:'bad'})).error,'rate_limited');
+ const job=await control('enqueue',{school_id:'other',term_id:term.id});assert.equal((await control('enqueue',{school_id:'other',term_id:term.id})).id,job.id);
+ const lease=await control('claim');assert.equal(lease.id,job.id);assert.equal(await control('claim'),null);
+ await assert.rejects(control('finish',{id:job.id,token:crypto.randomUUID()}));
+ await assert.rejects(control('stage',{id:job.id,token:crypto.randomUUID(),catalog:c}));
+ await control('stage',{id:job.id,token:lease.lease_token,catalog:c});await control('finish',{id:job.id,token:lease.lease_token,metrics:{}});
+ assert.equal((await db.query('select status from bye_jobs where id=$1',[job.id])).rows[0].status,'succeeded');
+ await db.exec("update bye_refresh set next_due=now()-interval '1 minute',last_catalog=now(),last_viewed=now()-interval '11 minutes'");await control('schedule');assert.equal((await db.query("select * from bye_jobs where status='queued'")).rows.length,0);
+ await control('touch',{school_id:'other',term_id:term.id});await control('schedule');assert.equal((await db.query("select * from bye_jobs where status='queued'")).rows.length,1);
+ const f=await control('claim');await control('fail',{id:f.id,token:f.lease_token,error:'source_unavailable'});
+ assert.equal((await db.query("select data->>'seats_open' seats from bye_availability where school_id='other'")).rows[0].seats,'3');
+ await db.exec("update bye_jobs set status='failed' where status='queued'");
+ const preview=await control('enqueue',{school_id:'other',term_id:term.id,kind:'preview'});const previewLease=await control('claim');
+ const changed=structuredClone(c);changed.sections[0].availability.seats_open=99;
+ await control('stage',{id:preview.id,token:previewLease.lease_token,catalog:changed});await control('finish',{id:preview.id,token:previewLease.lease_token,metrics:{}});
+ assert.equal((await db.query("select data->>'seats_open' seats from bye_availability where school_id='other'")).rows[0].seats,'3');
+ await db.query("update bye_memberships set revoked_at=null,expires_at=now()-interval '1 second' where user_id=$1",[uid]);assert.equal(await control('membership',{user_id:uid}),null);
+ await db.exec('set role authenticated');for(const query of ['select * from public.bye_memberships',"select public.bye_control('claim','{}')",'select * from public.bye_section_catalog'])await assert.rejects(db.query(query));
+ }finally{await db.close();}
+});

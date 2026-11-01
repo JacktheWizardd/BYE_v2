@@ -1,0 +1,43 @@
+{
+  "cases": [
+    {
+      "name": "Fictional Instructor Alpha",
+      "school": "Example College",
+      "candidates": [
+        {
+          "department": "Example Department 1",
+          "id": "990000001",
+          "name": "Fictional Instructor Alpha",
+          "school": "Example College"
+        },
+        {
+          "department": "Example Department 2",
+          "id": "990000002",
+          "name": "Fictional Instructor Alpha",
+          "school": "Example College"
+        }
+      ],
+      "expected": "needs_selection"
+    },
+    {
+      "name": "Fictional Instructor Beta",
+      "school": "Example College",
+      "candidates": [
+        {
+          "department": "Example Department 1",
+          "id": "990000011",
+          "name": "Fictional Instructor Beta",
+          "school": "Example College"
+        },
+        {
+          "department": "Example Department 2",
+          "id": "990000012",
+          "name": "Fictional Instructor Beta",
+          "school": "Example College"
+        }
+      ],
+      "expected": "needs_selection"
+    }
+  ],
+  "fixture_kind": "synthetic; names, institutions and profile IDs are fictional"
+}

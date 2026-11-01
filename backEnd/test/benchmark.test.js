@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {retryDelay,startLimiter} from '../scripts/benchmark/limits.mjs';
+test('benchmark honors numeric/date Retry-After and rejects malformed delays',()=>{assert.equal(retryDelay('12'),12000);assert.equal(retryDelay('Thu, 01 Jan 1970 00:02:00 GMT',60000),60000);assert.equal(retryDelay('broken'),0);assert.equal(retryDelay('-5',Date.now()),0)});
+test('concurrent benchmark readers share one start rate limit',async()=>{let clock=0;const gate=startLimiter({now:()=>clock,sleep:async ms=>{clock+=ms}});const starts=await Promise.all(Array.from({length:10},()=>gate.take()));assert.equal(starts.length,10);assert.ok(starts.slice(1).every((s,i)=>s-starts[i]>=105))});
+test('cooldown release preserves start spacing for queued readers',async()=>{let clock=0;const gate=startLimiter({now:()=>clock,sleep:async ms=>{clock+=ms}});assert.equal(await gate.take(),0);gate.postpone(120000);const starts=await Promise.all([gate.take(),gate.take(),gate.take()]);assert.deepEqual(starts,[120000,120105,120210])});

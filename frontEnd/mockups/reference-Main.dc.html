@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BYE instructor report</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Schibsted;src:url('/_blob/d887d6b603728b72856b28960b66af44');font-weight:400 900}
+@font-face{font-family:BYEMono;src:url('/_blob/84f106064f5c3c7bddc6a65768518db3');font-weight:100 800}
+body{margin:0}
+a{color:#1a1c1b}a:hover{color:#9c5b00}
+</style>
+</helmet>
+<div style="background: #f6f5f0; color: #1a1c1b; font-family: Schibsted, Arial, sans-serif; font-size: 15px; line-height: 1.55; min-height: 100%">
+
+  <header style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; padding: 14px clamp(16px, 4vw, 56px); border-bottom: 1px solid #1a1c1b">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px">
+      <div style="display: flex; align-items: center; gap: 14px; min-height: 44px">
+        <span style="font-size: 26px; font-weight: 900; letter-spacing: -1.5px; line-height: 1">BYE<span style="color: #f3b63f">.</span></span>
+        <span style="font-family: BYEMono, monospace; font-size: 9px; line-height: 1.3; letter-spacing: 1px; border-left: 1px solid #d7d9d0; padding-left: 14px">BEFORE<br>YOU ENROLL</span>
+      </div>
+      <span title="{{sync.detail}}" style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #3d403b; border: 1px solid #d7d9d0; background: #fcfcf8; padding: 6px 10px">
+        <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{sync.color}}; flex: none"></span>{{sync.label}}
+      </span>
+    </div>
+    <nav style="display: flex; flex: 1 1 320px; justify-content: flex-end; align-items: center; gap: 4px; font-size: 13px; line-height: 1">
+      <a href="#guide" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font-weight: 600; text-decoration: none">Guide</a>
+      <span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #5d615b">Watches</span>
+      <span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #5d615b">Plan</span>
+      <a href="#search" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; margin-left: 8px; background: #1a1c1b; color: #ffffff; font-weight: 700; text-decoration: none">New search</a>
+    </nav>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 clamp(16px, 4vw, 56px); border-bottom: 1px solid #d7d9d0; font-family: BYEMono, monospace; font-size: 11px; color: #5d615b">
+    <span style="padding: 14px 0 12px; border-bottom: 3px solid transparent">01 Search</span>
+    <span style="padding: 14px 0 12px; border-bottom: 3px solid transparent">02 Compare</span>
+    <span style="padding: 14px 0 12px; border-bottom: 3px solid #f3b63f; color: #1a1c1b; font-weight: 700">03 Report</span>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin: 0 clamp(16px, 4vw, 56px); padding: 28px 0 22px; border-bottom: 2px solid #5d615b">
+    <div>
+      <h1 style="margin: 0; font-size: 16px; font-weight: 800; text-transform: uppercase">MATH 005A · Analytic Geometry and Calculus I</h1>
+      <p style="margin: 0; font-size: 13px; color: #5d615b">Pasadena City College · Spring 2027 · Any day</p>
+    </div>
+    <button style="border: 1px solid #1a1c1b; background: transparent; padding: 10px 16px; font: inherit; font-weight: 700; font-size: 13px; min-height: 44px; cursor: pointer">Edit search</button>
+  </div>
+
+  <main style="display: flex; flex-wrap: wrap; gap: 40px; padding: 32px clamp(16px, 4vw, 56px) 64px; align-items: flex-start">
+
+    <aside style="flex: 1 1 300px; max-width: 360px; min-width: 0">
+      <p style="margin: 0; font-family: BYEMono, monospace; font-size: 11px; letter-spacing: 1px; color: #5d615b; text-transform: uppercase">02 / Compare</p>
+      <h2 style="margin: 12px 0 4px; font-size: 28px; font-weight: 800; letter-spacing: -0.5px">Who’s teaching</h2>
+      <p style="margin: 0; font-size: 12px; color: #5d615b">34 sections · sorted by {{sortLabel}}</p>
+      
+
+      <div style="margin-top: 16px">
+        <label for="prof-search" style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px">Find a professor</label>
+        <div style="display: flex; align-items: center; border: 1px solid #1a1c1b; background: #fcfcf8; min-height: 44px">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5d615b" stroke-width="2" stroke-linecap="round" style="margin-left: 12px; flex: none"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          <input id="prof-search" type="search" value="{{query}}" onInput="{{onQuery}}" placeholder="Type a first or last name" autocomplete="off" style="flex: 1; min-width: 0; border: 0; background: transparent; padding: 10px; font: inherit; font-size: 14px; outline-offset: -3px">
+          <sc-if value="{{hasQuery}}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{clearQuery}}" aria-label="Clear professor search" style="border: 0; background: transparent; font: inherit; font-size: 12px; font-weight: 600; min-height: 44px; padding: 0 12px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px">Clear</button>
+          </sc-if>
+        </div>
+        <p style="margin: 6px 0 0; font-size: 12px; color: #5d615b">{{matchNote}}</p>
+      </div>
+
+      <div role="group" aria-label="Sort instructors" style="display: flex; border: 1px solid #1a1c1b; margin: 16px 0 6px">
+        <sc-for list="{{sorts}}" as="s" hint-placeholder-count="4">
+          <button onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">{{s.label}}</button>
+        </sc-for>
+      </div>
+
+      <p style="margin: 0 0 14px; font-size: 12px; color: #5d615b">{{sortHint}}</p>
+      <div>
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+          <button onClick="{{r.pick}}" style="{{r.style}}">
+            <span style="display: grid; grid-template-columns: 20px minmax(0, 1fr) 52px; column-gap: 8px; align-items: start">
+              <span style="font-family: BYEMono, monospace; font-size: 10px; color: #5d615b; padding-top: 4px">{{r.n}}</span>
+              <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-size: 15px; font-weight: 800">{{r.name}}</span>
+                <sc-if value="{{r.hasRmp}}" hint-placeholder-val="{{ true }}">
+                  <span style="display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12px; font-weight: 600"><span style="color: #8f5400">★ RMP {{r.rating}}/5</span><span style="color: #2f5487">▲ Difficulty {{r.difficulty}}/5</span></span>
+                </sc-if>
+                <sc-if value="{{r.noRmp}}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size: 12px; color: #5d615b">Profile needs confirming</span>
+                </sc-if>
+                <span style="font-size: 12px"><span style="color: #5d615b">{{r.countText}}</span><span style="color: #2f6b3d">{{r.seats}}</span></span>
+              </span>
+              <span style="text-align: right; line-height: 1"><span style="{{r.scoreStyle}}">{{r.score}}</span><span style="display: block; font-family: BYEMono, monospace; font-size: 9px; color: #5d615b; margin-top: 4px">{{r.scoreTag}}</span></span>
+            </span>
+          </button>
+        </sc-for>
+        <sc-if value="{{noMatch}}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 20px 14px; border: 1px dashed #a0a399">
+            <p style="margin: 0; font-size: 15px; font-weight: 800">No one named “{{query}}” teaches MATH 005A this semester.</p>
+            <p style="margin: 6px 0 0; font-size: 12px; color: #5d615b">Check the spelling, try just a last name, or <a href="#search" style="text-underline-offset: 3px">search another class</a>.</p>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+
+    <section style="flex: 999 1 560px; min-width: 0">
+      <p style="margin: 0; font-family: BYEMono, monospace; font-size: 11px; letter-spacing: 1px; color: #5d615b; text-transform: uppercase">03 / Instructor report</p>
+      <h2 style="margin: 12px 0 8px; font-size: 44px; font-weight: 800; letter-spacing: -1.6px; line-height: 1.1">{{current.name}}</h2>
+      <p style="margin: 0; font-size: 13px; color: #5d615b; padding-bottom: 24px; border-bottom: 1px solid #d7d9d0">Pasadena City College</p>
+
+      <div style="margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; background: #f4e7c7; border: 1px solid #f3b63f; padding: 20px 24px">
+        <div style="display: flex; align-items: baseline; gap: 4px">
+          <span style="font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1">{{current.bye}}</span><span style="font-size: 14px; font-weight: 700">/100</span>
+        </div>
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: BYEMono, monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase">BYE score<sc-if value="{{current.top}}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; margin-left: 10px; background: #f3b63f; color: #1a1c1b; font-weight: 700; padding: 3px 8px; letter-spacing: 0.5px">Top BYE. in MATH 005A</span></sc-if></p>
+          <p style="margin: 4px 0 0; font-size: 13px; color: #3d403b">{{current.byeNote}}</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-bottom: 16px">
+          <h3 style="margin: 0; font-size: 22px; font-weight: 800">Rate My Professors</h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid #d7d9d0; background: #fcfcf8">
+          <div style="padding: 18px 16px; border-right: 1px solid #d7d9d0"><span style="font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.1">{{current.rating}}</span><span style="font-size: 13px; margin-left: 3px">/5</span><p style="margin: 6px 0 0; font-size: 12px; color: #5d615b">Rating · higher is better</p></div>
+          <div style="padding: 18px 16px; border-right: 1px solid #d7d9d0"><span style="font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.1">{{current.difficulty}}</span><span style="font-size: 13px; margin-left: 3px">/5</span><p style="margin: 6px 0 0; font-size: 12px; color: #5d615b">Difficulty · lower is easier</p></div>
+          <div style="padding: 18px 16px"><span style="font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.1">{{current.again}}</span><span style="font-size: 13px; margin-left: 3px">%</span><p style="margin: 6px 0 0; font-size: 12px; color: #5d615b">Would take again</p></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 12px; color: #5d615b">
+          <span>Matched: <b style="color: #1a1c1b">{{current.name}}</b> · {{current.count}}</span>
+          <a href="#rmp" style="text-underline-offset: 3px">Original on RMP ↗</a>
+          <span>Checked 10/30/2026, 9:37 PM</span>
+          <a href="#profile" style="text-underline-offset: 3px">Change profile</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px">
+  <h3 style="margin: 0; font-size: 22px; font-weight: 800">Sections</h3>
+  <span style="font-family: BYEMono, monospace; font-size: 11px; font-weight: 700; background: #1a1c1b; color: #ffffff; padding: 3px 8px">2</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; background: #eaece4; padding: 4px 4px 4px 14px; margin-bottom: 4px">
+  <span style="font-size: 12px; color: #5d615b"><span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: {{sync.color}}; margin-right: 8px"></span>{{sync.strip}}</span>
+  <button style="display: inline-flex; align-items: center; gap: 6px; border: 0; background: #fcfcf8; font: inherit; font-size: 12px; font-weight: 700; min-height: 44px; padding: 0 12px; cursor: pointer"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>Refresh all</button>
+</div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 24px; padding: 22px 0; border-top: 1px solid #d7d9d0">
+          <div style="flex: 1 1 280px; min-width: 0">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; font-family: BYEMono, monospace; font-size: 10px">
+              <span style="background: #eaece4; padding: 4px 7px">CRN 32430</span><span style="background: #eaece4; padding: 4px 7px">In person</span><span style="background: #eaece4; padding: 4px 7px">Lecture</span>
+            </div>
+            <h4 style="margin: 0; font-size: 17px; font-weight: 800">M, W · 1:15 PM–3:45 PM</h4>
+            <p style="margin: 4px 0 0; font-size: 12px; color: #5d615b; line-height: 1.7">Room 321 · Feb 17 – Jun 13, 2027<br>5 units · Times in America/Los_Angeles</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 10px; font-size: 12px">
+              <button style="border: 0; background: none; padding: 0; font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; cursor: pointer">Copy CRN</button>
+              <span style="border: 1px solid #d7d9d0; color: #5d615b; padding: 6px 10px">Add to plan <span style="font-family: BYEMono, monospace; font-size: 9px; margin-left: 6px; border-left: 1px solid #d7d9d0; padding-left: 6px">LATER</span></span>
+            </div>
+          </div>
+          <div style="flex: 0 0 auto">
+            <span style="display: block; font-size: 32px; font-weight: 800; line-height: 1">28</span>
+    <div role="img" aria-label="0 of 28 seats taken, plenty of seats" style="width: 160px; height: 6px; background: #d7d9d0; margin: 8px 0 0"><div style="width: 0%; min-width: 4px; height: 6px; background: #2f6b3d"></div></div>
+            <p style="margin: 6px 0 0; font-size: 12px; font-weight: 700; color: #2f6b3d">Plenty of seats</p>
+            <p style="margin: 2px 0 0; font-size: 12px; color: #5d615b">of 28 seats open<br>Waitlist 0</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 24px; padding: 22px 0; border-top: 1px solid #d7d9d0">
+          <div style="flex: 1 1 280px; min-width: 0">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; font-family: BYEMono, monospace; font-size: 10px">
+              <span style="background: #eaece4; padding: 4px 7px">CRN 32431</span><span style="background: #eaece4; padding: 4px 7px">In person</span><span style="background: #eaece4; padding: 4px 7px">Lecture</span>
+            </div>
+            <h4 style="margin: 0; font-size: 17px; font-weight: 800">Tu, Th · 6:00 PM–8:30 PM</h4>
+            <p style="margin: 4px 0 0; font-size: 12px; color: #5d615b; line-height: 1.7">Room 114 · Feb 17 – Jun 13, 2027<br>5 units · Times in America/Los_Angeles</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 10px; font-size: 12px">
+              <button style="border: 0; background: none; padding: 0; font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; cursor: pointer">Copy CRN</button>
+              <span style="border: 1px solid #d7d9d0; color: #5d615b; padding: 6px 10px">Add to plan <span style="font-family: BYEMono, monospace; font-size: 9px; margin-left: 6px; border-left: 1px solid #d7d9d0; padding-left: 6px">LATER</span></span>
+            </div>
+          </div>
+          <div style="flex: 0 0 auto">
+            <span style="display: block; font-size: 32px; font-weight: 800; line-height: 1">2</span>
+    <div role="img" aria-label="28 of 30 seats taken, only 2 left" style="width: 160px; height: 6px; background: #d7d9d0; margin: 8px 0 0"><div style="width: 93%; height: 6px; background: #a32c20"></div></div>
+            <p style="margin: 6px 0 0; font-size: 12px; font-weight: 700; color: #a32c20">Only 2 seats left</p>
+            <p style="margin: 2px 0 0; font-size: 12px; color: #5d615b">of 30 seats open<br>Waitlist 0 of 5</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-bottom: 16px">
+          <h3 style="margin: 0; font-size: 22px; font-weight: 800">Original reviews</h3>
+          <span style="font-size: 12px; color: #5d615b">From RMP · shown as written</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; padding: 14px 16px; background: #eaece4; margin-bottom: 6px">
+          <div style="flex: 1 1 200px; max-width: 280px">
+            <label for="course" style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px">Course</label>
+            <select id="course" style="width: 100%; min-height: 44px; padding: 6px 10px; border: 1px solid #1a1c1b; background: #fcfcf8; font: inherit; font-size: 14px; border-radius: 0">
+              <option>MATH 005A (this class)</option><option>All courses</option><option>MATH 003</option>
+            </select>
+          </div>
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px">Show</span>
+            <div role="group" aria-label="Review order" style="display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+                <button onClick="{{f.pick}}" aria-pressed="{{f.pressed}}" style="{{f.style}}">{{f.label}}</button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <article style="padding: 18px 0; border-top: 1px solid #d7d9d0">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-family: BYEMono, monospace; font-size: 10px; color: #5d615b; text-transform: uppercase; margin-bottom: 8px"><span>MATH5A · Sep 2026</span><span>For credit · Grade A</span></div>
+          <div style="display: flex; gap: 6px; margin-bottom: 8px; font-family: BYEMono, monospace; font-size: 11px"><span style="border: 1px solid #d7d9d0; padding: 2px 6px">Quality 5</span><span style="border: 1px solid #d7d9d0; padding: 2px 6px">Difficulty 4</span></div>
+          <p style="margin: 0; font-size: 14px">[Review text from RMP, shown as written]</p>
+        </article>
+        <article style="padding: 18px 0; border-top: 1px solid #d7d9d0">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-family: BYEMono, monospace; font-size: 10px; color: #5d615b; text-transform: uppercase; margin-bottom: 8px"><span>MATH5A · May 2026</span><span>For credit · Grade B+</span></div>
+          <div style="display: flex; gap: 6px; margin-bottom: 8px; font-family: BYEMono, monospace; font-size: 11px"><span style="border: 1px solid #d7d9d0; padding: 2px 6px">Quality 4</span><span style="border: 1px solid #d7d9d0; padding: 2px 6px">Difficulty 4</span></div>
+          <p style="margin: 0; font-size: 14px">[Review text from RMP, shown as written]</p>
+        </article>
+        <p style="margin: 14px 0 0; font-size: 12px; color: #5d615b">Showing 2 of 10 · <a href="#more" style="text-underline-offset: 3px">Load more</a></p>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ratingWeight":{"editor":"range","default":50,"min":0,"max":100,"step":5,"unit":"%","section":"BYE score"},"phoneMode":{"editor":"boolean","default":false,"section":"Layout"},"syncState":{"editor":"enum","default":"fresh","options":["fresh","partial","stale"],"section":"Schedule sync"},"trustAfter":{"editor":"int","default":10,"min":0,"max":100,"section":"BYE score"},"$preview":{"width":1440,"height":1920}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sort: 'bye', rev: false, picked: 0, filter: 'All', query: '' };
+  }
+  renderVals() {
+    var self = this;
+    var people = [
+      { name: 'Christine Loritsch', rating: 4.4, difficulty: 3.7, again: 79, ratings: 62, seats: '2 sections · 30 open' },
+      { name: 'Evelyn Chau', rating: null, difficulty: null, again: null, ratings: 0, seats: '1 section · 30 open' },
+      { name: 'Frank Bermudez', rating: 4.1, difficulty: 3.4, again: 71, ratings: 185, seats: '3 sections · 86 open' },
+      { name: 'Gonzaga Mendez', rating: 3.2, difficulty: 2.9, again: 58, ratings: 54, seats: '2 sections · 60 open' },
+      { name: 'Hassan Kasfy', rating: 3.3, difficulty: 3.5, again: 55, ratings: 339, seats: '2 sections · 60 open' }
+    ];
+    var w = (this.props.ratingWeight ?? 50) / 100;
+    var k = this.props.trustAfter ?? 10;
+    var bye = function (p) {
+      if (p.rating == null || p.difficulty == null) return null;
+      var base = w * (p.rating - 1) / 4 + (1 - w) * (5 - p.difficulty) / 4;
+      return Math.round(100 * (p.ratings * base + k * 0.5) / (p.ratings + k));
+    };
+    var people2 = people.map(function (p, i) { return Object.assign({ id: i, bye: bye(p) }, p); });
+    var topBye = Math.max.apply(null, people2.map(function (p) { return p.bye == null ? -1 : p.bye; }));
+    var isTop = function (p) { return p.bye != null && p.bye === topBye; };
+    var key = this.state.sort;
+    var q = this.state.query.trim().toLowerCase();
+    var visible = people2.filter(function (p) {
+      if (!q) return true;
+      return q.split(/\s+/).every(function (part) {
+        return p.name.toLowerCase().split(' ').some(function (w) { return w.indexOf(part) === 0; });
+      });
+    });
+    var sorted = visible.slice().sort(function (a, b) {
+      var dir = self.state.rev ? -1 : 1;
+      if (key === 'name') return dir * a.name.localeCompare(b.name);
+      var pickVal = function (p) {
+        if (key === 'rating') return p.rating;
+        if (key === 'difficulty') return p.difficulty;
+        if (key === 'bye') return p.bye;
+        return p.ratings;
+      };
+      var av = pickVal(a), bv = pickVal(b);
+      if (av == null) return 1; if (bv == null) return -1;
+      return dir * (key === 'difficulty' ? av - bv : bv - av);
+    });
+    var sortDefs = [['name', 'Name'], ['rating', 'Rating'], ['difficulty', 'Difficulty'], ['bye', 'BYE score'], ['ratings', '# Ratings']];
+    var segBase = 'border: 0; font: inherit; font-size: 11px; font-weight: 700; min-height: 44px; padding: 8px 6px; flex: 1 1 auto; cursor: pointer; white-space: nowrap; ';
+    var sorts = sortDefs.map(function (d, i) {
+      var on = d[0] === key;
+      return {
+        label: on ? d[1] + (self.state.rev ? ' ↑' : ' ↓') : d[1], pressed: on ? 'true' : 'false',
+        style: segBase + (i < 4 ? 'border-right: 1px solid #1a1c1b; ' : '') + (on ? 'background: #1a1c1b; color: #ffffff' : 'background: transparent; color: #1a1c1b'),
+        pick: function () { self.setState(on ? { rev: !self.state.rev } : { sort: d[0], rev: false }); }
+      };
+    });
+    var rowBase = 'display: block; width: 100%; text-align: left; font: inherit; color: inherit; line-height: 1.35; padding: 10px 12px; min-height: 64px; cursor: pointer; border: 0; border-bottom: 1px solid #d7d9d0; ';
+    var rows = sorted.map(function (p, i) {
+      var on = p.id === self.state.picked;
+      return {
+        n: (i < 9 ? '0' : '') + (i + 1), name: p.name,
+        score: p.bye == null ? '—' : String(p.bye),
+        scoreStyle: isTop(p) ? 'display: inline-block; font-size: 18px; font-weight: 900; color: #1a1c1b; background: #f3b63f; padding: 2px 6px' : 'display: block; font-size: 20px; font-weight: 800; color: #1a1c1b',
+        scoreTag: isTop(p) ? 'TOP BYE.' : 'BYE',
+        hasRmp: p.rating != null, noRmp: p.rating == null, rating: p.rating, difficulty: p.difficulty, count: p.ratings, countText: p.ratings ? p.ratings + ' ratings · ' : '',
+        seats: p.seats,
+        style: rowBase + (!self.props.phoneMode && on ? 'background: #f4e7c7; outline: 1px solid #f3b63f; outline-offset: -1px' : (i % 2 === 1 ? 'background: #eeede6' : 'background: transparent')),
+        pick: function () { self.setState({ picked: p.id }); }
+      };
+    });
+    var c = people2[this.state.picked];
+    var current = {
+      name: c.name,
+      rating: c.rating == null ? '—' : c.rating.toFixed(1),
+      difficulty: c.difficulty == null ? '—' : c.difficulty.toFixed(1),
+      again: c.again == null ? '—' : String(c.again),
+      count: c.ratings ? c.ratings + ' ratings' : 'no confirmed profile',
+      bye: c.bye == null ? '—' : String(c.bye),
+      top: isTop(c),
+      byeNote: c.bye == null ? 'Needs a confirmed RMP profile.' : 'Rating + ease · ' + c.ratings + ' ratings'
+    };
+    var chipBase = 'border: 1px solid #1a1c1b; font: inherit; font-size: 12px; font-weight: 600; min-height: 44px; padding: 6px 12px; cursor: pointer; ';
+    var filters = ['All', 'Most recent', 'Highest', 'Lowest'].map(function (f) {
+      var on = f === self.state.filter;
+      return {
+        label: f, pressed: on ? 'true' : 'false',
+        style: chipBase + (on ? 'background: #1a1c1b; color: #ffffff' : 'background: transparent; color: #1a1c1b'),
+        pick: function () { self.setState({ filter: f }); }
+      };
+    });
+    var labels = self.state.rev
+      ? { name: 'name, Z–A', rating: 'rating, low to high', difficulty: 'difficulty, hardest first', bye: 'BYE score, lowest first', ratings: 'number of ratings, fewest first' }
+      : { name: 'name, A–Z', rating: 'rating, high to low', difficulty: 'difficulty, easiest first', bye: 'BYE score, highest first', ratings: 'number of ratings, most first' };
+    var total = people2.length;
+    var matchNote = q ? sorted.length + ' of ' + total + ' professors match' : 'Matches first or last name, e.g. “kasfy” or “chris”.';
+    return {
+      sync: ({
+        fresh: { color: '#2f6b3d', label: 'Schedule up to date', strip: 'Seat counts for all sections · 9:44 PM · 3 min ago', detail: 'Every section was checked against PCC in the last 10 minutes.' },
+        partial: { color: '#c98a00', label: 'Some sections behind', strip: '1 of 2 sections not checked since 8:12 PM · Refresh all to retry', detail: 'Some sections could not be re-checked against PCC.' },
+        stale: { color: '#a32c20', label: 'Schedule out of sync', strip: 'PCC unreachable since 7:30 PM · seat counts may be wrong', detail: 'BYE could not reach the PCC schedule; all counts are old.' }
+      })[this.props.syncState ?? 'fresh'],
+      sortHint: key === 'bye' ? 'BYE score (0–100) combines RMP rating and ease (low difficulty), ' + Math.round(w * 100) + '/' + Math.round((1 - w) * 100) + '. Few ratings pull it toward 50. Tap again to reverse.' : 'Tap a sort again to reverse it.',
+      sorts: sorts, rows: rows, current: current, filters: filters, sortLabel: labels[key],
+      query: this.state.query, hasQuery: q.length > 0, noMatch: q.length > 0 && sorted.length === 0, matchNote: matchNote,
+      onQuery: function (e) { self.setState({ query: e.target.value }); },
+      clearQuery: function () { self.setState({ query: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

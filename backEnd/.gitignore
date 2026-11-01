@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.data/
+
+.owner-session*.json
+supabase/.temp/
+
+node_modules/
+
+.benchmark-session*.json

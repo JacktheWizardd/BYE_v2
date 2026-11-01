@@ -1,0 +1,44 @@
+# Mac + tooling
+.DS_Store
+.pnpm-store/
+node_modules/
+dist/
+.wrangler/
+
+# Local secrets and sessions (keep the examples)
+.env
+.env.*
+!.env.example
+!frontEnd/bye-web/.env.production
+.dev.vars*
+.owner-session*.json
+.benchmark-session*.json
+
+# Local backups made while editing the invite field
+.bye-backup-invite/
+
+# Machine-specific agent/tooling state and generated exports
+.agents/
+.codex/
+.markdown-html/
+markdown-html-out/
+exports/
+*.log
+*.tsbuildinfo
+
+# Local documents may contain personal data; retain licensed app assets
+*.pdf
+*.zip
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Original identity fixtures retained locally only
+backEnd/.private-reference/
+
+# Optional preview galleries remain local; runtime assets are tracked
+frontEnd/**/preview-*.jpg
+frontEnd/handoff-design-A/screenshots/
+frontEnd/mockups/*.png
+frontEnd/moodboard/

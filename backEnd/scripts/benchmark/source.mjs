@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';
+const s=JSON.parse(await fs.readFile(new URL('../../.benchmark-session.json',import.meta.url))),base='https://yjcrupbibflagchcdeun.supabase.co/functions/v1/bye-api/v1/schools/pasadena-city-college/instructors/002d5dec-d8f1-4661-8554-e519e8e45843/rmp';
+const rows=[];
+async function call(path,kind){const start=performance.now();const r=await fetch(base+path,{headers:{Authorization:'Bearer '+s.access_token},signal:AbortSignal.timeout(30000)});const text=await r.text(),v=JSON.parse(text);rows.push({kind,status:r.status,ms:performance.now()-start,bytes:Buffer.byteLength(text),timing:r.headers.get('server-timing'),state:v.data?.state,error:v.error?.code,review_count:v.data?.reviews?.length});return v.data;}
+const d=await call('/profile','naturally-uncached-profile');if(d?.state==='matched')await call('/reviews?profile_id='+d.profile.id+'&limit=20','naturally-uncached-review-page');
+await fs.writeFile(new URL('../../../exports/benchmark/source.json',import.meta.url),JSON.stringify({at:new Date().toISOString(),max_possible_attempts:15,explanation:'One profile request: at most three search pages × three attempts + three profile attempts. Reviews only after matched/fresh candidate publication: at most three further attempts. No loop or manufactured eviction.',rows},null,2));console.log(rows);

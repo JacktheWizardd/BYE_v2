@@ -1,0 +1,10 @@
+{
+  "project_ref": "yjcrupbibflagchcdeun",
+  "name": "bye-dev",
+  "region": "us-west-1",
+  "dashboard": "https://supabase.com/dashboard/project/yjcrupbibflagchcdeun",
+  "api_base": "https://yjcrupbibflagchcdeun.supabase.co/functions/v1/bye-api/v1",
+  "functions": ["bye-api", "bye-sync"],
+  "cron_job": "bye-sync-every-minute",
+  "refresh_seconds": 300
+}

@@ -1,0 +1,3 @@
+import fs from 'node:fs/promises';
+const rows=[];for(let n=0;n<3;n++){const start=performance.now();const r=await fetch('https://yjcrupbibflagchcdeun.supabase.co/functions/v1/bye-api/v1/me',{method:'OPTIONS',headers:{Origin:'http://localhost:5173','Access-Control-Request-Method':'GET','Access-Control-Request-Headers':'authorization'}});rows.push({status:r.status,ms:performance.now()-start,allowedOrigin:r.headers.get('access-control-allow-origin'),exposed:r.headers.get('access-control-expose-headers')});}
+await fs.writeFile(new URL('../../../exports/benchmark/preflight.json',import.meta.url),JSON.stringify({note:'Synthetic CORS probes, not browser preflight counts.',rows},null,2));console.log(rows);
