@@ -1,3 +1,4 @@
+import {validateEducationPlan} from './education-plan.js';
 import {createRmp} from './rmp.js';
 import { createApi } from './api.js';
 import { createConnectors, detectConnector } from './connectors.js';
@@ -17,11 +18,11 @@ export async function digest(value, pepper) {
 // Reader invites always include a letter, distinct from numeric owner codes.
 export function generateInviteCode(bytes=crypto.getRandomValues(new Uint8Array(8))){const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',letters=alphabet.replace(/[0-9]/g,'');let raw=[...bytes].map(n=>alphabet[n%alphabet.length]).join('');if(!/[A-Z]/.test(raw))raw=letters[bytes[0]%letters.length]+raw.slice(1);return raw;}
 function json(data, status = 200) { return Response.json(data, { status, headers: { 'cache-control': 'no-store' } }); }
-async function input(request) {
+async function input(request, maxBytes=8192) {
   if (!request.headers.get('content-type')?.startsWith('application/json')) throw new ApiError(400, 'invalid_request', 'Use JSON.');
   const reader = request.body?.getReader(); if (!reader) throw new ApiError(400, 'invalid_request', 'Provide JSON.');
   let length=0;const chunks=[];
-  while(true){const {done,value}=await reader.read();if(done)break;length+=value.length;if(length>8192){await reader.cancel();throw new ApiError(413,'body_too_large','Body too large.');}chunks.push(value);}
+  while(true){const {done,value}=await reader.read();if(done)break;length+=value.length;if(length>maxBytes){await reader.cancel();throw new ApiError(413,'body_too_large','Body too large.');}chunks.push(value);}
   try {const bytes=new Uint8Array(length);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.length;}const data=JSON.parse(new TextDecoder().decode(bytes));if(!data||Array.isArray(data)||typeof data!=='object')throw Error();return data;}
   catch {throw new ApiError(400,'invalid_request','Invalid JSON.');}
 }
@@ -62,6 +63,18 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
           const member=await timed('membership',()=>scoped.control('membership',{user_id:user.id}));
           if(!member)throw new ApiError(403,'access_required','An unexpired BYE invitation is required.');
           if(path==='/v1/me' && request.method==='GET') result=json({data:member});
+          else if(path==='/v1/me/education-plan') {
+            if(!['GET','POST'].includes(request.method))throw new ApiError(405,'method_not_allowed','Use GET or POST.');
+            let revision=null,plan=null;
+            if(request.method==='POST'){
+              const data=await input(request,1048576);
+              if(Object.keys(data).some(k=>!['expected_revision','plan'].includes(k))||!Number.isSafeInteger(data.expected_revision)||data.expected_revision<0)throw new ApiError(400,'invalid_education_plan','Provide an expected revision and a reviewed plan.');
+              revision=data.expected_revision;plan=validateEducationPlan(data.plan);
+            }
+            const saved=await scoped.request('rpc/bye_education_plan',{}, {method:'POST',body:{p_user_id:user.id,p_action:request.method==='GET'?'read':'save',p_revision:revision,p_plan:plan}});
+            if(saved.error)throw new ApiError(saved.error==='revision_conflict'?409:saved.error==='access_required'?403:400,saved.error,saved.error==='revision_conflict'?'The saved plan changed. Reload it before replacing it.':saved.error==='access_required'?'An unexpired BYE invitation is required.':'The education plan could not be saved.');
+            result=json(saved);
+          }
           else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews)$/.test(path)&&request.method==='GET'){const bits=path.split('/');result=json({data:await timed('rmp',()=>rmp(request,bits[3],bits[5],bits[7],{cacheOnly}))});}
           else if(path.startsWith('/v1/admin/')) {
             if(member.role!=='owner')throw new ApiError(403,'forbidden','Owner access required.');
