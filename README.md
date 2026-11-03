@@ -15,6 +15,8 @@ See [frontend setup](frontEnd/bye-web/README.md), [backend setup](backEnd/README
 
 Schedule browsing, instructor reports, invite access and owner invite management are implemented. Education-plan importing is work in progress: structured-plan validation and regression tests exist, and PDF/OCR dependencies are pinned; protected persistence is deployed to bye-dev; browser extraction and review screens are unfinished. Professor Watches and the weekly planner remain subsequent features.
 
+RMP ratings are fetched only when someone opens a professor who isn't cached yet; BYE's server makes that request with no student data, and the shared cache then serves everyone. Entries stay fresh for six months, are kept up to a year, and source requests are capped at 200 per day. There is no background crawler. See [the RMP privacy architecture](backEnd/docs/RMP_PRIVACY_ARCHITECTURE.md).
+
 GitHub stores source and migration history. The database remains on Supabase and the hosted frontend remains on Cloudflare. Pushing code alone does not deploy either service; automated deployment has not been configured here.
 
 ## Development

@@ -1,88 +1,86 @@
-# RMP privacy boundary and rollout plan
+# RMP privacy boundary: on-demand fetching
+
+## Goal
+
+BYE makes as few RMP requests as possible while keeping students' identity away from
+RMP. It is a small private tool, so there is no catalog crawl: RMP is contacted only
+when a reader opens a professor who is not in the shared cache, and that result then
+serves every reader.
 
 ## Behavior
 
-BYE verifies the session and membership internally. Student RMP endpoints then read
-the shared cache only, including the legacy POST refresh endpoint. They do not
-claim cache leases, contact RMP, enqueue work, or change scheduling priority.
-Missing or older-than-90-day entries return `rmp_cache_miss` (409) without delaying
-the schedule. Retained entries become visibly stale after seven days. Stale or
-ambiguous candidate lists still require explicit profile selection.
+BYE verifies the session and membership internally before any RMP route runs.
 
-The frontend sends selection, filter, cursor and limit in JSON POST bodies. Existing
-GET clients and the old refresh URL remain supported. Professor identifiers still
-appear in BYE paths. POST reduces query-string logging; it does not hide metadata
-from the BYE server. Application and gateway logging policies remain separate work.
+- **Candidates, profile and reviews reads** use the shared cache. A fresh entry is
+  returned with no source contact. A missing entry is fetched once by BYE's server,
+  published to the cache and returned. Concurrent readers of the same key share one
+  cache lease; a reader that finds the lease busy gets the previous data or a short
+  `rmp_pending` retry.
+- **Freshness:** entries are fresh for six months. Opening an older entry refetches
+  it; if RMP fails, the previous data is returned and marked stale. Professors nobody
+  opens are never refetched.
+- **Retention:** review entries are evicted after one year (hourly `bye-rmp-cleanup`
+  and on publish), or earlier under the existing 5,000-entry / 50 MiB cap, least
+  recently used first.
+- **Refresh button** (`/rmp/refresh`, labelled "Reload cached RMP") reads the cache
+  only. It never contacts RMP; a missing or year-old entry returns `rmp_cache_miss`
+  (409). Cache-only reads mark data stale after 180 days.
+- **Identity:** a professor is auto-matched only for a non-provisional name with a
+  complete search and exactly one exact name match. Otherwise the reader chooses, and
+  only the chosen profile is fetched. A profile read is the first reviews page (20
+  records), so one query and one cache entry serve both. A first view typically costs
+  two source requests: one name search and one profile.
 
-## Retrieval
+The frontend sends selection, filter, cursor and limit in JSON POST bodies; GET is
+still supported. Professor identifiers appear in BYE paths. POST reduces
+query-string logging; it does not hide metadata from the BYE server.
 
-The small `bye-rmp` Edge Function reuses the existing runtime, RMP client, cache,
-distributed cache leases, global two-slot limiter, 60-attempt/minute budget,
-Retry-After cooldown, bounded responses and HTTPS upstream. It uses the existing
-cron credential for internal authorization and ignores the incoming body. It has
-no student authentication or enrollment inputs. No separate hosting service is needed.
+## Limits
 
-Every five minutes, the scheduler can claim one due catalog instructor from active PCC.
-Only one background job runs at a time. A random UUID fences a three-minute job
-lease; it is internal bookkeeping and is never sent to RMP. A successful job runs
-again in seven days; failures and abandoned jobs become eligible after one hour.
-The worker has a 110-second budget. Existing cache leases also coalesce retrieval
-of the same cache key across instances. No student endpoint changes those deadlines.
+All source attempts pass `bye_rmp('acquire')` first:
 
-Initial coverage deliberately bounds source work: up to three candidate search
-pages, up to five candidate profiles, each profile preview and the first 20
-unfiltered review records. It does not prefetch every course filter or later review
-page. Those requests can use already-populated cache entries until expiry; otherwise
-they return a cache miss. Expanding scheduled coverage needs a bounded catalog-derived
-query plan, not a student-triggered fill queue. Very large/slow candidate sets can
-exhaust the worker budget and retry; operators should monitor failed jobs.
+- at most two concurrent attempts, 100 ms spacing and 60 attempts per minute;
+- Retry-After cooldowns from RMP are honoured (up to 24 hours);
+- a hard daily ceiling, `bye_rmp_settings.daily_request_cap` (default 200 attempts
+  per Pacific day). Past the cap, reads return cached data where available and
+  otherwise `rmp_limited` until the next day.
 
-The outbound RMP request is a fixed HTTPS POST, fixed GraphQL document, necessary
-professor search/ID and review variables, and fixed JSON/accept/BYE user-agent
-headers. It never copies incoming headers, JWTs, cookies, student IP forwarding,
-student IDs, enrollment data, database credentials or internal job IDs. RMP still
-sees BYE's server IP, professor identifiers and retrieval timing. This is identity
-isolation, not full anonymity. Random-token-only or encrypted GraphQL bodies would
-not be understood by RMP and are not used.
+`bye_rmp_usage` records granted source attempts per Pacific day. It holds counts
+only: no reader, professor or request data. Kill switch: `bye_rmp_settings.enabled`
+set to false stops all RMP reads and source contact.
 
-## Inspection evidence and deployment history
+## What RMP can and cannot see
 
-Inspected GitHub `main` at `409859fc47be50822210369636e1d727313f88cf`
-and deployed `bye-api` version 26 before edits. The deployed `src/rmp.js` and
-Edge entrypoint matched the repository exactly. The live `bye_rmp` SQL definition
-matched the repository's 90-day/forced-refresh implementation. No secret values
-were fetched and no live changes were made.
+The outbound request is a fixed HTTPS POST to RMP's GraphQL endpoint with a fixed
+query document, the professor search text or ID and review variables, and fixed
+JSON/Accept/`BYE/2` user-agent headers. It never includes incoming headers, JWTs,
+cookies, student IP forwarding, student IDs, enrollment data, database credentials
+or internal lease tokens.
 
-**Historical drift found before rollout (now preserved in this repository):** deployed `production.js`
-and `education-plan.js` differ from main. Deployed watches-api.js,
-watches-validation.js, education-references.js and education-checks.js are absent
-from main. The later rollout preserves these modules and their live behavior. See
-`RMP_ROLLOUT_2026-11-03.md` for applied changes and pending frontend publication.
+RMP still sees BYE's server IP, which professors are looked up, and when. Because a
+fetch happens when a reader opens an uncached professor, the timing follows reader
+activity, but RMP cannot tell which reader. This is identity isolation, not
+anonymity. BYE does not disguise itself (no browser impersonation, proxies or IP
+rotation); staying low-volume and polite is the intended way to remain unobtrusive.
 
-Review and execute separately after that reconciliation:
+## History
 
-1. Apply `20261103194701_rmp_background_privacy.sql` in a test database, then through
-   the normal reviewed migration process. It adds an RLS-protected service-only
-   scheduling table and invoker RPC; it does not alter the existing cache function.
-2. Deploy `bye-rmp` with its in-function cron authentication. The gateway JWT check
-   is disabled like `bye-sync`; a normal student JWT must not authorize this endpoint.
-3. Verify existing Vault URL uses HTTPS and the existing cron credential is present;
-   apply `supabase/rmp-background-cron.sql`. Do not expose the credential to clients.
-4. Verify scheduled fills and cache coverage before switching the API/frontend to
-   cache-only reads. Keep the existing RMP enabled setting as the kill switch.
-5. Monitor failure/due times and source cooldowns. Roll back scheduler invocation
-   by unscheduling `bye-rmp-background`; disabling RMP stops reads and claims.
-
-The rollout has deployed the backend and installed its five-minute schedule; the
-frontend publication is pending. Future GitHub merges do not automatically deploy.
+- PR #4 (Nov 3, 2026) moved all retrieval into a catalog-driven background job
+  (`bye-rmp` Edge Function, `bye-rmp-background` cron, `bye_rmp_background` queue).
+  That produced far more source traffic than reader-driven fetching for this
+  user base. See `RMP_ROLLOUT_2026-11-03.md` and `AUDIT_2026-11-03.md`.
+- `20261103230000_rmp_traffic_reduction` added scope, backoff and usage counts to that
+  job; it was paused the same day.
+- `20261103233000_rmp_on_demand` removes the crawler (cron, queue table, scope and
+  claim functions), restores reader-driven fetching with six-month freshness and
+  one-year retention, and adds the daily cap. The `bye-rmp` function is deleted.
+  See `RMP_ON_DEMAND_2026-11-03.md`.
 
 ## Verification
 
-Tests cover fixed outbound payloads with hostile student metadata, cache-only
-GET/POST/refresh and CORS, stale/expired data, scheduled cache filling, idle/failure
-paths, scheduling deadlines, duplicate claims, fencing tokens, and browser role
-denial. Existing RMP source validation, size bounds, cooldown and cache lease tests
-remain in place. Scheduling SQL is exercised locally with PGlite, not production.
-
-Supabase scheduling reference:
-https://supabase.com/docs/guides/functions/schedule-functions
+Tests cover: fixed outbound payloads with hostile incoming metadata; one fetch per
+uncached professor and none for cached reads; the refresh route never contacting RMP;
+CORS; six-month freshness and stale fallback; one-year eviction; the daily cap and
+usage counting; removal of the crawler objects; and browser-role denial. Existing
+source validation, size bounds, Retry-After cooldown and cache-lease tests remain.
+SQL is exercised locally with PGlite, not production.

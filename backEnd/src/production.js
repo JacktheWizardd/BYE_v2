@@ -53,7 +53,6 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
         measured=!!benchmarkUserId&&[benchmarkUserId].flat().includes(user.id);
         const requestedBenchmark=new URL(request.url).searchParams.get('bye_benchmark');
         if(requestedBenchmark&&!measured)throw new ApiError(403,'benchmark_disabled','Benchmark mode is not enabled for this reader.');
-        const cacheOnly=true; // Student requests never initiate RMP retrieval.
         if(path==='/v1/auth/invites/redeem' && request.method==='POST') {
           const data=await input(request);
           const code=typeof data.code==='string'?data.code.replace(/-/g,'').toUpperCase():'';
@@ -97,7 +96,8 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
             if(saved.error)throw new ApiError(['revision_conflict','client_upgrade_required'].includes(saved.error)?409:saved.error==='access_required'?403:400,saved.error,saved.error==='client_upgrade_required'?'Update BYE before editing this newer plan.':saved.error==='revision_conflict'?'The saved plan changed. Reload it before replacing it.':saved.error==='access_required'?'An unexpired BYE invitation is required.':'The education plan could not be saved.');
             result=json(saved);
           }
-          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh)$/.test(path)&&(request.method==='GET'&&!path.endsWith('/refresh')||request.method==='POST')){const bits=path.split('/');let rmpRequest=request;if(request.method==='POST'){const body=await input(request);const u=new URL(request.url);for(const [key,value] of Object.entries(body)){if(!['profile_id','filter','cursor','limit'].includes(key)||typeof value!=='string')throw new ApiError(400,'invalid_request','Invalid RMP parameters.');u.searchParams.set(key,value);}rmpRequest=new Request(u,{signal:request.signal});}result=json({data:await timed('rmp',()=>rmp(rmpRequest,bits[3],bits[5],bits[7],{cacheOnly}))});}
+          // RMP is fetched only when an opened professor is missing from the shared cache; the refresh button only re-reads it.
+          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh)$/.test(path)&&(request.method==='GET'&&!path.endsWith('/refresh')||request.method==='POST')){const bits=path.split('/');let rmpRequest=request;if(request.method==='POST'){const body=await input(request);const u=new URL(request.url);for(const [key,value] of Object.entries(body)){if(!['profile_id','filter','cursor','limit'].includes(key)||typeof value!=='string')throw new ApiError(400,'invalid_request','Invalid RMP parameters.');u.searchParams.set(key,value);}rmpRequest=new Request(u,{signal:request.signal});}result=json({data:await timed('rmp',()=>rmp(rmpRequest,bits[3],bits[5],bits[7],{cacheOnly:bits[7]==='refresh'}))});}
           else if(path.startsWith('/v1/admin/')) {
             if(member.role!=='owner')throw new ApiError(403,'forbidden','Owner access required.');
             if(path==='/v1/admin/owner-code' && request.method==='POST'){

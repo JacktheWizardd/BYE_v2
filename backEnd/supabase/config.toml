@@ -5,5 +5,3 @@ enable_anonymous_sign_ins = true
 verify_jwt = false
 [functions.bye-sync]
 verify_jwt = false
-[functions.bye-rmp]
-verify_jwt = false
