@@ -4,7 +4,18 @@
   "region": "us-west-1",
   "dashboard": "https://supabase.com/dashboard/project/yjcrupbibflagchcdeun",
   "api_base": "https://yjcrupbibflagchcdeun.supabase.co/functions/v1/bye-api/v1",
-  "functions": ["bye-api", "bye-sync"],
+  "functions": [
+    "bye-api",
+    "bye-sync",
+    "bye-rmp"
+  ],
   "cron_job": "bye-sync-every-minute",
-  "refresh_seconds": 300
+  "refresh_seconds": 300,
+  "verified_function_versions": {
+    "bye-api": 27,
+    "bye-sync": 4,
+    "bye-rmp": 1
+  },
+  "rmp_cron_job": "bye-rmp-background",
+  "rmp_cron_schedule": "*/5 * * * *"
 }

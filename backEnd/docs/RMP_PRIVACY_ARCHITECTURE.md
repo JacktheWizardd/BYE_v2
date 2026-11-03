@@ -22,7 +22,7 @@ Retry-After cooldown, bounded responses and HTTPS upstream. It uses the existing
 cron credential for internal authorization and ignores the incoming body. It has
 no student authentication or enrollment inputs. No separate hosting service is needed.
 
-Every minute, the scheduler can claim one due catalog instructor from active PCC.
+Every five minutes, the scheduler can claim one due catalog instructor from active PCC.
 Only one background job runs at a time. A random UUID fences a three-minute job
 lease; it is internal bookkeeping and is never sent to RMP. A successful job runs
 again in seven days; failures and abandoned jobs become eligible after one hour.
@@ -45,7 +45,7 @@ sees BYE's server IP, professor identifiers and retrieval timing. This is identi
 isolation, not full anonymity. Random-token-only or encrypted GraphQL bodies would
 not be understood by RMP and are not used.
 
-## Inspection evidence and deployment prerequisites
+## Inspection evidence and deployment history
 
 Inspected GitHub `main` at `409859fc47be50822210369636e1d727313f88cf`
 and deployed `bye-api` version 26 before edits. The deployed `src/rmp.js` and
@@ -53,11 +53,11 @@ Edge entrypoint matched the repository exactly. The live `bye_rmp` SQL definitio
 matched the repository's 90-day/forced-refresh implementation. No secret values
 were fetched and no live changes were made.
 
-**Live source drift must be reconciled before deployment:** deployed `production.js`
+**Historical drift found before rollout (now preserved in this repository):** deployed `production.js`
 and `education-plan.js` differ from main. Deployed watches-api.js,
 watches-validation.js, education-references.js and education-checks.js are absent
-from main. This branch does not import or replace that unrelated work. Deploying
-the repository wholesale now could remove live features.
+from main. The later rollout preserves these modules and their live behavior. See
+`RMP_ROLLOUT_2026-11-03.md` for applied changes and pending frontend publication.
 
 Review and execute separately after that reconciliation:
 
@@ -73,8 +73,8 @@ Review and execute separately after that reconciliation:
 5. Monitor failure/due times and source cooldowns. Roll back scheduler invocation
    by unscheduling `bye-rmp-background`; disabling RMP stops reads and claims.
 
-Nothing in this branch deploys functions, changes Vault secrets, enables RMP,
-or installs the live cron job automatically.
+The rollout has deployed the backend and installed its five-minute schedule; the
+frontend publication is pending. Future GitHub merges do not automatically deploy.
 
 ## Verification
 

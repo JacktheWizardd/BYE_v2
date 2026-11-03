@@ -1,4 +1,5 @@
 import {validateWeeklyPlans} from './weekly-plan.js';
+import {createWatchesApi} from './watches-api.js';
 import {validateEducationPlan} from './education-plan.js';
 import {createRmp} from './rmp.js';
 import { createApi } from './api.js';
@@ -83,6 +84,7 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
             if(request.method==='GET')for(const plan of saved.data.plans)for(const section of plan.sections){const current=await scoped.section(plan.school_id,plan.term_id,section.id);if(current){section.meetings=current.meetings;section.instructors=current.instructors;section.units=current.units;}else missing.push([plan.school_id,plan.term_id,section.id].join(':'));}
             result=json({...saved,missing_sections:missing});
           }
+          else if(['/v1/me/education-plan-backup','/v1/me/backup','/v1/me/education-plans','/v1/me/watches','/v1/me/watches/professors','/v1/me/education-checks'].includes(path)||/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}$/.test(path)){const data=await createWatchesApi(scoped,fetcher)(path,request.method,user.id,request.method==='POST'?await input(request,1048576):null);if(!data)throw new ApiError(404,'not_found','Endpoint not found.');result=json(data);}
           else if(path==='/v1/me/education-plan') {
             if(!['GET','POST'].includes(request.method))throw new ApiError(405,'method_not_allowed','Use GET or POST.');
             let revision=null,plan=null;
@@ -92,7 +94,7 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
               revision=data.expected_revision;plan=validateEducationPlan(data.plan);
             }
             const saved=await scoped.request('rpc/bye_education_plan',{}, {method:'POST',body:{p_user_id:user.id,p_action:request.method==='GET'?'read':'save',p_revision:revision,p_plan:plan}});
-            if(saved.error)throw new ApiError(saved.error==='revision_conflict'?409:saved.error==='access_required'?403:400,saved.error,saved.error==='revision_conflict'?'The saved plan changed. Reload it before replacing it.':saved.error==='access_required'?'An unexpired BYE invitation is required.':'The education plan could not be saved.');
+            if(saved.error)throw new ApiError(['revision_conflict','client_upgrade_required'].includes(saved.error)?409:saved.error==='access_required'?403:400,saved.error,saved.error==='client_upgrade_required'?'Update BYE before editing this newer plan.':saved.error==='revision_conflict'?'The saved plan changed. Reload it before replacing it.':saved.error==='access_required'?'An unexpired BYE invitation is required.':'The education plan could not be saved.');
             result=json(saved);
           }
           else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh)$/.test(path)&&(request.method==='GET'&&!path.endsWith('/refresh')||request.method==='POST')){const bits=path.split('/');let rmpRequest=request;if(request.method==='POST'){const body=await input(request);const u=new URL(request.url);for(const [key,value] of Object.entries(body)){if(!['profile_id','filter','cursor','limit'].includes(key)||typeof value!=='string')throw new ApiError(400,'invalid_request','Invalid RMP parameters.');u.searchParams.set(key,value);}rmpRequest=new Request(u,{signal:request.signal});}result=json({data:await timed('rmp',()=>rmp(rmpRequest,bits[3],bits[5],bits[7],{cacheOnly}))});}
