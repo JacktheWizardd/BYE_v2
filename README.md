@@ -13,7 +13,7 @@ See [frontend setup](frontEnd/bye-web/README.md), [backend setup](backEnd/README
 
 ## Current state
 
-Schedule browsing, instructor reports, invite access and owner invite management are implemented. Education-plan importing is work in progress: structured-plan validation and regression tests exist, and PDF/OCR dependencies are pinned; protected persistence is deployed to bye-dev; browser extraction and review screens are unfinished. Professor Watches and the weekly planner remain subsequent features.
+Schedule browsing, instructor reports, invite access and owner invite management are implemented. Education-plan importing uses local PDF/OCR review at `#/education-plan` (structured save only; weekly planner `#/plan` remains a separate preview). Protected persistence is deployed to bye-dev. Professor Watches remain on hold.
 
 RMP ratings are fetched only when someone opens a professor who isn't cached yet; BYE's server makes that request with no student data, and the shared cache then serves everyone. Entries stay fresh for six months, are kept up to a year, and source requests are capped at 200 per day. There is no background crawler. See [the RMP privacy architecture](backEnd/docs/RMP_PRIVACY_ARCHITECTURE.md).
 

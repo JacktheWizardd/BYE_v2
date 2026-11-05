@@ -1,0 +1,18 @@
+/* Education-plan importer (#/education-plan); weekly planner stays under Wa Plan */
+.edu-shell{max-width:1200px;margin:0 auto}
+.edu-lede{max-width:62ch;margin:0 0 20px}
+.edu-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.edu-toolbar .button{min-height:44px}
+.edu-toolbar label.button{cursor:pointer}
+.edu-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:28px;align-items:start;margin-top:20px}
+.edu-term{margin-top:16px}
+.edu-term-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:start}
+.edu-term table.data input,.edu-term table.data select{min-height:40px;width:100%;border:1px solid var(--line,#d7d9d0);background:var(--paper,#f6f5f0);padding:6px 8px}
+.edu-entry-meta{display:grid;gap:10px;margin:12px 0;padding:12px;background:var(--soft,#eaece4)}
+.edu-aside{position:sticky;top:16px;display:grid;gap:16px}
+.edu-source-frame{position:relative;border:1px solid var(--ink,#1a1c1b);background:var(--card,#fcfcf8);overflow:hidden}
+.edu-source-frame img{display:block;width:100%;height:auto}
+.edu-highlight{position:absolute;box-sizing:border-box;border:2px solid var(--amber-deep,#9c5b00);background:#f3b63f55;pointer-events:none}
+.edu-checklist{margin:0;padding-left:18px;font-size:13px;line-height:1.55;color:var(--ink-2,#3d403b)}
+.edu-checklist li{margin:6px 0}
+@media(max-width:900px){.edu-layout{grid-template-columns:minmax(0,1fr)}.edu-aside{position:static}}
