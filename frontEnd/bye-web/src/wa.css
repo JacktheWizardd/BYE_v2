@@ -546,9 +546,6 @@ meter{display:block;width:100%;height:8px;accent-color:var(--bye-green)}
 /* Shared protocol: language-marked headings, semantic colors and touch targets. */
 .wa-seal{transform:rotate(-4deg)}
 
-.wa-topnav>span{gap:5px}
-.wa-topnav>span small,.wa-bottom>span small{font-size:9px;line-height:11px;color:var(--bye-muted)}
-
 .wa-bottom{padding-bottom:env(safe-area-inset-bottom)}
 
 .footer-inner>a,.wa-brand{min-height:44px;display:inline-flex;align-items:center}
@@ -612,3 +609,39 @@ button,.button{min-width:44px}.suggestions{max-height:min(320px,45dvh);overflow-
 .desktop-week .plan-block strong{font-size:9px;line-height:12px}
 
 .wa-course-header .help .link{display:inline-flex;align-items:center;min-height:44px}.access .button{justify-content:flex-start}
+
+/* Watches: a watched section is a try-out, never part of the Plan. It is always dotted ink on the card colour and
+   labelled in words; Plan blocks keep their solid course swatch. Overlaps stay 紅樺 red, as on Plan. */
+.plan-block.watching{outline:2px dotted var(--bye-ink);outline-offset:-2px}
+.plan-block.watching.conflict{outline:2px dotted var(--bye-red);outline-offset:-2px}
+.watch-flag{display:block;font:500 9px/12px var(--bye-font-mono);font-style:normal;letter-spacing:.6px;text-transform:uppercase;color:var(--bye-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.watch-screen>.watch-summary{font:500 12px/18px var(--bye-font-mono);letter-spacing:.4px;color:var(--bye-ink);border-top:1px solid var(--bye-ink);border-bottom:1px solid var(--bye-ink);padding:10px 0}
+.watch-summary b{font-weight:800}
+.watch-summary strong{color:var(--bye-red)}
+.watch-key{padding-bottom:0}
+.watch-key i{background:var(--bye-amber)}
+.watch-key i.dotted{background:var(--bye-card);outline:2px dotted var(--bye-ink);outline-offset:-2px}
+.watch-list{display:flex;flex-direction:column;gap:12px;min-width:0}
+.watch-list>h2{font-size:22px;line-height:28px}
+.watch-row{display:flex;flex-direction:column;gap:4px;min-width:0;border:1px solid var(--bye-ink);border-left:6px dotted var(--bye-ink);background:var(--bye-card);padding:12px 14px}
+.watch-row.clash{border-left-color:var(--bye-red)}
+.watch-row h3{font:700 14px/20px var(--bye-font-mono);overflow-wrap:anywhere}
+.watch-row h3 span{font:500 13px/20px var(--bye-font-sans);color:var(--bye-muted)}
+.watch-row p{font-size:13px;line-height:18px;color:var(--bye-muted);overflow-wrap:anywhere}
+.watch-row .watch-fit{color:var(--bye-ink);font-weight:600}
+.watch-row.clash .watch-fit{color:var(--bye-red)}
+.watch-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+.watch-actions>button{flex:1 1 120px}
+.watch-actions>.link{display:inline-flex;align-items:center;min-height:44px;font-size:13px}
+.watch-message{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px;line-height:18px}
+.watch-empty{font-size:13px;line-height:20px;color:var(--bye-muted)}
+.watch-empty a{display:flex;align-items:center;width:fit-content;min-height:44px}
+.watch-screen .plan-days button{min-height:104px}
+@media(min-width:768px){.watch-screen .plan-days button{min-height:116px}}
+/* Report section card: Watch uses the same dotted language. In a narrow report column it takes its own row under
+   Copy CRN and Add to Plan, so neither label is squeezed; on wide screens all three share one row. */
+.section-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}
+.card-actions{display:contents}
+.card-actions>.watch-toggle{grid-column:1/-1;border-style:dotted}
+.card-actions>.watch-toggle[aria-pressed=true]{background:var(--bye-soft)}
+@media(min-width:1200px){.section-actions{display:flex}.card-actions{display:flex;gap:8px}.card-actions>.watch-toggle{flex:none;width:auto;min-width:76px}}

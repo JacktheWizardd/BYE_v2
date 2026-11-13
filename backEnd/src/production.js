@@ -1,4 +1,4 @@
-import {validateWeeklyPlans} from './weekly-plan.js';
+import {validateWeeklyPlans,refreshPlans} from './weekly-plan.js';
 import {createWatchesApi} from './watches-api.js';
 import {validateEducationPlan} from './education-plan.js';
 import {createRmp} from './rmp.js';
@@ -72,15 +72,12 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
               const body=await input(request,1048576);
               if(Object.keys(body).some(k=>!['expected_revision','plans'].includes(k))||!Number.isSafeInteger(body.expected_revision)||body.expected_revision<0)throw new ApiError(400,'invalid_plan','Provide an expected revision.');
               plans=validateWeeklyPlans(body.plans);revision=body.expected_revision;
-              for(const plan of plans)for(let i=0;i<plan.sections.length;i++){
-                const entry=plan.sections[i],section=await scoped.section(plan.school_id,plan.term_id,entry.id);
-                if(section){if(section.course_id!==entry.course_id)throw new ApiError(400,'invalid_plan','Section and course do not match.');plan.sections[i]={...entry,units:section.units,meetings:section.meetings,instructors:section.instructors};}
-              }
+              await refreshPlans(plans,(school,term,id)=>scoped.section(school,term,id),true);
             }
             const saved=await scoped.request('rpc/bye_weekly_plan',{}, {method:'POST',body:{p_user_id:user.id,p_revision:revision,p_plans:plans}});
             if(saved.error)throw new ApiError(saved.error==='revision_conflict'?409:403,saved.error,saved.error==='revision_conflict'?'Your Plan changed in another tab. Reload before saving.':'Access has ended.');
-            const missing=[];
-            if(request.method==='GET')for(const plan of saved.data.plans)for(const section of plan.sections){const current=await scoped.section(plan.school_id,plan.term_id,section.id);if(current){section.meetings=current.meetings;section.instructors=current.instructors;section.units=current.units;}else missing.push([plan.school_id,plan.term_id,section.id].join(':'));}
+            // Reads show the school's current times for Plan and watched sections; ones no longer listed keep their snapshot.
+            const missing=request.method==='GET'?await refreshPlans(saved.data.plans,(school,term,id)=>scoped.section(school,term,id)):[];
             result=json({...saved,missing_sections:missing});
           }
           else if(['/v1/me/education-plan-backup','/v1/me/backup','/v1/me/education-plans','/v1/me/watches','/v1/me/watches/professors','/v1/me/education-checks'].includes(path)||/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}$/.test(path)){const data=await createWatchesApi(scoped,fetcher)(path,request.method,user.id,request.method==='POST'?await input(request,1048576):null);if(!data)throw new ApiError(404,'not_found','Endpoint not found.');result=json(data);}

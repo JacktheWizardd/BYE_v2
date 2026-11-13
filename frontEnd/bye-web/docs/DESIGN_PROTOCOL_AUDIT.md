@@ -18,7 +18,7 @@ The same visual meanings were implemented in separate components, Owner still us
 - Schibsted Grotesk and JetBrains Mono explicitly declare their variable weight ranges and font-display; Japanese uses the supplied self-hosted Zen Kaku Gothic New weights.
 - Real `lang="ja"` heading elements replace generated Japanese text in Report and Owner. Plan dashboard labels and Add to Plan text gain language markup.
 - Minimum button/select/summary targets, Clear buttons, peek control, stepper buttons and footer links meet 44px; desktop edit-search and original-RMP links gain larger targets.
-- Watches has a visible English “Coming soon” label and remains disabled. Header seal is rotated; mobile navigation accounts for the safe area.
+- Watches had a visible English “Coming soon” label and was disabled; since November 13, 2026 it is a working link (tagged sections drawn dotted over the Plan, labelled in words as well as by outline). Header seal is rotated; mobile navigation accounts for the safe area.
 - Unconfirmed instructor rows use dashed borders; reviews and definition rows use zebra backgrounds. Top BYE badges remain absent.
 - Seat/waitlist/Owner access bars share custom square meters and semantic colors. Revoked access shows zero days/red; ending access is amber; Owner status tags reflect expiry.
 - Plan has explicit async dashed/unknown dotted swatches, red conflict badges, token-based course colors and compact desktop timeline labels. Full meeting titles remain available; selected-day sidebar contains details.

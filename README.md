@@ -13,7 +13,7 @@ See [frontend setup](frontEnd/bye-web/README.md), [backend setup](backEnd/README
 
 ## Current state
 
-Schedule browsing, instructor reports, invite access and owner invite management are implemented. Education-plan importing is work in progress: structured-plan validation and regression tests exist, and PDF/OCR dependencies are pinned; protected persistence is deployed to bye-dev; browser extraction and review screens are unfinished. Professor Watches and the weekly planner remain subsequent features.
+Schedule browsing, instructor reports, invite access and owner invite management are implemented. Education-plan importing is work in progress: structured-plan validation and regression tests exist, and PDF/OCR dependencies are pinned; protected persistence is deployed to bye-dev; browser extraction and review screens are unfinished. The weekly Plan is implemented. Watches lets a student tag a section on a professor's report and see it laid over their Plan before committing ([record](backEnd/docs/WATCHES_TAGS_2026-11-13.md)); the saved-professors list, ed-plan course matching and "new since you looked" from the Watches design boards remain subsequent work.
 
 RMP ratings are fetched only when someone opens a professor who isn't cached yet; BYE's server makes that request with no student data, and the shared cache then serves everyone. Entries stay fresh for six months, are kept up to a year, and source requests are capped at 200 per day. There is no background crawler. See [the RMP privacy architecture](backEnd/docs/RMP_PRIVACY_ARCHITECTURE.md).
 
