@@ -4,7 +4,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 vi.mock('./api',()=>({api:vi.fn(),ApiError:class extends Error{}}));
 import {enrollmentTone,waitlistTone,accessDays,accessTone,courseSwatch} from './design';
 import {Plan} from './Plan';
-import {WaBottomNav} from './WaShell';
+import {WaBottomNav,WaHeader} from './WaShell';
 it('applies the documented seat and waitlist colors at all boundaries',()=>{
  expect(enrollmentTone(26,30,4,'O')).toBe('green');expect(enrollmentTone(27,30,3,'O')).toBe('red');expect(enrollmentTone(29,30,1,'O')).toBe('red');expect(enrollmentTone(1,30,29,'C')).toBe('red');expect(enrollmentTone(null,null,null,null)).toBe('grey');
  expect(waitlistTone(0,7)).toBe('grey');expect(waitlistTone(1,7)).toBe('amber');expect(waitlistTone(7,7)).toBe('red');expect(waitlistTone(null,7)).toBe('grey');
@@ -18,4 +18,8 @@ it('always offers named Plan semesters, including semesters without saved sectio
  const html=renderToStaticMarkup(<Plan store={store} school="pcc" term="202710" terms={[{id:'202710',name:'Winter 2027'},{id:'202730',name:'Spring 2027'}] as any} onTerm={vi.fn()}/>);
  expect(html).toContain('aria-label="Plan semester"');expect(html).toContain('value="202730"');expect(html).toContain('Spring 2027');
 });
-it('visibly labels disabled Watches as coming soon',()=>{expect(renderToStaticMarkup(<WaBottomNav path="/plan"/>)).toContain('<small>Coming soon</small>')});
+it('offers Watches as a working link in both menus',()=>{
+ const bottom=renderToStaticMarkup(<WaBottomNav path="/watches"/>);expect(bottom).toContain('<a href="#/watches" aria-current="page">');expect(bottom).not.toContain('Coming soon');expect(bottom).not.toContain('aria-disabled');
+ expect(renderToStaticMarkup(<WaBottomNav path="/plan"/>)).toContain('<a href="#/watches">');
+ const top=renderToStaticMarkup(<WaHeader term="Spring 2027" path="/watches" status={null}/>);expect(top).toContain('<a href="#/watches" aria-current="page">Watches</a>');expect(top).not.toContain('Coming soon');
+});

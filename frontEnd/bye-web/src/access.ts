@@ -7,4 +7,4 @@ export async function redeemAccess(code:string):Promise<Membership>{
  const {data:{session}}=await auth.auth.getSession();if(!session){const {error}=await auth.auth.signInAnonymously();if(error)throw error}
  await api('/auth/invites/redeem',undefined,{code});return readAccess();
 }
-export function unlockDestination(role:Membership['role'],next:unknown,ownerScreen=false){if(typeof next==='string'&&/^\/(?:plan(?:\?|$)|search(?:\?|$)|results(?:\?|$)|report\/)/.test(next))return next;return role==='owner'||ownerScreen?'/owner':'/search'}
+export function unlockDestination(role:Membership['role'],next:unknown,ownerScreen=false){if(typeof next==='string'&&/^\/(?:plan(?:\?|$)|watches(?:\?|$)|search(?:\?|$)|results(?:\?|$)|report\/)/.test(next))return next;return role==='owner'||ownerScreen?'/owner':'/search'}

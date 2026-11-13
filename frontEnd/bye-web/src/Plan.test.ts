@@ -6,7 +6,21 @@ it('round trips semesters and rejects invalid versions and duplicates',()=>{cons
 it('assigns separate lanes to three concurrent meetings',()=>{const rows=layoutMeetings([entry('12345','09:00','11:00'),entry('12346','09:30','10:30'),entry('12347','10:00','12:00')],1);expect(rows.map(r=>r.lane)).toEqual([0,1,2]);expect(rows.every(r=>r.lanes===3)).toBe(true)});
 it('rejects nested private fields and malformed meetings before import preview',()=>{const p={school_id:'pcc',term_id:'202730',sections:[{...entry('12345','09:00','10:00'),access_token:'private'}],study:{},weekend:false};expect(()=>parseBackup(backup([p] as any))).toThrow();expect(()=>parseBackup('null')).toThrow()});
 
-import {removePlannedSection} from './Plan';
+it('backs up watched sections with their semester and checks them like Plan sections',()=>{
+ const base={school_id:'pcc',term_id:'202730',sections:[entry('12345','09:00','10:00')],study:{math:2.5},weekend:false};
+ const tagged=[{...base,watching:[entry('12346','09:30','10:30'),entry('12347','13:00','14:00')]}];
+ expect(parseBackup(backup(tagged))).toEqual(tagged);
+ // The same CRN may be in the Plan and watched; a CRN can't be watched twice.
+ expect(parseBackup(backup([{...base,watching:[entry('12345','09:00','10:00')]}]))[0].watching).toHaveLength(1);
+ expect(()=>parseBackup(backup([{...base,watching:[entry('12346','09:30','10:30'),entry('12346','11:00','12:00')]}]))).toThrow('Invalid section.');
+ expect(()=>parseBackup(backup([{...base,watching:[{...entry('12346','09:30','10:30'),access_token:'private'}]}] as any))).toThrow('Invalid section.');
+ expect(()=>parseBackup(backup([{...base,watching:[{...entry('12346','09:30','10:30'),meetings:[{days:[9],start_time:'09:00',end_time:'10:00'}]}]}] as any))).toThrow('Invalid meeting.');
+ expect(()=>parseBackup(backup([{...base,watching:'12346'}] as any))).toThrow('Invalid Plan.');
+ expect(()=>parseBackup(backup([{...base,watching:Array.from({length:WATCH_LIMIT+1},(_,i)=>entry(String(20000+i),'09:00','10:00'))}]))).toThrow('Invalid Plan.');
+ expect(()=>parseBackup(backup([{...base,watched:[]}] as any))).toThrow('Invalid Plan.');
+});
+
+import {removePlannedSection,WATCH_LIMIT} from './Plan';
 it('Undo removes only the added section and cleans its orphan study estimate',()=>{
  const first=entry('12345','09:00','10:00'),second={...entry('12346','11:00','12:00'),course_id:'english'};
  const plan={school_id:'pcc',term_id:'202670',sections:[first,second],study:{math:2,english:3},weekend:true};

@@ -2,7 +2,7 @@
 
 React + TypeScript + Vite implementation of the supplied v2 handoff. Original
 frontend reference folders are unchanged. This app connects to the bye-dev API;
-RMP ratings and original reviews use the membership-protected backend cache. Weekly Plans are saved to the authenticated device session; Watches remains deferred. Owner sign-in and invite management are available.
+RMP ratings and original reviews use the membership-protected backend cache. Weekly Plans are saved to the authenticated device session; Watches shows sections tagged on a report laid over the Plan (see the last section). Owner sign-in and invite management are available.
 
 Run from this folder with Node 24 and pnpm 11.25.0:
 
@@ -108,3 +108,16 @@ The protected `/me/plan` API stores the complete collection of school/semester P
 Backend deployment: bye-api v19; additive SQL migration `20261101074049_wa_weekly_plans_and_rmp_refresh.sql`. Manual RMP refresh uses a shared per-professor cooldown (1800 seconds by default); successful profiles are reused for 90 days with retained stale fallback.
 
 Verification: 71 frontend tests and 65 backend tests pass. The production build and deployment checks pass. Browser checks covered responsive Plan layouts at 390/768/1440, Guide, real comparison/report navigation, adding a real PCC section, server-confirmed In Plan, and verified backup creation. Live API checks covered save/readback, invalid-input denial, stale-revision rejection and preserving the prior Plan. Temporary test invites were revoked and the browser verification section was removed. Lighthouse and field Core Web Vitals were not measured.
+
+
+## Watches: tag a section and try it on your week — November 13, 2026
+
+Each section card on an instructor report has **Watch** beside Add to Plan. A watched section is a try-out: it is saved with that semester's Plan as `watching`, but it is never part of the Plan. It stays out of the Plan screen, its hours, study rows and Copy CRNs until the student presses Add to Plan. "Watching" appears only after the server confirms, like "In Plan".
+
+The Watches tab (`#/watches`, `src/Watches.tsx`) shows the semester chosen on Plan: Plan sections solid, watched sections dotted and labelled, overlaps marked as on Plan, and a Watching list with a fit line (fits, clashes with a named class, online/async, or schedule unannounced, which is never reported as fitting), Add to Plan, Untag, Undo and a link back to the report. Sections are listed in the order tagged; BYE does not rank, reorder or pick among them. Up to 30 sections can be watched per semester. Backups include `watching`; older backups without it still import.
+
+Not built: the saved-professors list, ed-plan "My courses" and "New since you looked" from the Watches design boards. Those still wait on the ed plan import.
+
+The backend must be deployed before this frontend (`backEnd/docs/WATCHES_TAGS_2026-11-13.md`). Until then tagging returns an error and nothing else changes: `watching` is sent only when it is non-empty, so ordinary Plan saves keep working.
+
+Verification: 100 frontend tests and 74 backend tests pass; TypeScript, the production build and `check:deployment` pass. `scripts/design-audit-fixtures.mjs` now renders `watches`, `watches-empty` and `section-actions` (set `BYE_AUDIT_OUT` to choose the folder); in Chromium at 390, 768 and 1440 they showed no sideways overflow and no control under 44px. The real app was also driven in Chromium at 390px with every API and sign-in request answered locally by fictional data (nothing was sent to the live API): Watch on a report, the confirmed "Watching" state, Watches with a clash and a fit, day tabs, Untag, Undo, Add to Plan, the report link and browser Back, the Plan screen staying free of watched sections, and a reload. The same run against a stand-in for today's backend, which refuses `watching`, showed the tag refused with a message, no draft left behind and Add to Plan still working. Not checked: the hosted site, the live API and a real signed-in session.
