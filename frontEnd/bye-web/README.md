@@ -54,6 +54,8 @@ RMP implementation, controls and development evidence: [integration record](../.
 
 V2.1 adds a derived BYE score (50% RMP rating, 50% ease, ten pseudo-ratings toward 50), professor prefix search, reversible sorts, seat occupancy bars and shared schedule sync states. It is distinct from independent BYE student reviews. Five-minute freshness remains unchanged; Refresh all only rereads saved counts. The corrected reference is in `frontEnd/mockups`.
 
+From 768 pixels wide, the professor list beside a report is its own scroll area (`src/listPane.ts`, `.compare-v21` in `src/wa.css`): it stays in view, ends at the bottom of the window, and scrolls without moving the report. A list too long for the window keeps the wheel at its ends; a shorter one lets the page scroll on. Its position is remembered per course, and the open professor's row stays in view when another professor is opened. Phones keep one page scroll. Checked in Chromium with fictional data at 390, 900 and 1500 pixels; Safari, Firefox and touch tablets are untested.
+
 
 Loading/API benchmark results and reproduction commands: [2026-10-31 report](../../backEnd/docs/BENCHMARK-2026-10-31.md). `VITE_BENCHMARK=true` is an explicit temporary measurement build; the normal build has no benchmark DOM output or alternate Auth key. Same-course comparison/report navigation retains one availability subscription.
 
