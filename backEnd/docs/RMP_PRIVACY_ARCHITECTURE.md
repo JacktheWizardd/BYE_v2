@@ -63,6 +63,12 @@ activity, but RMP cannot tell which reader. This is identity isolation, not
 anonymity. BYE does not disguise itself (no browser impersonation, proxies or IP
 rotation); staying low-volume and polite is the intended way to remain unobtrusive.
 
+## Review themes (second outbound destination)
+
+Since Nov 17, 2026 a reader can ask for an AI summary of repeated points. That sends review
+text and ratings, and nothing else, to a model provider. It is off unless `BYE_AI_KEY` is set.
+The boundary, limits and switches are in `REVIEW_THEMES.md`.
+
 ## History
 
 - PR #4 (Nov 3, 2026) moved all retrieval into a catalog-driven background job
