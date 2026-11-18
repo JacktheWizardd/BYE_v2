@@ -7,5 +7,5 @@ export async function runtime(){
  if(!url||!secret||!publishableKey)throw new Error('Missing injected project configuration');
  const repository=new ProductionRepository(url,secret);
  const values=await repository.request('rpc/bye_runtime_secrets',{}, {method:'POST',body:{}});
- return {url,secret,publishableKey,repository,pepper:values.pepper,cronSecret:values.cron_secret,allowedOrigin:[...new Set([...frontendOrigins,...(Deno.env.get('BYE_ALLOWED_ORIGINS')||Deno.env.get('BYE_ALLOWED_ORIGIN')||'').split(',').map(value=>value.trim()).filter(Boolean)])]};
+ return {url,secret,publishableKey,repository,aiKey:Deno.env.get('BYE_AI_KEY')||null,aiModel:Deno.env.get('BYE_AI_MODEL')||null,pepper:values.pepper,cronSecret:values.cron_secret,allowedOrigin:[...new Set([...frontendOrigins,...(Deno.env.get('BYE_ALLOWED_ORIGINS')||Deno.env.get('BYE_ALLOWED_ORIGIN')||'').split(',').map(value=>value.trim()).filter(Boolean)])]};
 }

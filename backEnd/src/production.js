@@ -2,6 +2,7 @@ import {validateWeeklyPlans,refreshPlans} from './weekly-plan.js';
 import {createWatchesApi} from './watches-api.js';
 import {validateEducationPlan} from './education-plan.js';
 import {createRmp} from './rmp.js';
+import {createThemes} from './themes.js';
 import { createApi } from './api.js';
 import { createConnectors, detectConnector } from './connectors.js';
 import { SupabaseRepository } from './repository.js';
@@ -29,9 +30,11 @@ async function input(request, maxBytes=8192) {
   try {const bytes=new Uint8Array(length);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.length;}const data=JSON.parse(new TextDecoder().decode(bytes));if(!data||Array.isArray(data)||typeof data!=='object')throw Error();return data;}
   catch {throw new ApiError(400,'invalid_request','Invalid JSON.');}
 }
-export function createProductionApi({ url, secret, publishableKey, pepper, allowedOrigin, fetcher = fetch, repository = new ProductionRepository(url,secret,fetcher), benchmarkUserId = null }) {
+export function createProductionApi({ url, secret, publishableKey, pepper, allowedOrigin, fetcher = fetch, repository = new ProductionRepository(url,secret,fetcher), benchmarkUserId = null, aiKey = null, aiModel = null }) {
   if (!pepper || pepper.length < 32) throw new Error('BYE_INVITE_PEPPER must have at least 32 characters.');
   const connectors=createConnectors({fetcher});
+  // Null without BYE_AI_KEY: the themes route then answers themes_unavailable and nothing is sent to a model.
+  const themes=createThemes({key:aiKey,model:aiModel,fetcher});
 
   return async request => {
     let result, measured=false;const started=performance.now(),durations={};
@@ -40,7 +43,7 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
     const baseRepository=repository;
     const scoped=Object.create(baseRepository);
     scoped.request=(...args)=>timed('db',()=>args[0]==='bye_rmp_cache'||args[0]==='rpc/bye_rmp'&&['cache','publish','abandon'].includes(args[2]?.body?.action)?timed('rmp_cache',()=>baseRepository.request(...args)):baseRepository.request(...args));
-    const rmp=createRmp(scoped,{fetcher,measure:timed});
+    const rmp=createRmp(scoped,{fetcher,measure:timed,themes});
     try {
       if(request.method==='OPTIONS') result=new Response(null,{status:204});
       else {
@@ -94,7 +97,7 @@ export function createProductionApi({ url, secret, publishableKey, pepper, allow
             result=json(saved);
           }
           // RMP is fetched only when an opened professor is missing from the shared cache; the refresh button only re-reads it.
-          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh)$/.test(path)&&(request.method==='GET'&&!path.endsWith('/refresh')||request.method==='POST')){const bits=path.split('/');let rmpRequest=request;if(request.method==='POST'){const body=await input(request);const u=new URL(request.url);for(const [key,value] of Object.entries(body)){if(!['profile_id','filter','cursor','limit'].includes(key)||typeof value!=='string')throw new ApiError(400,'invalid_request','Invalid RMP parameters.');u.searchParams.set(key,value);}rmpRequest=new Request(u,{signal:request.signal});}result=json({data:await timed('rmp',()=>rmp(rmpRequest,bits[3],bits[5],bits[7],{cacheOnly:bits[7]==='refresh'}))});}
+          else if(/^\/v1\/schools\/[a-z0-9-]+\/instructors\/[0-9a-f-]{36}\/rmp\/(candidates|profile|reviews|refresh|themes)$/.test(path)&&(request.method==='GET'&&!/\/(refresh|themes)$/.test(path)||request.method==='POST')){const bits=path.split('/');let rmpRequest=request;if(request.method==='POST'){const body=await input(request);const u=new URL(request.url);for(const [key,value] of Object.entries(body)){if(!['profile_id','filter','cursor','limit'].includes(key)||typeof value!=='string')throw new ApiError(400,'invalid_request','Invalid RMP parameters.');u.searchParams.set(key,value);}rmpRequest=new Request(u,{signal:request.signal});}result=json({data:await timed('rmp',()=>rmp(rmpRequest,bits[3],bits[5],bits[7],{cacheOnly:bits[7]==='refresh'}))});}
           else if(path.startsWith('/v1/admin/')) {
             if(member.role!=='owner')throw new ApiError(403,'forbidden','Owner access required.');
             if(path==='/v1/admin/owner-code' && request.method==='POST'){
